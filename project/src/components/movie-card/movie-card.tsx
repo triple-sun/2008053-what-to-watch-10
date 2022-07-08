@@ -1,15 +1,16 @@
 import { nanoid } from '@reduxjs/toolkit';
+import Movie from '../../types/movie-data';
+import { ListItemProps } from '../../types/props';
 
-export default function MovieCard(title: string): JSX.Element {
-  const movieCardKey = `${title}-${nanoid()}`;
-  return (
-    <article className="small-film-card catalog__films-card" key={movieCardKey}>
-      <div className="small-film-card__image">
-        <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt={title} width="280" height="175" />
-      </div>
-      <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">{title}</a>
-      </h3>
-    </article>
-  );
-}
+const MovieCardComponent = ({value: movie}: ListItemProps<Movie>): JSX.Element => (
+  <article className="small-film-card catalog__films-card" key={`${movie.title}-${nanoid()}`}>
+    <div className="small-film-card__image">
+      <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt={movie.title} width="280" height="175" />
+    </div>
+    <h3 className="small-film-card__title">
+      <a className="small-film-card__link" href="film-page.html">{movie.title}</a>
+    </h3>
+  </article>
+);
+
+export default MovieCardComponent;

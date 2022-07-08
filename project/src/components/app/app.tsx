@@ -1,11 +1,11 @@
 import MainPage from '../../pages/main/main';
-import MovieDataProps from '../../types/movie-data-props';
+import { MainPageProps } from '../../types/props';
 
-function App(moviePromoData: MovieDataProps): JSX.Element {
-  return (
-    <MainPage
-      {...moviePromoData}
-    />);
-}
+const App = ({promo, movies, genres}: MainPageProps): JSX.Element => (
+  <MainPage
+    promo={promo}
+    movies={movies}
+    genres={genres}
+  />);
 
 export default App;

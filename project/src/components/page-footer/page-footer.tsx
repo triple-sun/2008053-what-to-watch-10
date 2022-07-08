@@ -1,13 +1,17 @@
 import LogoElement from '../logo/logo';
 
-export default function PageFooterElement(): JSX.Element {
-  return (
-    <footer className="page-footer">
-      {LogoElement(true)}
+const PageFooterLogoSettings = {
+  IS_LIGHT: true
+};
 
-      <div className="copyright">
-        <p>© 2019 What to watch Ltd.</p>
-      </div>
-    </footer>
-  );
-}
+const PageFooterElement = (): JSX.Element => (
+  <footer className="page-footer">
+    <LogoElement isLight={PageFooterLogoSettings.IS_LIGHT}/>
+
+    <div className="copyright">
+      <p>© 2019 What to watch Ltd.</p>
+    </div>
+  </footer>
+);
+
+export default PageFooterElement;
