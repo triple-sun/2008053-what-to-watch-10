@@ -22,11 +22,11 @@ const MovieGenres = [
 
 const mockMoviesList = Array(MOVIE_CARD_COUNT).fill(MOVIE_CARD_MOCK_TITLE);
 
-function createMovieCardElement(movieTitle: string) {
+function createMovieCardElement(movieTitle: string): JSX.Element {
   return (MovieCard(movieTitle));
 }
 
-function createGenreElement(genre: string) {
+function createGenreElement(genre: string): JSX.Element {
   const genreLink = `#${genre}`;
   return (
     <li className="catalog__genres-item catalog__genres-item--active" key={genre}>
