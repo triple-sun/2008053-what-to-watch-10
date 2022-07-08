@@ -5,7 +5,7 @@ import UserBlockElement from '../../components/user-block/user-block';
 
 const ratings = ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'] as const;
 
-function createRatingElement(rating: string) {
+function createRatingElement(rating: string): JSX.Element {
   const genreID = `star-${rating}`;
 
   return (

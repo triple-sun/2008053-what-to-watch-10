@@ -3,6 +3,7 @@ import MovieDataProps from '../../types/movie-data-props';
 import MoviePromo from '../../components/movie-promo/movie-promo';
 import PageHeadElement from '../../components/page-head/page-head';
 import SketchElement from '../../components/sketch/sketch';
+import PageFooterElement from '../../components/page-footer/page-footer';
 
 const MOVIE_CARD_COUNT = 19;
 
@@ -61,6 +62,8 @@ export default function MainPage(moviePromoData: MovieDataProps): JSX.Element {
               <button className="catalog__button" type="button">Show more</button>
             </div>
           </section>
+
+          {PageFooterElement()}
         </div>
       </body>
     </html>

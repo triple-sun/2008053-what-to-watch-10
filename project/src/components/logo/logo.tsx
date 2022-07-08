@@ -1,4 +1,4 @@
-function LogoElement(isLight = false) {
+function LogoElement(isLight = false): JSX.Element {
   const logoLinkClassName = isLight ? 'logo__link logo__link--light' : 'logo__link';
   return (
     <div className="logo">
