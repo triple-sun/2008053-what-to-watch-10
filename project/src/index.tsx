@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 
-
 const MoviePromoData = {
   title: 'The Grand Budapest Hotel',
   genre: 'Drama',

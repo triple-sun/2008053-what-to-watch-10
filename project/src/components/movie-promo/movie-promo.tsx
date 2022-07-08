@@ -1,6 +1,6 @@
-import MovieDataProps from '../../types/movie-card-props';
+import MovieDataProps from '../../types/movie-data-props';
 
-function MoviePromo(moviePromoData: MovieDataProps) {
+function MoviePromo(moviePromoData: MovieDataProps): JSX.Element {
   const {title, genre, year} = moviePromoData;
 
   return (
@@ -13,7 +13,7 @@ function MoviePromo(moviePromoData: MovieDataProps) {
 
       <header className="page-header film-card__head">
         <div className="logo">
-          <a className="logo__link">
+          <a href="#logo" className="logo__link" >
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
@@ -27,7 +27,7 @@ function MoviePromo(moviePromoData: MovieDataProps) {
             </div>
           </li>
           <li className="user-block__item">
-            <a className="user-block__link">Sign out</a>
+            <a href="#signout" className="user-block__link">Sign out</a>
           </li>
         </ul>
       </header>

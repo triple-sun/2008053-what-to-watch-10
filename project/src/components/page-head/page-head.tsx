@@ -1,4 +1,4 @@
-export default function PageHeadElement() {
+export default function PageHeadElement(): JSX.Element {
   return (
     <head>
       <meta charSet="UTF-8"/>

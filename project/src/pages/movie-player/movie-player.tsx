@@ -5,7 +5,7 @@ const PLAYER_TIME_STYLE = {
   left: '30%'
 };
 
-export default function MoviePlayerPage() {
+export default function MoviePlayerPage(): JSX.Element {
   return (
     <html lang="en">
       {PageHeadElement()}
