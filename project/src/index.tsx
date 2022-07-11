@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { MovieGenreList} from './const/const';
 import { mockMoviePromoData, mockMoviesList } from './const/mock';
+import TMainPageProps from './types/main-page-props';
 
-const MainPageProps = {
-  PROMO: mockMoviePromoData,
-  MOVIES: mockMoviesList,
-  GENRES: MovieGenreList,
+const MainPageProps: TMainPageProps = {
+  promo: mockMoviePromoData,
+  movies: mockMoviesList,
+  genres: MovieGenreList,
 };
 
 const root = ReactDOM.createRoot(
@@ -16,10 +17,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      promo = {MainPageProps.PROMO}
-      movies = {MainPageProps.MOVIES}
-      genres = {MainPageProps.GENRES}
-    />
+    <App {...MainPageProps}/>
   </React.StrictMode>,
 );
