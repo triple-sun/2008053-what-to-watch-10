@@ -1,5 +1,5 @@
-import LogoElement from '../../components/logo/logo';
-import PageFooterElement from '../../components/page-footer/page-footer';
+import LogoElement from '../../components/universal/logo/logo';
+import PageFooterElement from '../../components/universal/page-footer/page-footer';
 
 const LoginPage = (): JSX.Element => (
   <div className="user-page">

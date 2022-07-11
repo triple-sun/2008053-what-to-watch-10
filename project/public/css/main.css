@@ -1440,3 +1440,48 @@ main {
   color: #fff;
   background: #fd612ead;
   border-radius: 15px; }
+
+  .not-found-page {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#170202), to(#0c0101));
+    background-image: linear-gradient(-180deg, #170202 0%, #0c0101 100%);
+    color: #C9B37E;
+    padding: 15px;
+    padding-bottom: 70px;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column; }
+
+  .not-found-page__head {
+    margin-bottom: 40px;
+    width: 100%;
+    position: relative; }
+
+  .not-found-page__content {
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    width: 100%; }
+
+  .not-found-page__title {
+    position: absolute;
+    left: 200px;
+    right: 200px;
+    text-align: center;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%); }
+
+  .not-found-page__link {
+    font-size: 22px;
+    line-height: 26px;
+    color: #574427;
+    text-decoration: none;
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s; }
+    .sign-in__link:hover, .sign-in__link:focus {
+      color: #DFCF77; }

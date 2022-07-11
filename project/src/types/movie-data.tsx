@@ -1,7 +1,8 @@
-type Movie = {
+type TMovie = {
+  id: string;
   title: string;
   genre: string;
   year: number;
 }
 
-export default Movie;
+export default TMovie;

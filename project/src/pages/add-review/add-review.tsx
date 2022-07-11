@@ -1,12 +1,10 @@
-import LogoElement from '../../components/logo/logo';
-import UserBlockElement from '../../components/user-block/user-block';
-import { ListItemProps } from '../../types/props';
+import { useParams } from 'react-router-dom';
+import LogoElement from '../../components/universal/logo/logo';
+import UserBlockElement from '../../components/universal/user-block/user-block';
+import { Rating, RATING_ID_PREFIX } from '../../const/const';
+import TListElement from '../../types/list-element';
 
-const RATING_ID_PREFIX = 'star-';
-
-const ratings = ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'] as const;
-
-const RatingElement = ({value: rating}: ListItemProps): JSX.Element => (
+const RatingElement = ({value: rating}: TListElement): JSX.Element => (
   <div>
     <input className="rating__input" id={`${RATING_ID_PREFIX}${rating}`} type="radio" name="rating" value={rating} />
     <label className="rating__label" htmlFor={`star-${rating}`}>Rating {rating}</label>
@@ -14,7 +12,11 @@ const RatingElement = ({value: rating}: ListItemProps): JSX.Element => (
 );
 
 const AddReviewPage = (): JSX.Element => {
-  const ratingElements = ratings.map((rating) => <RatingElement key={`star-${rating}`} value={rating} />);
+  const params = useParams();
+
+  // eslint-disable-next-line no-console
+  console.log(params);
+  const ratingElements = Rating.map((rating) => <RatingElement key={`star-${rating}`} value={rating} />);
 
   return (
     <section className="film-card film-card--full">

@@ -1,27 +1,25 @@
-import Movie from '../../types/movie-data';
-import LogoElement from '../logo/logo';
-import UserBlockElement from '../user-block/user-block';
+import TMovie from '../../../types/movie-data';
+import { convertStringToKebabCase } from '../../../utils/utils';
+import LogoElement from '../../universal/logo/logo';
+import UserBlockElement from '../../universal/user-block/user-block';
 
-const MoviePromoComponent = ({title, genre, year}: Movie): JSX.Element => (
+const MoviePromoComponent = ({title, genre, year}: TMovie): JSX.Element => (
   <section className="film-card">
     <div className="film-card__bg">
-      <img src="img/bg-the-grand-budapest-hotel.jpg" alt={title} />
+      <img src={`img/bg-${convertStringToKebabCase(title)}.jpg`} alt={title} />
     </div>
 
     <h1 className="visually-hidden">WTW</h1>
 
     <header className="page-header film-card__head">
-      <div className="logo">
-        <LogoElement />
-      </div>
-
+      <LogoElement />
       <UserBlockElement />
     </header>
 
     <div className="film-card__wrap">
       <div className="film-card__info">
         <div className="film-card__poster">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={`img/${convertStringToKebabCase(title)}-poster.jpg`} alt={`${title} poster`} width="218" height="327" />
         </div>
 
         <div className="film-card__desc">
