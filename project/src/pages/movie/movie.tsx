@@ -11,7 +11,9 @@ import { convertStringToKebabCase, findMovieByID } from '../../utils/utils';
 const MoviePage = (): JSX.Element => {
   const params = useParams();
 
-  const movieData = params.id ? mockMoviesList.find((movie) => findMovieByID(movie, params.id as string)) as TMovie : null;
+  const movieData = params.id
+    ? mockMoviesList.find((movie) => findMovieByID(movie, params.id as string)) as TMovie
+    : null;
 
   return !movieData
     ? <Navigate to={AppRoute.NotFound} />
