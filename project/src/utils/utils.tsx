@@ -1,6 +1,9 @@
+import { Navigate } from 'react-router-dom';
 import TMovie from '../types/movie-data';
 
 const findMovieByID = (movie: TMovie, id: string) => movie.id === id;
+
+const goToPage = (page: string) => <Navigate to={page} />;
 
 //https://www.geeksforgeeks.org/how-to-convert-a-string-into-kebab-case-using-javascript/
 const convertStringToKebabCase = (str: string) => str
@@ -11,5 +14,6 @@ const convertStringToKebabCase = (str: string) => str
 
 export {
   findMovieByID,
-  convertStringToKebabCase
+  convertStringToKebabCase,
+  goToPage
 };

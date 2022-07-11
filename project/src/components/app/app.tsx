@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const/enums';
 import AddReviewPage from '../../pages/add-review/add-review';
 import LoginPage from '../../pages/login/login';
@@ -8,8 +8,9 @@ import MoviePage from '../../pages/movie/movie';
 import MyListPage from '../../pages/my-list/my-list';
 import NotFoundPage from '../../pages/not-found/not-found';
 import TMainPageProps from '../../types/main-page-props';
-import GoToMainPage from '../universal/go-to-main/go-to-main';
 import PrivateRoute from '../universal/private-route/private-route';
+
+const goToMainPage = <Navigate to={AppRoute.Main} />;
 
 const App = (MainPageProps: TMainPageProps): JSX.Element => (
   <BrowserRouter>
@@ -20,12 +21,12 @@ const App = (MainPageProps: TMainPageProps): JSX.Element => (
         <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
 
         <Route path={AppRoute.Player}>
-          <Route index element={<GoToMainPage />} />
+          <Route index element={goToMainPage} />
           <Route path={AppRoute.MoviePlayer} element={<MoviePlayerPage />} />
         </Route>
 
         <Route path={AppRoute.Movies}>
-          <Route index element={<GoToMainPage />} />
+          <Route index element={goToMainPage} />
           <Route path={AppRoute.Movie}>
             <Route index element={<MoviePage />} />
             <Route path={AppRoute.AddReview} element={<AddReviewPage />} />
