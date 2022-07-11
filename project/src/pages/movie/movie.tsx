@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { Link, Navigate, useParams } from 'react-router-dom';
 import LogoElement from '../../components/universal/logo/logo';
 import PageFooterElement from '../../components/universal/page-footer/page-footer';
