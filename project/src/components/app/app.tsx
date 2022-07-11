@@ -18,7 +18,6 @@ const App = (MainPageProps: TMainPageProps): JSX.Element => (
       <Route path={AppRoute.Main}>
         <Route index element={<MainPage {...MainPageProps} />} />
         <Route path={AppRoute.Login} element={<LoginPage />} />
-        <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
 
         <Route path={AppRoute.Player}>
           <Route index element={goToMainPage} />
@@ -42,6 +41,7 @@ const App = (MainPageProps: TMainPageProps): JSX.Element => (
           }
         />
       </Route>
+      <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
     </Routes>
   </BrowserRouter>
 );
