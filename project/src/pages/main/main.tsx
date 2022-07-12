@@ -1,17 +1,19 @@
-import MovieCardComponent from '../../components/movie-card/movie-card';
-import MoviePromoComponent from '../../components/movie-promo/movie-promo';
-import PageFooterElement from '../../components/page-footer/page-footer';
 import { nanoid } from '@reduxjs/toolkit';
-import { ListItemProps, MainPageProps } from '../../types/props';
+import { Link } from 'react-router-dom';
+import MovieCardComponent from '../../components/movie/movie-card/movie-card';
+import MoviePromoComponent from '../../components/movie/movie-promo/movie-promo';
+import PageFooterElement from '../../components/universal/page-footer/page-footer';
+import TListElement from '../../types/list-element';
+import TMainPageProps from '../../types/main-page-props';
 
-const GenreElement = ({value: genre}: ListItemProps): JSX.Element => (
+const GenreElement = ({value: genre}: TListElement): JSX.Element => (
   <li className="catalog__genres-item catalog__genres-item--active">
-    <a href={`#${genre}`} className="catalog__genres-link">{genre}</a>
+    <Link to={`#${genre}`} className="catalog__genres-link">{genre}</Link>
   </li>
 );
 
-const MainPage = ({promo, movies, genres}: MainPageProps): JSX.Element => {
-  const movieCardElements = movies.map((movie) => <MovieCardComponent key={nanoid()} value={movie} />);
+const MainPage = ({promo, movies, genres}: TMainPageProps): JSX.Element => {
+  const movieCardElements = movies.map((movie) => <MovieCardComponent key={`${movie.id}-${nanoid()}`} value={movie} />);
   const genreElements = genres.map((genre) => <GenreElement key={genre} value={genre} />);
 
   return (

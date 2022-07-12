@@ -1,6 +1,6 @@
-import LogoElement from '../../components/logo/logo';
-import PageFooterElement from '../../components/page-footer/page-footer';
-import UserBlockElement from '../../components/user-block/user-block';
+import LogoElement from '../../components/universal/logo/logo';
+import PageFooterElement from '../../components/universal/page-footer/page-footer';
+import UserBlockElement from '../../components/universal/user-block/user-block';
 
 const MyListPage = (): JSX.Element => (
   <div className="user-page">

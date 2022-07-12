@@ -1,6 +1,4 @@
-const PLAYER_TIME_STYLE = {
-  left: '30%'
-};
+import { PLAYER_TIME_STYLE } from '../../const/const';
 
 const MoviePlayerPage = (): JSX.Element => (
   <div className="player">
