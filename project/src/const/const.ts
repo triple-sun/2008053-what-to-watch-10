@@ -16,7 +16,7 @@ const MovieGenreList = [
   'Romance',
   'Sci-Fi',
   'Thrillers',
-] as const;
+];
 
 const Rating = ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'] as const;
 

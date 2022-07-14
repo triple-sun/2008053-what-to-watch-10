@@ -12,6 +12,7 @@ import PrivateRoute from '../universal/private-route/private-route';
 
 const goToMainPage = <Navigate to={AppRoute.Main} />;
 
+
 const App = (MainPageProps: TMainPageProps): JSX.Element => (
   <BrowserRouter>
     <Routes>
@@ -26,17 +27,21 @@ const App = (MainPageProps: TMainPageProps): JSX.Element => (
 
         <Route path={AppRoute.Movies}>
           <Route index element={goToMainPage} />
-          <Route path={AppRoute.Movie}>
-            <Route index element={<MoviePage />} />
-            <Route path={AppRoute.AddReview} element={<AddReviewPage />} />
-          </Route>
+        </Route>
+
+        <Route path={AppRoute.Movie}>
+          <Route index element={<MoviePage {...MainPageProps}/>} />
+        </Route>
+
+        <Route path={AppRoute.AddReview}>
+          <Route index element={<AddReviewPage />} />
         </Route>
 
         <Route
           path={AppRoute.MyList}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <MyListPage />
+              <MyListPage {...MainPageProps.myMovies}/>
             </PrivateRoute>
           }
         />

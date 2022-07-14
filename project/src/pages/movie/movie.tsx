@@ -1,27 +1,27 @@
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import LogoElement from '../../components/universal/logo/logo';
 import PageFooterElement from '../../components/universal/page-footer/page-footer';
 import UserBlockElement from '../../components/universal/user-block/user-block';
 import { AppRoute } from '../../const/enums';
-import { mockMoviesList } from '../../const/mock';
-import TMovie from '../../types/movie-data';
-import { convertStringToKebabCase, findMovieByID } from '../../utils/utils';
+import mockMovies from '../../mocks/movies';
+import TMainPageProps from '../../types/main-page-props';
 
-const MoviePage = (): JSX.Element => {
-  const params = useParams();
+const MoviePage = ({myMovies}: TMainPageProps): JSX.Element => {
+  const navigate = useNavigate();
+  const {id} = useParams();
 
-  const movieData = params.id
-    ? mockMoviesList.find((movie) => findMovieByID(movie, params.id as string)) as TMovie
+  const movie = id
+    ? mockMovies.find((mov) => mov.id === id)
     : null;
 
-  return !movieData
+  return !movie
     ? <Navigate to={AppRoute.NotFound} />
     : (
       <div>
         <section className="film-card film-card--full">
           <div className="film-card__hero">
             <div className="film-card__bg">
-              <img src={`img/bg-${convertStringToKebabCase(movieData?.title)}.jpg`} alt={movieData?.title} />
+              <img src={movie.backgroundImage} alt={movie?.name} />
             </div>
 
             <h1 className="visually-hidden">WTW</h1>
@@ -33,27 +33,26 @@ const MoviePage = (): JSX.Element => {
 
             <div className="film-card__wrap">
               <div className="film-card__desc">
-                <h2 className="film-card__title">{movieData.title}</h2>
+                <h2 className="film-card__title">{movie.name}</h2>
                 <p className="film-card__meta">
-                  <span className="film-card__genre">{movieData.genre}</span>
-                  <span className="film-card__year">{movieData.year}</span>
+                  <span className="film-card__genre">{movie.genre}</span>
+                  <span className="film-card__year">{movie.released}</span>
                 </p>
 
                 <div className="film-card__buttons">
-                  <button className="btn btn--play film-card__button" type="button">
+                  <button className="btn btn--play film-card__button" type="button" onClick={() =>navigate(`/player/${movie.id}`)}>
                     <svg viewBox="0 0 19 19" width="19" height="19">
-                      <use xlinkHref="#play-s"></use>
                     </svg>
                     <span>Play</span>
                   </button>
                   <button className="btn btn--list film-card__button" type="button">
                     <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
+                      <use xlinkHref="#addToMyMovies"></use>
                     </svg>
                     <span>My list</span>
-                    <span className="film-card__count">9</span>
+                    <span className="film-card__count">{myMovies.length}</span>
                   </button>
-                  <Link to={AppRoute.AddReview} className="btn film-card__button">Add review</Link>
+                  <Link to={`/films/${movie.id}/review`} className="btn film-card__button">Add review</Link>
                 </div>
               </div>
             </div>
@@ -62,7 +61,7 @@ const MoviePage = (): JSX.Element => {
           <div className="film-card__wrap film-card__translate-top">
             <div className="film-card__info">
               <div className="film-card__poster film-card__poster--big">
-                <img src={`img/${convertStringToKebabCase(movieData.title)}-poster.jpg`} alt={`${movieData.title} poster`} width="218" height="327" />
+                <img src={movie.posterImage} alt={`${movie.name} poster`} width="218" height="327" />
               </div>
 
               <div className="film-card__desc">
@@ -89,13 +88,11 @@ const MoviePage = (): JSX.Element => {
                 </div>
 
                 <div className="film-card__text">
-                  <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave`&apos;`s friend and protege.</p>
+                  <p>{movie.description}</p>
 
-                  <p>Gustave prides himself on providing first-class service to the hotel`&apos;`s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave`&apos;`s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
+                  <p className="film-card__director"><strong>Director: {movie.director}</strong></p>
 
-                  <p className="film-card__director"><strong>Director: Wes Anderson</strong></p>
-
-                  <p className="film-card__starring"><strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other</strong></p>
+                  <p className="film-card__starring"><strong>Starring: {movie.starring} and others</strong></p>
                 </div>
               </div>
             </div>

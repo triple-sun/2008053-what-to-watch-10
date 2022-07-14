@@ -1,28 +1,37 @@
-import { useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { Navigate, useParams } from 'react-router-dom';
+import AddReviewComponent from '../../components/add-review/add-review';
 import LogoElement from '../../components/universal/logo/logo';
 import UserBlockElement from '../../components/universal/user-block/user-block';
-import { Rating, RATING_ID_PREFIX } from '../../const/const';
-import TListElement from '../../types/list-element';
+import { AppRoute } from '../../const/enums';
+import mockMovies from '../../mocks/movies';
+import TMovie from '../../types/movie-data';
 
-const RatingElement = ({value: rating}: TListElement): JSX.Element => (
-  <div>
-    <input className="rating__input" id={`${RATING_ID_PREFIX}${rating}`} type="radio" name="rating" value={rating} />
-    <label className="rating__label" htmlFor={`star-${rating}`}>Rating {rating}</label>
-  </div>
-);
+type TAddReviewState = {
+  reviewRating: string;
+  reviewText: string;
+}
 
 const AddReviewPage = (): JSX.Element => {
-  const params = useParams();
+  const [review, setReview] = useState<TAddReviewState>({reviewRating: '', reviewText: ''});
+  const {reviewRating, reviewText} = review;
+  const {id} = useParams();
 
-  // eslint-disable-next-line no-console
-  console.log(params);
-  const ratingElements = Rating.map((rating) => <RatingElement key={`star-${rating}`} value={rating} />);
+  const movie = mockMovies.find((mov) => mov.id === id as string) as TMovie;
+
+
+  const setRatingHandle = (rating: string) => setReview({reviewRating: rating, reviewText: reviewText});
+  const typeTextHandle = (text: string) => setReview({reviewRating: reviewRating, reviewText: text});
+
+  if (!id) {
+    return <Navigate to={AppRoute.NotFound} />;
+  }
 
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={movie.backgroundImage} alt={movie.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -33,7 +42,7 @@ const AddReviewPage = (): JSX.Element => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                <a href={`/films/${movie.id}`} className="breadcrumbs__link">{movie.name}</a>
               </li>
               <li className="breadcrumbs__item">
                 <a href="#review" className="breadcrumbs__link">Add review</a>
@@ -45,27 +54,10 @@ const AddReviewPage = (): JSX.Element => {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={movie.posterImage} alt={`${movie.name} poster`} width="218" height="327" />
         </div>
       </div>
-
-      <div className="add-review">
-        <form action="#" className="add-review__form">
-          <div className="rating">
-            <div className="rating__stars">
-              {ratingElements}
-            </div>
-          </div>
-
-          <div className="add-review__text">
-            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
-            <div className="add-review__submit">
-              <button className="add-review__btn" type="submit">Post</button>
-            </div>
-
-          </div>
-        </form>
-      </div>
+      <AddReviewComponent setRatingHandle={setRatingHandle} typeTextHandle={typeTextHandle} />
 
     </section>
   );
