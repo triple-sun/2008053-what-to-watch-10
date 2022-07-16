@@ -2,7 +2,7 @@ import LogoElement from '../../components/universal/logo/logo';
 import PageFooterElement from '../../components/universal/page-footer/page-footer';
 import { AppRoute } from '../../const/enums';
 
-const NotFoundPage = (): JSX.Element => (
+const NotFoundPage = () => (
   <div className="user-page">
     <header className="page-header user-page__head">
       <LogoElement />

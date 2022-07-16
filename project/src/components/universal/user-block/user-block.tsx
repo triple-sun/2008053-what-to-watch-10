@@ -1,4 +1,4 @@
-const UserBlockElement = (): JSX.Element => (
+const UserBlockElement = () => (
   <ul className="user-block">
     <li className="user-block__item">
       <div className="user-block__avatar">

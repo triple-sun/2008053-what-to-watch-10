@@ -1,29 +1,26 @@
-import { useState } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { ChangeEvent, useState } from 'react';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import AddReviewComponent from '../../components/add-review/add-review';
 import LogoElement from '../../components/universal/logo/logo';
 import UserBlockElement from '../../components/universal/user-block/user-block';
 import { AppRoute } from '../../const/enums';
 import mockMovies from '../../mocks/movies';
-import TMovie from '../../types/movie-data';
 
-type TAddReviewState = {
+type ReviewState = {
   reviewRating: string;
   reviewText: string;
 }
 
-const AddReviewPage = (): JSX.Element => {
-  const [review, setReview] = useState<TAddReviewState>({reviewRating: '', reviewText: ''});
-  const {reviewRating, reviewText} = review;
+const AddReviewPage = () => {
+  const [review, setReview] = useState<ReviewState>({reviewRating: '', reviewText: ''});
   const {id} = useParams();
 
-  const movie = mockMovies.find((mov) => mov.id === id as string) as TMovie;
+  const currentMovie = mockMovies.find((movie) => movie.id === id);
 
+  const handleReviewRating = (e: ChangeEvent<HTMLInputElement>) => setReview({...review, reviewRating: e.target.value});
+  const handleReviewType = (e: ChangeEvent<HTMLTextAreaElement>) => setReview({...review, reviewText: e.target.value});
 
-  const setRatingHandle = (rating: string) => setReview({reviewRating: rating, reviewText: reviewText});
-  const typeTextHandle = (text: string) => setReview({reviewRating: reviewRating, reviewText: text});
-
-  if (!id) {
+  if (!currentMovie) {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
@@ -31,7 +28,7 @@ const AddReviewPage = (): JSX.Element => {
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={movie.backgroundImage} alt={movie.name} />
+          <img src={currentMovie.backgroundImage} alt={currentMovie.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -42,7 +39,7 @@ const AddReviewPage = (): JSX.Element => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href={`/films/${movie.id}`} className="breadcrumbs__link">{movie.name}</a>
+                <Link to={`/films/${currentMovie.id}`} className="breadcrumbs__link">{currentMovie.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a href="#review" className="breadcrumbs__link">Add review</a>
@@ -54,10 +51,10 @@ const AddReviewPage = (): JSX.Element => {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={movie.posterImage} alt={`${movie.name} poster`} width="218" height="327" />
+          <img src={currentMovie.posterImage} alt={`${currentMovie.name} poster`} width="218" height="327" />
         </div>
       </div>
-      <AddReviewComponent setRatingHandle={setRatingHandle} typeTextHandle={typeTextHandle} />
+      <AddReviewComponent handleReviewRating={handleReviewRating} handleReviewText={handleReviewType} />
 
     </section>
   );

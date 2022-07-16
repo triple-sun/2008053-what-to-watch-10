@@ -5,7 +5,7 @@ type LogoElementProps = {
   isLight?: boolean
 }
 
-const LogoElement = ({isLight = false}: LogoElementProps): JSX.Element => (
+const LogoElement = ({isLight = false}: LogoElementProps) => (
   <div className="logo">
     <Link className={isLight ? 'logo__link logo__link--light' : 'logo__link'} to={AppRoute.Main}>
       <span className="logo__letter logo__letter--1">W</span>

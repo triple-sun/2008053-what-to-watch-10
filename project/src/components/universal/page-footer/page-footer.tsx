@@ -1,6 +1,6 @@
 import LogoElement from '../logo/logo';
 
-const PageFooterElement = (): JSX.Element => (
+const PageFooterElement = () => (
   <footer className="page-footer">
     <LogoElement isLight/>
 

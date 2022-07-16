@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import TMovie from '../../../types/movie-data';
+import MainProps from '../../../types/main-props';
 import LogoElement from '../../universal/logo/logo';
 import UserBlockElement from '../../universal/user-block/user-block';
 
-const MoviePromoComponent = (promo: TMovie): JSX.Element => {
+type MoviePromoProps = Pick<MainProps, 'promo' | 'myMovies'>
+
+const MoviePromoComponent = ({promo, myMovies}: MoviePromoProps) => {
   const {backgroundImage, posterImage, name, genre, released, id} = promo;
 
   const navigate = useNavigate();
@@ -35,7 +37,7 @@ const MoviePromoComponent = (promo: TMovie): JSX.Element => {
             </p>
 
             <div className="film-card__buttons">
-              <button className="btn btn--play film-card__button" type="button" onClick={() =>navigate(`/player/${id}`)}>
+              <button className="btn btn--play film-card__button" type="button" onClick={() => navigate(`/player/${id}`)}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                 </svg>
                 <span>Play</span>
@@ -45,7 +47,7 @@ const MoviePromoComponent = (promo: TMovie): JSX.Element => {
                   <use xlinkHref="#add"></use>
                 </svg>
                 <span>My list</span>
-                <span className="film-card__count">9</span>
+                <span className="film-card__count">{myMovies.length}</span>
               </button>
             </div>
           </div>

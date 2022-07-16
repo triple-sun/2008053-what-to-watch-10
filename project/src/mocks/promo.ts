@@ -1,4 +1,4 @@
-import TMovie from '../types/movie-data';
+import TMovie from '../types/movie';
 
 const mockMoviePromo: TMovie = {
   'name': 'Snatch',

@@ -2,12 +2,12 @@ import GenreListComponent from '../../components/genre-list/genre-list';
 import MoviePromoComponent from '../../components/movie/movie-promo/movie-promo';
 import MovieCardsListComponent from '../../components/movie-list/movie-list';
 import PageFooterElement from '../../components/universal/page-footer/page-footer';
-import TMainPageProps from '../../types/main-page-props';
+import MainProps from '../../types/main-props';
+import { Fragment } from 'react';
 
-
-const MainPage = ({promo, movies, genres}: TMainPageProps): JSX.Element => (
-  <div>
-    <MoviePromoComponent {...promo} />
+const MainPage = ({promo, movies, genres, myMovies}: MainProps) => (
+  <Fragment>
+    <MoviePromoComponent promo={promo} myMovies={myMovies} />
 
     <div className="page-content">
       <section className="catalog">
@@ -17,7 +17,6 @@ const MainPage = ({promo, movies, genres}: TMainPageProps): JSX.Element => (
 
         <MovieCardsListComponent movies={movies} />
 
-
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
         </div>
@@ -25,7 +24,7 @@ const MainPage = ({promo, movies, genres}: TMainPageProps): JSX.Element => (
 
       <PageFooterElement />
     </div>
-  </div>
+  </Fragment>
 );
 
 export default MainPage;

@@ -1,6 +1,6 @@
-import TMovie from '../types/movie-data';
+import TMovie from '../types/movie';
 
-const mockMovies: TMovie[] = [
+const mockMovies: readonly TMovie[] = [
   {
     'name': 'Snatch',
     'posterImage': 'https://10.react.pages.academy/static/film/poster/Snatch.jpg',
@@ -89,7 +89,7 @@ const mockMovies: TMovie[] = [
     'genre': 'Comedy',
     'released': 2003,
     'id': '4',
-    'isFavorite': false,
+    'isFavorite': true,
     'videoLink': 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
     'previewVideoLink': 'https://10.react.pages.academy/static/film/video/traffic.mp4'
   },
@@ -112,7 +112,7 @@ const mockMovies: TMovie[] = [
     'genre': 'Adventure',
     'released': 2007,
     'id': '5',
-    'isFavorite': false,
+    'isFavorite': true,
     'videoLink': 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
     'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4'
   },
@@ -158,7 +158,7 @@ const mockMovies: TMovie[] = [
     'genre': 'Adventure',
     'released': 2012,
     'id': '7',
-    'isFavorite': false,
+    'isFavorite': true,
     'videoLink': 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
     'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4'
   },

@@ -2,10 +2,9 @@ import MovieCardsListComponent from '../../components/movie-list/movie-list';
 import LogoElement from '../../components/universal/logo/logo';
 import PageFooterElement from '../../components/universal/page-footer/page-footer';
 import UserBlockElement from '../../components/universal/user-block/user-block';
-import TMovie from '../../types/movie-data';
+import TMovie from '../../types/movie';
 
-
-const MyListPage = (myMovies: TMovie[]): JSX.Element => (
+const MyListPage = (myMovies: TMovie[]) => (
   <div className="user-page">
     <header className="page-header user-page__head">
       <LogoElement />

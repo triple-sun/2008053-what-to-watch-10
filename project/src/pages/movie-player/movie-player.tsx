@@ -4,15 +4,13 @@ import { AppRoute } from '../../const/enums';
 import mockMovies from '../../mocks/movies';
 import { minutesToHoursAndMinutes } from '../../utils/utils';
 
-const MoviePlayerPage = (): JSX.Element => {
+const MoviePlayerPage = () => {
   const navigate = useNavigate();
   const {id} = useParams();
 
-  const movie = id
-    ? mockMovies.find((mov) => mov.id === id)
-    : null;
+  const currentMovie = mockMovies.find((mov) => mov.id === id);
 
-  if (!movie) {
+  if (!currentMovie) {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
@@ -28,7 +26,7 @@ const MoviePlayerPage = (): JSX.Element => {
             <progress className="player__progress" value="30" max="100"/>
             <div className="player__toggler" style={PLAYER_TIME_STYLE}>Toggler</div>
           </div>
-          <div className="player__time-value">{minutesToHoursAndMinutes(movie.runTime)}</div>
+          <div className="player__time-value">{minutesToHoursAndMinutes(currentMovie.runTime)}</div>
         </div>
 
         <div className="player__controls-row">
@@ -38,7 +36,7 @@ const MoviePlayerPage = (): JSX.Element => {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">{movie.name}</div>
+          <div className="player__name">{currentMovie.name}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">

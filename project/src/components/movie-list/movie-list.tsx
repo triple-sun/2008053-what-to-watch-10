@@ -1,17 +1,18 @@
-import { ReactElement, useState } from 'react';
-import TListProps from '../../types/list-props';
-import TMovie from '../../types/movie-data';
+import { useState } from 'react';
+import TList from '../../types/list';
+import TMovie from '../../types/movie';
 import MovieCardComponent from '../movie/movie-card/movie-card';
 
-type TActiveMovieState = TMovie | null;
+type ActiveMovieState = {
+  activeMovie: TMovie | null
+};
 
+const MovieCardsListComponent = ({movies}: TList<TMovie>) => {
+  const [activeMovie, setActiveMovie] = useState<ActiveMovieState>({activeMovie: null});
 
-const MovieCardsListComponent = ({movies}: TListProps<TMovie>): JSX.Element => {
-  const [activeMovie, setActiveMovie] = useState<TActiveMovieState>(null);
+  const handleMouseOver = (movie: TMovie) => setActiveMovie({...activeMovie, activeMovie: movie});
 
-  const movieCardMouseOverHandler = (movie: TMovie): void => setActiveMovie({...activeMovie, ...movie});
-
-  const createMovieCard = (movie: TMovie): ReactElement => <MovieCardComponent key={`${movie.id}`} value={movie} setActiveMovieHandle={movieCardMouseOverHandler}/>;
+  const createMovieCard = (movie: TMovie) => <MovieCardComponent key={`${movie.id}`} value={movie} handleMouseOver={handleMouseOver}/>;
 
   return (
     <div className="catalog__films-list">

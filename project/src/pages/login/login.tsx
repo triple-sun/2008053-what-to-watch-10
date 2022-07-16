@@ -1,7 +1,7 @@
 import LogoElement from '../../components/universal/logo/logo';
 import PageFooterElement from '../../components/universal/page-footer/page-footer';
 
-const LoginPage = (): JSX.Element => (
+const LoginPage = () => (
   <div className="user-page">
     <header className="page-header user-page__head">
       <LogoElement />
