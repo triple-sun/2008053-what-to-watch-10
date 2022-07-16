@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import TList from '../../types/list';
-import TMovie from '../../types/movie';
-import MovieCardComponent from '../movie/movie-card/movie-card';
+import TList from '../../../types/list';
+import TMovie from '../../../types/movie';
+import MovieCardComponent from '../movie-card/movie-card';
 
 type ActiveMovieState = {
   activeMovie: TMovie | null
@@ -12,11 +12,11 @@ const MovieCardsListComponent = ({movies}: TList<TMovie>) => {
 
   const handleMouseOver = (movie: TMovie) => setActiveMovie({...activeMovie, activeMovie: movie});
 
-  const createMovieCard = (movie: TMovie) => <MovieCardComponent key={`${movie.id}`} value={movie} handleMouseOver={handleMouseOver}/>;
-
   return (
     <div className="catalog__films-list">
-      {movies.map(createMovieCard)}
+      {movies.map(
+        (movie: TMovie) => <MovieCardComponent key={`${movie.id}`} value={movie} handleMouseOver={handleMouseOver} />
+      )}
     </div>
   );
 };

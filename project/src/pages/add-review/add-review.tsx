@@ -1,24 +1,27 @@
 import { ChangeEvent, useState } from 'react';
-import { Link, Navigate, useParams } from 'react-router-dom';
-import AddReviewComponent from '../../components/add-review/add-review';
-import LogoElement from '../../components/universal/logo/logo';
-import UserBlockElement from '../../components/universal/user-block/user-block';
+import { Navigate, useParams } from 'react-router-dom';
+import ReviewFormComponent from '../../components/review/review-form/review-form';
+import LogoElement from '../../components/common/logo/logo';
+import UserBlockElement from '../../components/common/user-block/user-block';
 import { AppRoute } from '../../const/enums';
 import mockMovies from '../../mocks/movies';
+import MovieBackgroundElement from '../../components/movies/images/movie-background/movie-card-bg';
+import MoviePosterElement from '../../components/movies/images/movie-poster/movie-poster';
+import ReviewBreadcrumbsElement from '../../components/review/review-breadcrumbs/review-breadcrumbs';
+import WTWElement from '../../components/common/wtw/wtw';
 
 type ReviewState = {
-  reviewRating: string;
+  rating: string;
   reviewText: string;
 }
 
 const AddReviewPage = () => {
-  const [review, setReview] = useState<ReviewState>({reviewRating: '', reviewText: ''});
+  const [review, setReview] = useState<ReviewState>({rating: '', reviewText: ''});
   const {id} = useParams();
 
   const currentMovie = mockMovies.find((movie) => movie.id === id);
 
-  const handleReviewRating = (e: ChangeEvent<HTMLInputElement>) => setReview({...review, reviewRating: e.target.value});
-  const handleReviewType = (e: ChangeEvent<HTMLTextAreaElement>) => setReview({...review, reviewText: e.target.value});
+  const handleReviewChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setReview({...review,[e.target.name]: e.target.value});
 
   if (!currentMovie) {
     return <Navigate to={AppRoute.NotFound} />;
@@ -27,34 +30,21 @@ const AddReviewPage = () => {
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
-        <div className="film-card__bg">
-          <img src={currentMovie.backgroundImage} alt={currentMovie.name} />
-        </div>
+        <MovieBackgroundElement {...currentMovie} />
 
-        <h1 className="visually-hidden">WTW</h1>
+        <WTWElement />
 
         <header className="page-header">
           <LogoElement />
-
-          <nav className="breadcrumbs">
-            <ul className="breadcrumbs__list">
-              <li className="breadcrumbs__item">
-                <Link to={`/films/${currentMovie.id}`} className="breadcrumbs__link">{currentMovie.name}</Link>
-              </li>
-              <li className="breadcrumbs__item">
-                <a href="#review" className="breadcrumbs__link">Add review</a>
-              </li>
-            </ul>
-          </nav>
-
+          <ReviewBreadcrumbsElement {...currentMovie} />
           <UserBlockElement />
         </header>
 
-        <div className="film-card__poster film-card__poster--small">
-          <img src={currentMovie.posterImage} alt={`${currentMovie.name} poster`} width="218" height="327" />
-        </div>
+        <MoviePosterElement {...currentMovie} isSmall />
+
       </div>
-      <AddReviewComponent handleReviewRating={handleReviewRating} handleReviewText={handleReviewType} />
+
+      <ReviewFormComponent handleReviewChange={handleReviewChange} />
 
     </section>
   );

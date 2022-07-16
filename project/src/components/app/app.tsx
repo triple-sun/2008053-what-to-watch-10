@@ -7,8 +7,8 @@ import MoviePlayerPage from '../../pages/movie-player/movie-player';
 import MoviePage from '../../pages/movie/movie';
 import MyListPage from '../../pages/my-list/my-list';
 import NotFoundPage from '../../pages/not-found/not-found';
-import MainProps from '../../types/main-props';
-import PrivateRoute from '../universal/private-route/private-route';
+import { MainProps } from '../../types/props';
+import PrivateRoute from '../common/private-route/private-route';
 
 const goToMainPage = <Navigate to={AppRoute.Main} />;
 

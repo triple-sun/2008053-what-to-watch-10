@@ -1,4 +1,4 @@
-import TList from '../../types/list';
+import TList from '../../../types/list';
 import GenreElement from '../genre-element/genre-element';
 
 const GenreListComponent = ({genres}: TList<string>) => {

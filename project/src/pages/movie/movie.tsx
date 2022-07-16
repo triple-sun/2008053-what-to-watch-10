@@ -1,14 +1,17 @@
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
-import MovieCardsListComponent from '../../components/movie-list/movie-list';
-import LogoElement from '../../components/universal/logo/logo';
-import PageFooterElement from '../../components/universal/page-footer/page-footer';
-import UserBlockElement from '../../components/universal/user-block/user-block';
+import { Navigate, useParams } from 'react-router-dom';
+import MovieCardsListComponent from '../../components/movies/movie-list/movie-list';
+import LogoElement from '../../components/common/logo/logo';
+import PageFooterElement from '../../components/common/page-footer/page-footer';
+import UserBlockElement from '../../components/common/user-block/user-block';
 import { AppRoute } from '../../const/enums';
 import mockMovies from '../../mocks/movies';
-import MainProps from '../../types/main-props';
+import { MainProps } from '../../types/props';
+import MovieBackgroundElement from '../../components/movies/images/movie-background/movie-card-bg';
+import MoviePosterElement from '../../components/movies/images/movie-poster/movie-poster';
+import MovieButtonsElement from '../../components/movies/movie-buttons/movie-buttons';
+import WTWElement from '../../components/common/wtw/wtw';
 
 const MoviePage = ({myMovies}: MainProps) => {
-  const navigate = useNavigate();
   const {id} = useParams();
 
   const currentMovie = mockMovies.find((mov) => mov.id === id);
@@ -22,11 +25,8 @@ const MoviePage = ({myMovies}: MainProps) => {
     <div>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
-          <div className="film-card__bg">
-            <img src={currentMovie.backgroundImage} alt={currentMovie?.name} />
-          </div>
-
-          <h1 className="visually-hidden">WTW</h1>
+          <MovieBackgroundElement {...currentMovie} />
+          <WTWElement />
 
           <header className="page-header film-card__head">
             <LogoElement />
@@ -41,30 +41,14 @@ const MoviePage = ({myMovies}: MainProps) => {
                 <span className="film-card__year">{currentMovie.released}</span>
               </p>
 
-              <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button" onClick={() => navigate(`/player/${currentMovie.id}`)}>
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#addToMyMovies"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">{myMovies.length}</span>
-                </button>
-                <Link to={`/films/${currentMovie.id}/review`} className="btn film-card__button">Add review</Link>
-              </div>
+              <MovieButtonsElement id={currentMovie.id} myMoviesCount={myMovies.length} hasAddReview/>
             </div>
           </div>
         </div>
 
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <div className="film-card__poster film-card__poster--big">
-              <img src={currentMovie.posterImage} alt={`${currentMovie.name} poster`} width="218" height="327" />
-            </div>
+            <MoviePosterElement {...currentMovie} isBig />
 
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">

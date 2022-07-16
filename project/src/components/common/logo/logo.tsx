@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const/enums';
 
-type LogoElementProps = {
+type LogoProps = {
   isLight?: boolean
 }
 
-const LogoElement = ({isLight = false}: LogoElementProps) => (
+const LogoElement = ({isLight = false}: LogoProps) => (
   <div className="logo">
     <Link className={isLight ? 'logo__link logo__link--light' : 'logo__link'} to={AppRoute.Main}>
       <span className="logo__letter logo__letter--1">W</span>

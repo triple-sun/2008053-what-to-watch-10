@@ -1,7 +1,7 @@
-import MovieCardsListComponent from '../../components/movie-list/movie-list';
-import LogoElement from '../../components/universal/logo/logo';
-import PageFooterElement from '../../components/universal/page-footer/page-footer';
-import UserBlockElement from '../../components/universal/user-block/user-block';
+import MovieCardsListComponent from '../../components/movies/movie-list/movie-list';
+import LogoElement from '../../components/common/logo/logo';
+import PageFooterElement from '../../components/common/page-footer/page-footer';
+import UserBlockElement from '../../components/common/user-block/user-block';
 import TMovie from '../../types/movie';
 
 const MyListPage = (myMovies: TMovie[]) => (
