@@ -3,13 +3,14 @@ import TMovie from '../../types/movie';
 
 const VIDEO_LOADED_DATA = 'loadeddata';
 
-type MoviePreviewProps = {
+type MoviePlayerProps = {
   movie: TMovie;
   isPlaying: boolean;
-  isMuted: boolean
+  isMuted?: boolean
+  isPreview?: boolean
 }
 
-const VideoPlayer = ({movie, isPlaying, isMuted = true}: MoviePreviewProps) => {
+const VideoPlayer = ({movie, isPlaying, isMuted = false, isPreview = false}: MoviePlayerProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -31,7 +32,7 @@ const VideoPlayer = ({movie, isPlaying, isMuted = true}: MoviePreviewProps) => {
   }, [isLoading, isMuted, isPlaying, movie]);
 
 
-  return <video src={movie.previewVideoLink} ref={videoRef} className="player__video" poster={movie.previewImage}/>;
+  return <video src={isPreview ? movie.previewVideoLink : movie.videoLink} ref={videoRef} className="player__video" poster={movie.previewImage}/>;
 };
 
 export default VideoPlayer;

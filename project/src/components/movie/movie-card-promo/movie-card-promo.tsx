@@ -4,8 +4,8 @@ import HeaderElement from '../../common/header-element/header-element';
 import LogoElement from '../../common/logo-element/logo-element';
 import UserBlock from '../../common/user-block-element/user-block-element';
 import WTWElement from '../../common/wtw-element/wtw-element';
-import MovieBackgroundElement from '../movie-images/movie-background/movie-card-bg';
-import MoviePosterElement from '../movie-images/movie-poster/movie-poster';
+import MovieBackground from '../movie-images/movie-background/movie-background';
+import MoviePoster from '../movie-images/movie-poster/movie-poster';
 import AddReviewButton from '../movie-buttons/add-review-button/add-review-button';
 import MovieButtons from '../movie-buttons/movie-buttons';
 import MyListAddButton from '../movie-buttons/my-list-add-button/my-list-add-button';
@@ -16,7 +16,7 @@ type MoviePromoProps = Pick<AppProps, 'promo' | 'myMovies'>
 
 const MovieCardPromo = ({promo, myMovies}: MoviePromoProps) => (
   <section className="film-card">
-    <MovieBackgroundElement {...promo} />
+    <MovieBackground movie={promo} />
 
     <WTWElement />
 
@@ -28,7 +28,7 @@ const MovieCardPromo = ({promo, myMovies}: MoviePromoProps) => (
     <div className="film-card__wrap">
       <div className="film-card__info">
 
-        <MoviePosterElement {...promo} />
+        <MoviePoster {...promo} />
         <MovieCardDescription movie={promo}>
           <MovieButtons>
             <PlayMovieButton {...promo} />

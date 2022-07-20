@@ -6,8 +6,8 @@ import UserBlock from '../../components/common/user-block-element/user-block-ele
 import { AppRoute, HeaderStyle, PosterSize } from '../../const/enums';
 import mockMovies from '../../mocks/movies';
 import { AppProps } from '../../types/props';
-import MovieBackgroundElement from '../../components/movie/movie-images/movie-background/movie-card-bg';
-import MoviePosterElement from '../../components/movie/movie-images/movie-poster/movie-poster';
+import MovieBackground from '../../components/movie/movie-images/movie-background/movie-background';
+import MoviePoster from '../../components/movie/movie-images/movie-poster/movie-poster';
 import MovieButtons from '../../components/movie/movie-buttons/movie-buttons';
 import WTWElement from '../../components/common/wtw-element/wtw-element';
 import HeaderElement from '../../components/common/header-element/header-element';
@@ -30,7 +30,7 @@ const MoviePage = ({myMovies}: AppProps) => {
     <div>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
-          <MovieBackgroundElement {...currentMovie} />
+          <MovieBackground movie={currentMovie} />
           <WTWElement />
 
           <HeaderElement style={HeaderStyle.MovieCard}>
@@ -51,7 +51,7 @@ const MoviePage = ({myMovies}: AppProps) => {
 
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <MoviePosterElement {...currentMovie} size={PosterSize.Big} />
+            <MoviePoster {...currentMovie} size={PosterSize.Big} />
 
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">

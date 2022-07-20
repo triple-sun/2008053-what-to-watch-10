@@ -39,3 +39,7 @@ export enum MovieNavigation {
   Details = 'Details',
   Reviews = 'Reviews',
 }
+
+export enum ApiAddress {
+  Movies = 'https://10.react.pages.academy/wtw/films/'
+}

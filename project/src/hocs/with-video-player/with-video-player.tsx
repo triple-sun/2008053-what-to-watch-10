@@ -7,7 +7,6 @@ import { MovieCardProps } from '../../types/props';
 
 type HOCProps = Pick<MovieCardProps, 'handleMouseEvent'> & {
   renderPlayer: (movie: TMovie, id: number) => void
-  activePlayerId: number
 }
 
 function withVideoPlayer<T>(Component: ComponentType<T>)
@@ -27,15 +26,15 @@ function withVideoPlayer<T>(Component: ComponentType<T>)
     return (
       <Component
         {...props as T}
-        renderPlayer={(movie: TMovie, id: number, isMuted: boolean) => (
+        renderPlayer={(movie: TMovie, id: number, isMuted: boolean, isPreview: boolean) => (
           <VideoPlayer
             movie={movie}
             isPlaying={activePlayerId === id}
             isMuted={isMuted}
+            isPreview={isPreview}
           />
         )}
         handleMouseEvent={handleMouseEvent}
-        activePlayerId={activePlayerId}
       />
     );
   };
