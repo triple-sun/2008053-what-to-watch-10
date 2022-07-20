@@ -4,7 +4,7 @@ import FullScreenButton from '../../components/movie-player/player-buttons/full-
 import PlayMovieButton from '../../components/movie-player/player-buttons/play-movie-button/play-movie-button';
 import PlayerControls from '../../components/movie-player/player-controls/player-controls';
 import PlayerProgress from '../../components/movie-player/player-progress-element/player-progress-element';
-import PlayerVideoElement from '../../components/movie-player/player-video-element/player-video-element';
+import VideoPlayer from '../../components/video-player/video-player';
 import { AppRoute } from '../../const/enums';
 import mockMovies from '../../mocks/movies';
 
@@ -19,7 +19,7 @@ const MoviePlayerPage = () => {
 
   return (
     <div className="player">
-      <PlayerVideoElement {...currentMovie} />
+      <VideoPlayer isPlaying movie={currentMovie} isMuted={false}/>
       <ExitPlayerButton />
       <PlayerControls>
         <PlayerControls isRow>

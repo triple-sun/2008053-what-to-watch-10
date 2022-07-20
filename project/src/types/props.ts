@@ -13,8 +13,14 @@ type ReviewProps = {
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
+type MovieCardProps = {
+    renderPlayer: (movie: TMovie, playerIndex: number) => JSX.Element;
+    handleMouseEvent: (id: number | null) => void;
+}
+
 export type {
   AppProps,
-  ReviewProps
+  ReviewProps,
+  MovieCardProps
 };
 

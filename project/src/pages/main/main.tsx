@@ -11,7 +11,6 @@ const MainPage = (mainProps: AppProps) => (
     <div className="page-content">
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-
         <GenresListElement {...mainProps}/>
         <MovieCardListComponent movies={mainProps.movies} />
         <ShowMoreButton />
