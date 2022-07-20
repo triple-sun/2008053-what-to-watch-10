@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 import TMovie from './movie';
 
-type MainProps = {
+type AppProps = {
   promo: TMovie;
   movies: readonly TMovie[];
   genres: readonly string[];
@@ -10,11 +10,11 @@ type MainProps = {
 }
 
 type ReviewProps = {
-  handleReviewChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
 export type {
-  MainProps,
+  AppProps,
   ReviewProps
 };
 

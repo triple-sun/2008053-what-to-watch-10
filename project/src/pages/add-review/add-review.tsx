@@ -1,14 +1,15 @@
 import { ChangeEvent, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import ReviewFormComponent from '../../components/review/review-form/review-form';
-import LogoElement from '../../components/common/logo/logo';
-import UserBlockElement from '../../components/common/user-block/user-block';
-import { AppRoute } from '../../const/enums';
+import ReviewForm from '../../components/review/review-form/review-form';
+import LogoElement from '../../components/common/logo-element/logo-element';
+import UserBlock from '../../components/common/user-block-element/user-block-element';
+import { AppRoute, PosterSize } from '../../const/enums';
 import mockMovies from '../../mocks/movies';
-import MovieBackgroundElement from '../../components/movies/images/movie-background/movie-card-bg';
-import MoviePosterElement from '../../components/movies/images/movie-poster/movie-poster';
-import ReviewBreadcrumbsElement from '../../components/review/review-breadcrumbs/review-breadcrumbs';
-import WTWElement from '../../components/common/wtw/wtw';
+import MovieBackgroundElement from '../../components/movie/movie-images/movie-background/movie-card-bg';
+import MoviePosterElement from '../../components/movie/movie-images/movie-poster/movie-poster';
+import ReviewBreadcrumbs from '../../components/review/review-breadcrumbs/review-breadcrumbs';
+import WTWElement from '../../components/common/wtw-element/wtw-element';
+import HeaderElement from '../../components/common/header-element/header-element';
 
 type ReviewState = {
   rating: string;
@@ -21,7 +22,7 @@ const AddReviewPage = () => {
 
   const currentMovie = mockMovies.find((movie) => movie.id === id);
 
-  const handleReviewChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setReview({...review,[e.target.name]: e.target.value});
+  const onReviewChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setReview({...review,[e.target.name]: e.target.value});
 
   if (!currentMovie) {
     return <Navigate to={AppRoute.NotFound} />;
@@ -31,21 +32,15 @@ const AddReviewPage = () => {
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <MovieBackgroundElement {...currentMovie} />
-
         <WTWElement />
-
-        <header className="page-header">
+        <HeaderElement>
           <LogoElement />
-          <ReviewBreadcrumbsElement {...currentMovie} />
-          <UserBlockElement />
-        </header>
-
-        <MoviePosterElement {...currentMovie} isSmall />
-
+          <ReviewBreadcrumbs {...currentMovie} />
+          <UserBlock />
+        </HeaderElement>
+        <MoviePosterElement {...currentMovie} size={PosterSize.Small} />
       </div>
-
-      <ReviewFormComponent handleReviewChange={handleReviewChange} />
-
+      <ReviewForm onChange={onReviewChange} />
     </section>
   );
 };

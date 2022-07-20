@@ -1,9 +1,6 @@
-import { Link } from 'react-router-dom';
-import TListElement from '../../../types/list-element';
-
-const GenreElement = ({value: genre}: TListElement) => (
+const GenreElement = ({genre}: {genre: string}) => (
   <li className="catalog__genres-item catalog__genres-item--active">
-    <Link to={`#${genre}`} className="catalog__genres-link">{genre}</Link>
+    <a href={`#${genre}`} className="catalog__genres-link">{genre}</a>
   </li>
 );
 

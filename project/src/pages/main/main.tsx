@@ -1,25 +1,25 @@
-import GenreListComponent from '../../components/genres/genre-list/genre-list';
-import MoviePromoComponent from '../../components/movies/movie-promo/movie-promo';
-import MovieCardsListComponent from '../../components/movies/movie-list/movie-list';
-import PageFooterElement from '../../components/common/page-footer/page-footer';
-import { MainProps } from '../../types/props';
-import { Fragment } from 'react';
-import ShowMoreButton from '../../components/show-more/show-more';
+import GenresListElement from '../../components/genres/genres-list-element/genres-list-element';
+import MovieCardPromo from '../../components/movie/movie-card-promo/movie-card-promo';
+import MovieCardListComponent from '../../components/movie/movie-card-list/movie-card-list';
+import PageFooter from '../../components/common/page-footer/page-footer-element';
+import { AppProps } from '../../types/props';
+import ShowMoreButton from '../../components/show-more-button/show-more-button';
 
-const MainPage = ({promo, movies, genres, myMovies}: MainProps) => (
-  <Fragment>
-    <MoviePromoComponent promo={promo} myMovies={myMovies} />
+const MainPage = (mainProps: AppProps) => (
+  <>
+    <MovieCardPromo {...mainProps} />
     <div className="page-content">
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <GenreListComponent genres={genres} />
-        <MovieCardsListComponent movies={movies} />
+        <GenresListElement {...mainProps}/>
+        <MovieCardListComponent movies={mainProps.movies} />
         <ShowMoreButton />
       </section>
-      <PageFooterElement />
+
+      <PageFooter />
     </div>
-  </Fragment>
+  </>
 );
 
 export default MainPage;

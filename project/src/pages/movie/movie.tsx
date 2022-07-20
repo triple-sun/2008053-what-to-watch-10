@@ -1,17 +1,22 @@
 import { Navigate, useParams } from 'react-router-dom';
-import MovieCardsListComponent from '../../components/movies/movie-list/movie-list';
-import LogoElement from '../../components/common/logo/logo';
-import PageFooterElement from '../../components/common/page-footer/page-footer';
-import UserBlockElement from '../../components/common/user-block/user-block';
-import { AppRoute } from '../../const/enums';
+import MovieCardListComponent from '../../components/movie/movie-card-list/movie-card-list';
+import LogoElement from '../../components/common/logo-element/logo-element';
+import PageFooterElement from '../../components/common/page-footer/page-footer-element';
+import UserBlock from '../../components/common/user-block-element/user-block-element';
+import { AppRoute, HeaderStyle, PosterSize } from '../../const/enums';
 import mockMovies from '../../mocks/movies';
-import { MainProps } from '../../types/props';
-import MovieBackgroundElement from '../../components/movies/images/movie-background/movie-card-bg';
-import MoviePosterElement from '../../components/movies/images/movie-poster/movie-poster';
-import MovieButtonsElement from '../../components/movies/movie-buttons/movie-buttons';
-import WTWElement from '../../components/common/wtw/wtw';
+import { AppProps } from '../../types/props';
+import MovieBackgroundElement from '../../components/movie/movie-images/movie-background/movie-card-bg';
+import MoviePosterElement from '../../components/movie/movie-images/movie-poster/movie-poster';
+import MovieButtons from '../../components/movie/movie-buttons/movie-buttons';
+import WTWElement from '../../components/common/wtw-element/wtw-element';
+import HeaderElement from '../../components/common/header-element/header-element';
+import AddReviewButton from '../../components/movie/movie-buttons/add-review-button/add-review-button';
+import PlayMovieButton from '../../components/movie/movie-buttons/play-movie-button/play-movie-button';
+import MyListAddButton from '../../components/movie/movie-buttons/my-list-add-button/my-list-add-button';
+import MovieCardDescription from '../../components/movie/movie-card-description/movie-card-description';
 
-const MoviePage = ({myMovies}: MainProps) => {
+const MoviePage = ({myMovies}: AppProps) => {
   const {id} = useParams();
 
   const currentMovie = mockMovies.find((mov) => mov.id === id);
@@ -28,27 +33,25 @@ const MoviePage = ({myMovies}: MainProps) => {
           <MovieBackgroundElement {...currentMovie} />
           <WTWElement />
 
-          <header className="page-header film-card__head">
+          <HeaderElement style={HeaderStyle.MovieCard}>
             <LogoElement />
-            <UserBlockElement />
-          </header>
+            <UserBlock />
+          </HeaderElement>
 
           <div className="film-card__wrap">
-            <div className="film-card__desc">
-              <h2 className="film-card__title">{currentMovie.name}</h2>
-              <p className="film-card__meta">
-                <span className="film-card__genre">{currentMovie.genre}</span>
-                <span className="film-card__year">{currentMovie.released}</span>
-              </p>
-
-              <MovieButtonsElement id={currentMovie.id} myMoviesCount={myMovies.length} hasAddReview/>
-            </div>
+            <MovieCardDescription movie={currentMovie}>
+              <MovieButtons>
+                <PlayMovieButton {...currentMovie} />
+                <MyListAddButton count={myMovies.length} />
+                <AddReviewButton {...currentMovie} />
+              </MovieButtons>
+            </MovieCardDescription>
           </div>
         </div>
 
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <MoviePosterElement {...currentMovie} isBig />
+            <MoviePosterElement {...currentMovie} size={PosterSize.Big} />
 
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
@@ -89,7 +92,7 @@ const MoviePage = ({myMovies}: MainProps) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <MovieCardsListComponent movies={similarMovies} />
+          <MovieCardListComponent movies={similarMovies} />
         </section>
 
         <PageFooterElement />

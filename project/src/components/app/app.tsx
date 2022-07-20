@@ -7,16 +7,17 @@ import MoviePlayerPage from '../../pages/movie-player/movie-player';
 import MoviePage from '../../pages/movie/movie';
 import MyListPage from '../../pages/my-list/my-list';
 import NotFoundPage from '../../pages/not-found/not-found';
-import { MainProps } from '../../types/props';
+import { AppProps } from '../../types/props';
 import PrivateRoute from '../common/private-route/private-route';
 
 const goToMainPage = <Navigate to={AppRoute.Main} />;
 
-const App = (MainPageProps: MainProps) => (
+const App = (appProps: AppProps) => (
   <BrowserRouter>
     <Routes>
       <Route path={AppRoute.Main}>
-        <Route index element={<MainPage {...MainPageProps} />} />
+        <Route index element={<MainPage {...appProps} />} />
+
         <Route path={AppRoute.Login} element={<LoginPage />} />
 
         <Route path={AppRoute.Player}>
@@ -29,7 +30,7 @@ const App = (MainPageProps: MainProps) => (
         </Route>
 
         <Route path={AppRoute.Movie}>
-          <Route index element={<MoviePage {...MainPageProps}/>} />
+          <Route index element={<MoviePage {...appProps}/>} />
         </Route>
 
         <Route path={AppRoute.AddReview}>
@@ -39,8 +40,8 @@ const App = (MainPageProps: MainProps) => (
         <Route
           path={AppRoute.MyList}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <MyListPage {...MainPageProps.myMovies}/>
+            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth} >
+              <MyListPage {...appProps} />
             </PrivateRoute>
           }
         />
