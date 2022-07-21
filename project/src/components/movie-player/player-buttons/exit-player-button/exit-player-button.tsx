@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../../../const/enums';
 
 const ExitPlayerButton = () => {
