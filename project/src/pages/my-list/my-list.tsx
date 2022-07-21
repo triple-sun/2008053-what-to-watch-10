@@ -1,4 +1,4 @@
-import MovieCardListComponent from '../../components/movie/movie-card-list/movie-card-list';
+import MovieCardsList from '../../components/movie/movie-cards-list/movie-cards-list';
 import LogoElement from '../../components/common/logo-element/logo-element';
 import PageFooterElement from '../../components/common/page-footer/page-footer-element';
 import UserBlock from '../../components/common/user-block-element/user-block-element';
@@ -24,7 +24,7 @@ const MyListPage = ({myMovies}: AppProps) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <MovieCardListComponent movies={myMovies} count={MOVIE_CARD_MAIN_COUNT}/>
+        <MovieCardsList movies={myMovies} count={MOVIE_CARD_MAIN_COUNT}/>
       </section>
 
       <PageFooterElement />
