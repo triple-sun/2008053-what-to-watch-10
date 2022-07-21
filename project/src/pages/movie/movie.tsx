@@ -1,5 +1,5 @@
 import { Navigate, useParams } from 'react-router-dom';
-import MovieCardListComponent from '../../components/movie/movie-card-list/movie-card-list';
+import MovieCardsList from '../../components/movie/movie-cards-list/movie-cards-list';
 import LogoElement from '../../components/common/logo-element/logo-element';
 import PageFooterElement from '../../components/common/page-footer/page-footer-element';
 import UserBlock from '../../components/common/user-block-element/user-block-element';
@@ -65,7 +65,7 @@ const MoviePage = ({myMovies}: AppProps) => {
             <section className="catalog catalog--like-this">
               <h2 className="catalog__title">More like this</h2>
 
-              <MovieCardListComponent movies={mockMovies.filter((movie) => movie.genre === currentMovie.genre)} count={MOVIE_CARD_MAIN_COUNT}/>
+              <MovieCardsList movies={mockMovies.filter((movie) => movie.genre === currentMovie.genre)} count={MOVIE_CARD_MAIN_COUNT}/>
             </section>
           )
           : null}

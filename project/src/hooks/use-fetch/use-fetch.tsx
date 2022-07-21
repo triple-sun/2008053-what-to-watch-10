@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 
 const useFetch = (server: string) => {
-  const [result, setResult] = useState(null);
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     fetch(server)
       .then((response) => response.json())
-      .then((fetchedFilm) => setResult(fetchedFilm));
+      .then((response) => setData(response));
   }, [server]);
 
-  return result;
+  return data;
 };
 
 export default useFetch;

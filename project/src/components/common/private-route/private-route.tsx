@@ -4,7 +4,7 @@ import { AppRoute, AuthorizationStatus } from '../../../const/enums';
 
 type PrivateRouteProps = {
   authorizationStatus: AuthorizationStatus;
-  children: JSX.Element
+  children: JSX.Element;
 }
 
 const PrivateRoute = ({authorizationStatus, children}: PropsWithChildren<PrivateRouteProps>) => (

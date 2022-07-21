@@ -1,6 +1,6 @@
-import GenresListElement from '../../components/genres/genres-list-element/genres-list-element';
+import GenresList from '../../components/genres/genres-list/genres-list';
 import MovieCardPromo from '../../components/movie/movie-card-promo/movie-card-promo';
-import MovieCardListComponent from '../../components/movie/movie-card-list/movie-card-list';
+import MovieCardsList from '../../components/movie/movie-cards-list/movie-cards-list';
 import PageFooter from '../../components/common/page-footer/page-footer-element';
 import { AppProps } from '../../types/props';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
@@ -12,8 +12,8 @@ const MainPage = (mainProps: AppProps) => (
     <div className="page-content">
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <GenresListElement {...mainProps}/>
-        <MovieCardListComponent movies={mainProps.movies} count={MOVIE_CARD_MAIN_COUNT}/>
+        <GenresList {...mainProps}/>
+        <MovieCardsList movies={mainProps.movies} count={MOVIE_CARD_MAIN_COUNT}/>
         <ShowMoreButton />
       </section>
 
