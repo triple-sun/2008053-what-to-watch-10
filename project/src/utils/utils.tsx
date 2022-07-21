@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { RatingName, RatingValue } from '../const/enums';
+import TMovie from '../types/movie';
 
 const goToPage = (page: string) => <Navigate to={page} />;
 
@@ -43,6 +44,7 @@ const getRatingName = (rating: number) => {
     return RatingName.Awesome;
   }
 };
+const findMovieById = (movies: readonly TMovie[], id?: string) => movies.find((movie) => movie.id.toString() === id);
 
 export {
   goToPage,
@@ -50,5 +52,6 @@ export {
   humanizeRuntime,
   getRandomInteger,
   humanizeCommentDate,
-  getRatingName
+  getRatingName,
+  findMovieById
 };

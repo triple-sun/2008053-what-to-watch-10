@@ -1,12 +1,15 @@
 import {createReducer} from '@reduxjs/toolkit';
 import { Genre } from '../const/enums';
 import mockMovies from '../mocks/movies';
+import mockMoviePromo from '../mocks/promo';
 import { changeGenre, filterMovies, getMovies, resetGenre } from './action';
 
 const initialState = {
   movies: mockMovies,
+  promo: mockMoviePromo,
   filteredMovies: mockMovies,
   selectedGenre: Genre.AllGenres,
+  myMovies: mockMovies.filter((movie) => movie.isFavorite)
 };
 
 const reducer = createReducer(initialState, (builder) => {

@@ -8,15 +8,17 @@ const MovieCardComponent = ({movie, playerId, activePlayerId, renderPlayer, hand
   const onMouseLeave = () => handleMouseEvent(null);
 
   return (
-    <article className="small-film-card catalog__films-card">
-      <div className="small-film-card__image" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-        {!isPlaying
-          ? <img src={movie.previewImage} alt={movie.name} width="280" height="175" />
-          : renderPlayer(movie, isPlaying, isMuted, isPreview)}
-      </div>
-      <h3 className="small-film-card__title">
-        <Link to={`/films/${movie.id}/`} className="small-film-card__link" >{movie.name}</Link>
-      </h3>
+    <article className="small-film-card catalog__films-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      <Link to={`/films/${movie.id}/`} className="small-film-card__link" >
+        <div className="small-film-card__image">
+          {!isPlaying
+            ? <img src={movie.previewImage} alt={movie.name} width="280" height="175" />
+            : renderPlayer(movie, isPlaying, isMuted, isPreview)}
+        </div>
+        <h3 className="small-film-card__title">
+          {movie.name}
+        </h3>
+      </Link>
     </article>
   );};
 

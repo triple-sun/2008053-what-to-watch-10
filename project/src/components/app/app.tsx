@@ -16,7 +16,7 @@ const App = (appProps: AppProps) => (
   <BrowserRouter>
     <Routes>
       <Route path={AppRoute.Main}>
-        <Route index element={<MainPage {...appProps}/>} />
+        <Route index element={<MainPage />} />
 
         <Route path={AppRoute.Login} element={<LoginPage />} />
 
@@ -30,7 +30,7 @@ const App = (appProps: AppProps) => (
         </Route>
 
         <Route path={AppRoute.Movie}>
-          <Route index element={<MoviePage {...appProps}/>} />
+          <Route index element={<MoviePage />} />
         </Route>
 
         <Route path={AppRoute.AddReview}>
@@ -41,7 +41,7 @@ const App = (appProps: AppProps) => (
           path={AppRoute.MyList}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth} >
-              <MyListPage {...appProps} />
+              <MyListPage />
             </PrivateRoute>
           }
         />

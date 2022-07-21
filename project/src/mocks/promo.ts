@@ -18,7 +18,7 @@ const mockMoviePromo: TMovie = {
   'runTime': 104,
   'genre': 'Comedy',
   'released': 2000,
-  'id': '1',
+  'id': 1,
   'isFavorite': false,
   'videoLink': 'https://10.react.pages.academy/static/film/video/matrix.mp4',
   'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4'

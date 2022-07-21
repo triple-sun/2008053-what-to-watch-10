@@ -7,19 +7,20 @@ import PlayerControls from '../../components/movie-player/player-controls/player
 import PlayerProgress from '../../components/movie-player/player-progress/player-progress';
 import VideoPlayer from '../../components/video-player/video-player';
 import { AppRoute } from '../../const/enums';
-import mockMovies from '../../mocks/movies';
+import { useAppSelector } from '../../hooks';
+import { findMovieById } from '../../utils/utils';
 
 const MoviePlayerPage = () => {
+  const {movies} = useAppSelector((state) => state);
   const [isPlaying, setIsPlaying] = useState(false);
   const {id} = useParams();
 
-  const currentMovie = mockMovies.find((mov) => mov.id === id);
+  const currentMovie = findMovieById(movies, id);
 
   const handlePlayButtonToggle = useCallback(
     () => setIsPlaying(!isPlaying),
     [isPlaying]
   );
-
 
   if (!currentMovie) {
     return <Navigate to={AppRoute.NotFound} />;

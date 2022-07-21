@@ -5,7 +5,6 @@ import PageFooterElement from '../../components/common/page-footer/page-footer-e
 import UserBlock from '../../components/common/user-block-element/user-block-element';
 import { AppRoute, HeaderStyle, PosterSize } from '../../const/enums';
 import mockMovies from '../../mocks/movies';
-import { AppProps } from '../../types/props';
 import MovieBackground from '../../components/movie/movie-images/movie-background/movie-background';
 import MoviePoster from '../../components/movie/movie-images/movie-poster/movie-poster';
 import MovieButtons from '../../components/movie/movie-buttons/movie-buttons';
@@ -17,11 +16,14 @@ import MyListAddButton from '../../components/movie/movie-buttons/my-list-add-bu
 import MovieCardDescription from '../../components/movie/movie-card-description/movie-card-description';
 import MovieTabs from '../../components/movie/movie-tabs/movie-tabs';
 import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
+import { useAppSelector } from '../../hooks';
+import { findMovieById } from '../../utils/utils';
 
-const MoviePage = ({myMovies}: AppProps) => {
+const MoviePage = () => {
+  const {movies, myMovies} = useAppSelector((state) => state);
   const {id} = useParams();
 
-  const currentMovie = mockMovies.find((mov) => mov.id === id);
+  const currentMovie = findMovieById(movies, id);
 
   if (!currentMovie) {
     return <Navigate to={AppRoute.NotFound} />;
