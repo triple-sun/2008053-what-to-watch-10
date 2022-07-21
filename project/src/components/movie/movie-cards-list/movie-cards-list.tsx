@@ -6,7 +6,7 @@ const MovieCardComponentWrapped = withVideoPlayer(MovieCardComponent);
 
 const MovieCardsList = ({movies, count}: {movies: readonly TMovie[], count: number}) => (
   <div className="catalog__films-list">
-    {movies.slice(0, count - 1).map(
+    {movies.slice(0, count).map(
       (movie: TMovie, id: number) => <MovieCardComponentWrapped key={`${movie.id}-${movie.name}`} movie={movie} playerId={id} isMuted isPreview/>
     )}
   </div>
