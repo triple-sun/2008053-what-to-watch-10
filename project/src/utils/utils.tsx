@@ -1,9 +1,6 @@
-import { Navigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { RatingName, RatingValue } from '../const/enums';
 import TMovie from '../types/movie';
-
-const goToPage = (page: string) => <Navigate to={page} />;
 
 const minutesToHoursAndMinutes = (totalMinutes: number, forPlayer = true) => {
   const minutes = totalMinutes % 60;
@@ -16,13 +13,6 @@ const minutesToHoursAndMinutes = (totalMinutes: number, forPlayer = true) => {
 };
 
 const humanizeRuntime = (runtime: number) => minutesToHoursAndMinutes(runtime, false);
-
-const getRandomInteger = (a: number, b: number) => {
-  const min = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const max = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
 
 const humanizeCommentDate = (date: string) => dayjs(date).format('MMMM D, YYYY');
 
@@ -47,10 +37,8 @@ const getRatingName = (rating: number) => {
 const findMovieById = (movies: readonly TMovie[], id?: string) => movies.find((movie) => movie.id.toString() === id);
 
 export {
-  goToPage,
   minutesToHoursAndMinutes,
   humanizeRuntime,
-  getRandomInteger,
   humanizeCommentDate,
   getRatingName,
   findMovieById
