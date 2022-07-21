@@ -4,6 +4,7 @@ import MovieCardListComponent from '../../components/movie/movie-card-list/movie
 import PageFooter from '../../components/common/page-footer/page-footer-element';
 import { AppProps } from '../../types/props';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
+import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
 
 const MainPage = (mainProps: AppProps) => (
   <>
@@ -12,7 +13,7 @@ const MainPage = (mainProps: AppProps) => (
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <GenresListElement {...mainProps}/>
-        <MovieCardListComponent movies={mainProps.movies} />
+        <MovieCardListComponent movies={mainProps.movies} count={MOVIE_CARD_MAIN_COUNT}/>
         <ShowMoreButton />
       </section>
 

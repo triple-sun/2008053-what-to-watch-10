@@ -4,10 +4,10 @@ import MovieCardComponent from '../../movie/movie-card/movie-card';
 
 const MovieCardComponentWrapped = withVideoPlayer(MovieCardComponent);
 
-const MovieCardListComponent = ({movies}: {movies: readonly TMovie[]}) => (
+const MovieCardListComponent = ({movies, count}: {movies: readonly TMovie[], count: number}) => (
   <div className="catalog__films-list">
-    {movies.map(
-      (movie: TMovie, id: number) => <MovieCardComponentWrapped key={`${movie.id}-${movie.name}`} movie={movie} id={id} />
+    {movies.slice(0, count - 1).map(
+      (movie: TMovie, id: number) => <MovieCardComponentWrapped key={`${movie.id}-${movie.name}`} movie={movie} playerId={id} isMuted isPreview/>
     )}
   </div>
 );

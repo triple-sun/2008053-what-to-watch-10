@@ -21,12 +21,19 @@ export enum PosterSize {
   Small = 'small'
 }
 
-export enum Rating {
+export enum RatingName {
   Bad = 'Bad',
   Normal = 'Normal',
   Good = 'Good',
   VeryGood = 'Very good',
   Awesome = 'Awesome',
+}
+
+export enum RatingValue {
+  Normal = 3,
+  Good = 5,
+  VeryGood = 8,
+  Awesome = 10,
 }
 
 export enum HeaderStyle {

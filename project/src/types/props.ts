@@ -14,7 +14,11 @@ type ReviewProps = {
 }
 
 type MovieCardProps = {
-    renderPlayer: (movie: TMovie, playerIndex: number) => JSX.Element;
+  movie: TMovie;
+  playerId: number;
+  isMuted: boolean;
+  isPreview: boolean;
+    renderPlayer: (movie: TMovie, playerIndex: number, isPreview?: boolean, isMuted?: boolean) => JSX.Element;
     handleMouseEvent: (id: number | null) => void;
 }
 

@@ -29,7 +29,7 @@ const VideoPlayer = ({movie, isPlaying, isMuted = false, isPreview = false}: Mov
     }
 
     videoRef.current.load();
-  }, [isLoading, isMuted, isPlaying, movie]);
+  }, [isLoading, isMuted, isPlaying, isPreview, movie]);
 
 
   return <video src={isPreview ? movie.previewVideoLink : movie.videoLink} ref={videoRef} className="player__video" poster={movie.previewImage}/>;

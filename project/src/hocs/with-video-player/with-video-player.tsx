@@ -5,9 +5,7 @@ import VideoPlayer from '../../components/video-player/video-player';
 import TMovie from '../../types/movie';
 import { MovieCardProps } from '../../types/props';
 
-type HOCProps = Pick<MovieCardProps, 'handleMouseEvent'> & {
-  renderPlayer: (movie: TMovie, id: number) => void
-}
+type HOCProps = Pick<MovieCardProps, 'handleMouseEvent' | 'renderPlayer'>;
 
 function withVideoPlayer<T>(Component: ComponentType<T>)
   : ComponentType<Omit<T, keyof HOCProps>> {
@@ -20,16 +18,16 @@ function withVideoPlayer<T>(Component: ComponentType<T>)
     const handleMouseEvent = useCallback(
       (id: number | null) => setActivePlayerId(activePlayerId === id ? null : id)
       ,
-      [activePlayerId],
+      [activePlayerId]
     );
 
     return (
       <Component
         {...props as T}
-        renderPlayer={(movie: TMovie, id: number, isMuted: boolean, isPreview: boolean) => (
+        renderPlayer={(movie: TMovie, playerId: number, isMuted: boolean, isPreview: boolean) => (
           <VideoPlayer
             movie={movie}
-            isPlaying={activePlayerId === id}
+            isPlaying={activePlayerId === playerId}
             isMuted={isMuted}
             isPreview={isPreview}
           />

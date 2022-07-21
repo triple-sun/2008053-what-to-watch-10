@@ -6,6 +6,7 @@ import HeaderElement from '../../components/common/header-element/header-element
 import { AppRoute, HeaderStyle } from '../../const/enums';
 import { AppProps } from '../../types/props';
 import { Navigate } from 'react-router-dom';
+import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
 
 const MyListPage = ({myMovies}: AppProps) => {
   if (!myMovies) {
@@ -23,7 +24,7 @@ const MyListPage = ({myMovies}: AppProps) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <MovieCardListComponent movies={myMovies}/>
+        <MovieCardListComponent movies={myMovies} count={MOVIE_CARD_MAIN_COUNT}/>
       </section>
 
       <PageFooterElement />
