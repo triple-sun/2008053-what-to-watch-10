@@ -16,7 +16,7 @@ const App = (appProps: AppProps) => (
   <BrowserRouter>
     <Routes>
       <Route path={AppRoute.Main}>
-        <Route index element={<MainPage {...appProps} />} />
+        <Route index element={<MainPage {...appProps}/>} />
 
         <Route path={AppRoute.Login} element={<LoginPage />} />
 

@@ -50,3 +50,25 @@ export enum MovieNavigation {
 export enum ApiAddress {
   Movies = 'https://10.react.pages.academy/wtw/films/'
 }
+
+export enum Action {
+  ChangeGenre = 'genre/changeGenre',
+  ResetGenre = 'genre/resetGenre',
+  GetMovies = 'movies/getMovies',
+  FilterMovies = '/movies/filterMovies'
+}
+
+export enum Genre {
+  AllGenres = 'All Genres',
+  Comedy = 'Comedy',
+  Crime = 'Crime',
+  Documentary = 'Documentary',
+  Drama = 'Dramas',
+  Horror = 'Horror',
+  Family = 'Kids & Family',
+  Romance = 'Romance',
+  SciFi = 'Sci-Fi',
+  Thriller = 'Thrillers',
+}
+
+
