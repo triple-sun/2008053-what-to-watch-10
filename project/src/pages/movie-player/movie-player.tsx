@@ -1,39 +1,40 @@
-import { PLAYER_TIME_STYLE } from '../../const/const';
+import { Navigate, useParams } from 'react-router-dom';
+import ExitPlayerButton from '../../components/movie-player/player-buttons/exit-player-button/exit-player-button';
+import FullScreenButton from '../../components/movie-player/player-buttons/full-screen-button/full-screen-button';
+import PlayMovieButton from '../../components/movie-player/player-buttons/play-movie-button/play-movie-button';
+import PlayerControls from '../../components/movie-player/player-controls/player-controls';
+import PlayerProgress from '../../components/movie-player/player-progress-element/player-progress-element';
+import PlayerVideoElement from '../../components/movie-player/player-video-element/player-video-element';
+import { AppRoute } from '../../const/enums';
+import mockMovies from '../../mocks/movies';
 
-const MoviePlayerPage = (): JSX.Element => (
-  <div className="player">
-    <video src="#" className="player__video" poster="img/player-poster.jpg"/>
+const MoviePlayerPage = () => {
+  const {id} = useParams();
 
-    <button type="button" className="player__exit">Exit</button>
+  const currentMovie = mockMovies.find((mov) => mov.id === id);
 
-    <div className="player__controls">
-      <div className="player__controls-row">
-        <div className="player__time">
-          <progress className="player__progress" value="30" max="100"/>
-          <div className="player__toggler" style={PLAYER_TIME_STYLE}>Toggler</div>
-        </div>
-        <div className="player__time-value">1:30:29</div>
-      </div>
+  if (!currentMovie) {
+    return <Navigate to={AppRoute.NotFound} />;
+  }
 
-      <div className="player__controls-row">
-        <button type="button" className="player__play">
-          <svg viewBox="0 0 19 19" width="19" height="19">
-            <use xlinkHref="#play-s"/>
-          </svg>
-          <span>Play</span>
-        </button>
-        <div className="player__name">Transpotting</div>
+  return (
+    <div className="player">
+      <PlayerVideoElement {...currentMovie} />
+      <ExitPlayerButton />
+      <PlayerControls>
+        <PlayerControls isRow>
+          <PlayerProgress {...currentMovie}/>
+        </PlayerControls>
 
-        <button type="button" className="player__full-screen">
-          <svg viewBox="0 0 27 27" width="27" height="27">
-            <use xlinkHref="#full-screen"/>
-          </svg>
-          <span>Full screen</span>
-        </button>
-      </div>
+        <PlayerControls isRow>
+          <PlayMovieButton />
+          <div className="player__name">{currentMovie.name}</div>
+
+          <FullScreenButton />
+        </PlayerControls>
+      </PlayerControls>
     </div>
-  </div>
-);
+  );};
 
 export default MoviePlayerPage;
 

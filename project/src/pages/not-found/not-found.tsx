@@ -1,17 +1,18 @@
-import LogoElement from '../../components/universal/logo/logo';
-import PageFooterElement from '../../components/universal/page-footer/page-footer';
-import { AppRoute } from '../../const/enums';
+import HeaderElement from '../../components/common/header-element/header-element';
+import LogoElement from '../../components/common/logo-element/logo-element';
+import PageFooterElement from '../../components/common/page-footer/page-footer-element';
+import { AppRoute, HeaderStyle } from '../../const/enums';
 
-const NotFoundPage = (): JSX.Element => (
-  <div className="user-page">
-    <header className="page-header user-page__head">
+const NotFoundPage = () => (
+  <div className="not-found-page">
+    <HeaderElement style={HeaderStyle.UserPage}>
       <LogoElement />
-      <h1 className="page-title user-page__title">404 Not Found</h1>
-    </header>
-    <div className="sign-in user-page__content">
-      <form action={AppRoute.Main} className="sign-in__form">
-        <div className="sign-in__submit">
-          <button className="sign-in__btn" type="submit">Return to Main Page</button>
+      <h1 className="page-title not-found-page__title">404 Not Found</h1>
+    </HeaderElement>
+    <div className="go-back not-found-page__content">
+      <form action={AppRoute.Main} className="go-back__form">
+        <div className="go-back__submit">
+          <button className="go-back__btn" type="submit">Return to Main Page</button>
         </div>
       </form>
     </div>

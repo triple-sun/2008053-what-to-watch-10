@@ -1,72 +1,46 @@
-import { useParams } from 'react-router-dom';
-import LogoElement from '../../components/universal/logo/logo';
-import UserBlockElement from '../../components/universal/user-block/user-block';
-import { Rating, RATING_ID_PREFIX } from '../../const/const';
-import TListElement from '../../types/list-element';
+import { ChangeEvent, useState } from 'react';
+import { Navigate, useParams } from 'react-router-dom';
+import ReviewForm from '../../components/review/review-form/review-form';
+import LogoElement from '../../components/common/logo-element/logo-element';
+import UserBlock from '../../components/common/user-block-element/user-block-element';
+import { AppRoute, PosterSize } from '../../const/enums';
+import mockMovies from '../../mocks/movies';
+import MovieBackgroundElement from '../../components/movie/movie-images/movie-background/movie-card-bg';
+import MoviePosterElement from '../../components/movie/movie-images/movie-poster/movie-poster';
+import ReviewBreadcrumbs from '../../components/review/review-breadcrumbs/review-breadcrumbs';
+import WTWElement from '../../components/common/wtw-element/wtw-element';
+import HeaderElement from '../../components/common/header-element/header-element';
 
-const RatingElement = ({value: rating}: TListElement): JSX.Element => (
-  <div>
-    <input className="rating__input" id={`${RATING_ID_PREFIX}${rating}`} type="radio" name="rating" value={rating} />
-    <label className="rating__label" htmlFor={`star-${rating}`}>Rating {rating}</label>
-  </div>
-);
+type ReviewState = {
+  rating: string;
+  reviewText: string;
+}
 
-const AddReviewPage = (): JSX.Element => {
-  const params = useParams();
+const AddReviewPage = () => {
+  const [review, setReview] = useState<ReviewState>({rating: '', reviewText: ''});
+  const {id} = useParams();
 
-  // eslint-disable-next-line no-console
-  console.log(params);
-  const ratingElements = Rating.map((rating) => <RatingElement key={`star-${rating}`} value={rating} />);
+  const currentMovie = mockMovies.find((movie) => movie.id === id);
+
+  const onReviewChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setReview({...review,[e.target.name]: e.target.value});
+
+  if (!currentMovie) {
+    return <Navigate to={AppRoute.NotFound} />;
+  }
 
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
-        <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
-        </div>
-
-        <h1 className="visually-hidden">WTW</h1>
-
-        <header className="page-header">
+        <MovieBackgroundElement {...currentMovie} />
+        <WTWElement />
+        <HeaderElement>
           <LogoElement />
-
-          <nav className="breadcrumbs">
-            <ul className="breadcrumbs__list">
-              <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
-              </li>
-              <li className="breadcrumbs__item">
-                <a href="#review" className="breadcrumbs__link">Add review</a>
-              </li>
-            </ul>
-          </nav>
-
-          <UserBlockElement />
-        </header>
-
-        <div className="film-card__poster film-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
-        </div>
+          <ReviewBreadcrumbs {...currentMovie} />
+          <UserBlock />
+        </HeaderElement>
+        <MoviePosterElement {...currentMovie} size={PosterSize.Small} />
       </div>
-
-      <div className="add-review">
-        <form action="#" className="add-review__form">
-          <div className="rating">
-            <div className="rating__stars">
-              {ratingElements}
-            </div>
-          </div>
-
-          <div className="add-review__text">
-            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
-            <div className="add-review__submit">
-              <button className="add-review__btn" type="submit">Post</button>
-            </div>
-
-          </div>
-        </form>
-      </div>
-
+      <ReviewForm onChange={onReviewChange} />
     </section>
   );
 };

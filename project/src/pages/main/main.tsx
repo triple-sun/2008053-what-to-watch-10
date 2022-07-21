@@ -1,46 +1,25 @@
-import { nanoid } from '@reduxjs/toolkit';
-import { Link } from 'react-router-dom';
-import MovieCardComponent from '../../components/movie/movie-card/movie-card';
-import MoviePromoComponent from '../../components/movie/movie-promo/movie-promo';
-import PageFooterElement from '../../components/universal/page-footer/page-footer';
-import TListElement from '../../types/list-element';
-import TMainPageProps from '../../types/main-page-props';
+import GenresListElement from '../../components/genres/genres-list-element/genres-list-element';
+import MovieCardPromo from '../../components/movie/movie-card-promo/movie-card-promo';
+import MovieCardListComponent from '../../components/movie/movie-card-list/movie-card-list';
+import PageFooter from '../../components/common/page-footer/page-footer-element';
+import { AppProps } from '../../types/props';
+import ShowMoreButton from '../../components/show-more-button/show-more-button';
 
-const GenreElement = ({value: genre}: TListElement): JSX.Element => (
-  <li className="catalog__genres-item catalog__genres-item--active">
-    <Link to={`#${genre}`} className="catalog__genres-link">{genre}</Link>
-  </li>
-);
+const MainPage = (mainProps: AppProps) => (
+  <>
+    <MovieCardPromo {...mainProps} />
+    <div className="page-content">
+      <section className="catalog">
+        <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-const MainPage = ({promo, movies, genres}: TMainPageProps): JSX.Element => {
-  const movieCardElements = movies.map((movie) => <MovieCardComponent key={`${movie.id}-${nanoid()}`} value={movie} />);
-  const genreElements = genres.map((genre) => <GenreElement key={genre} value={genre} />);
+        <GenresListElement {...mainProps}/>
+        <MovieCardListComponent movies={mainProps.movies} />
+        <ShowMoreButton />
+      </section>
 
-  return (
-    <div>
-      <MoviePromoComponent {...promo} />
-
-      <div className="page-content">
-        <section className="catalog">
-          <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-          <ul className="catalog__genres-list">
-            {genreElements}
-          </ul>
-
-          <div className="catalog__films-list">
-            {movieCardElements}
-          </div>
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
-        </section>
-
-        <PageFooterElement />
-      </div>
+      <PageFooter />
     </div>
-  );
-};
+  </>
+);
 
 export default MainPage;

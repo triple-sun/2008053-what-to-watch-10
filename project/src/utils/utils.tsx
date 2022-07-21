@@ -1,19 +1,24 @@
 import { Navigate } from 'react-router-dom';
-import TMovie from '../types/movie-data';
-
-const findMovieByID = (movie: TMovie, id: string) => movie.id === id;
 
 const goToPage = (page: string) => <Navigate to={page} />;
 
-//https://www.geeksforgeeks.org/how-to-convert-a-string-into-kebab-case-using-javascript/
-const convertStringToKebabCase = (str: string) => str
-  .replace(/([a-z])([A-Z])/g, '$1-$2')
-  .replace(/[\s_:]+/g, '-')
-  .toLowerCase();
+const minutesToHoursAndMinutes = (totalMinutes: number) => {
+  const minutes = totalMinutes % 60;
+  const hours = Math.floor(totalMinutes / 60);
+  const padTo2Digits = (num: number) => num.toString().padStart(2, '0');
 
+  return `${padTo2Digits(hours)}:${padTo2Digits(minutes)}:00`;
+};
+
+const getRandomInteger = (a: number, b: number) => {
+  const min = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const max = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
 
 export {
-  findMovieByID,
-  convertStringToKebabCase,
-  goToPage
+  goToPage,
+  minutesToHoursAndMinutes,
+  getRandomInteger
 };

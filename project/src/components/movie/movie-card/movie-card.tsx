@@ -1,16 +1,24 @@
 import { Link } from 'react-router-dom';
-import TListElement from '../../../types/list-element';
-import TMovie from '../../../types/movie-data';
+import TMovie from '../../../types/movie';
 
-const MovieCardComponent = ({value: movie}: TListElement<TMovie>): JSX.Element => (
-  <article className="small-film-card catalog__films-card">
-    <div className="small-film-card__image">
-      <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt={movie.title} width="280" height="175" />
-    </div>
-    <h3 className="small-film-card__title">
-      <Link className="small-film-card__link" to={`films/${movie.id}`}>{movie.title}</Link>
-    </h3>
-  </article>
-);
+type MovieCardProps = {
+  movie: TMovie
+  handleMouseEvent: (id: string | null) => void;
+}
+
+const MovieCardComponent = ({movie, handleMouseEvent}: MovieCardProps) => {
+  const handleMouseEnter = () => handleMouseEvent(movie.id);
+  const handleMouseLeave = () => handleMouseEvent(null);
+
+  return (
+    <article className="small-film-card catalog__films-card">
+      <Link to={`/films/${movie.id}/`} className="small-film-card__link" >
+        <div className="small-film-card__image" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+          <img src={movie.previewImage} alt={movie.name} width="280" height="175" />
+        </div>
+        <h3 className="small-film-card__title">{movie.name}</h3>
+      </Link>
+    </article>
+  );};
 
 export default MovieCardComponent;

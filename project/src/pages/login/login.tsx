@@ -1,29 +1,18 @@
-import LogoElement from '../../components/universal/logo/logo';
-import PageFooterElement from '../../components/universal/page-footer/page-footer';
+import HeaderElement from '../../components/common/header-element/header-element';
+import LogoElement from '../../components/common/logo-element/logo-element';
+import PageFooterElement from '../../components/common/page-footer/page-footer-element';
+import SignInForm from '../../components/user/sign-in-form/sign-in-form';
+import { HeaderStyle } from '../../const/enums';
 
-const LoginPage = (): JSX.Element => (
+const LoginPage = () => (
   <div className="user-page">
-    <header className="page-header user-page__head">
+    <HeaderElement style={HeaderStyle.UserPage}>
       <LogoElement />
       <h1 className="page-title user-page__title">Sign in</h1>
-    </header>
+    </HeaderElement>
 
     <div className="sign-in user-page__content">
-      <form action="#" className="sign-in__form">
-        <div className="sign-in__fields">
-          <div className="sign-in__field">
-            <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />
-            <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
-          </div>
-          <div className="sign-in__field">
-            <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" />
-            <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
-          </div>
-        </div>
-        <div className="sign-in__submit">
-          <button className="sign-in__btn" type="submit">Sign in</button>
-        </div>
-      </form>
+      <SignInForm />
     </div>
 
     <PageFooterElement />
