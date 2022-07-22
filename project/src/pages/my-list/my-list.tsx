@@ -4,11 +4,12 @@ import PageFooterElement from '../../components/common/page-footer/page-footer-e
 import UserBlock from '../../components/common/user-block-element/user-block-element';
 import HeaderElement from '../../components/common/header-element/header-element';
 import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
-import { useAppSelector } from '../../hooks';
 import { HeaderStyle } from '../../const/enums';
+import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 
 const MyListPage = () => {
   const myMovies = useAppSelector((state) => state.myMovies);
+
   return (
     <div className="user-page">
       <HeaderElement style={HeaderStyle.UserPage}>

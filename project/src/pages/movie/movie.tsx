@@ -15,21 +15,21 @@ import PlayMovieButton from '../../components/movie/movie-buttons/play-movie-but
 import MyListAddButton from '../../components/movie/movie-buttons/my-list-add-button/my-list-add-button';
 import MovieCardDescription from '../../components/movie/movie-card-description/movie-card-description';
 import MovieTabs from '../../components/movie/movie-tabs/movie-tabs';
-import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
-import { useAppSelector } from '../../hooks';
+import { MOVIE_CARD_SIMILAR_COUNT } from '../../const/const';
 import { findMovieById } from '../../utils/utils';
+import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 
 const MoviePage = () => {
-  const {movies, myMovies} = useAppSelector((state) => state);
+  const {allMovies: movies, myMovies} = useAppSelector((state) => state);
   const {id} = useParams();
 
   const currentMovie = findMovieById(movies, id);
+  const similarMovies = mockMovies.filter((movie) => movie.genre === currentMovie?.genre);
 
   if (!currentMovie) {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
-  const similarMovies = mockMovies.filter((movie) => movie.genre === currentMovie.genre);
   return (
     <>
       <section className="film-card film-card--full">
@@ -67,7 +67,7 @@ const MoviePage = () => {
             <section className="catalog catalog--like-this">
               <h2 className="catalog__title">More like this</h2>
 
-              <MovieCardsList movies={mockMovies.filter((movie) => movie.genre === currentMovie.genre)} count={MOVIE_CARD_MAIN_COUNT}/>
+              <MovieCardsList movies={mockMovies.filter((movie) => movie.genre === currentMovie.genre)} count={MOVIE_CARD_SIMILAR_COUNT}/>
             </section>
           )
           : null}

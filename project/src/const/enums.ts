@@ -52,10 +52,13 @@ export enum ApiAddress {
 }
 
 export enum Action {
-  ChangeGenre = 'genre/changeGenre',
-  ResetGenre = 'genre/resetGenre',
+  ChangeGenre = 'movies/genre/changeGenre',
+  ResetGenre = 'movies/genre/resetGenre',
   GetMovies = 'movies/getMovies',
-  FilterMovies = '/movies/filterMovies'
+  FilterMovies = '/movies/filterMovies',
+  ResetMovies = '/movies/resetMovies',
+  SetRenderedMovieCount = '/movies/setRendereMovieCount',
+  ResetRenderedMovieCount = '/movies/resetRenderedMovieCount',
 }
 
 export enum Genre {

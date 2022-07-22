@@ -8,6 +8,5 @@ const GenresList = ({selectedGenre, handleGenreClick}: {selectedGenre: Genre, ha
     {GenreList.map((genre, index) => <GenreElement key={genre} genre={Object.values(Genre)[index]} selectedGenre={selectedGenre} handleGenreClick={handleGenreClick}/>)}
   </ul>
 );
-
 export default GenresList;
 

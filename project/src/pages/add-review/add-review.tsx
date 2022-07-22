@@ -9,8 +9,8 @@ import MoviePoster from '../../components/movie/movie-images/movie-poster/movie-
 import ReviewBreadcrumbs from '../../components/review/review-breadcrumbs/review-breadcrumbs';
 import WTWElement from '../../components/common/wtw-element/wtw-element';
 import HeaderElement from '../../components/common/header-element/header-element';
-import { useAppSelector } from '../../hooks';
 import { findMovieById } from '../../utils/utils';
+import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 
 type ReviewState = {
   rating: string;
@@ -18,11 +18,11 @@ type ReviewState = {
 }
 
 const AddReviewPage = () => {
-  const {movies} = useAppSelector((state) => state);
+  const {allMovies} = useAppSelector((state) => state);
   const [review, setReview] = useState<ReviewState>({rating: '', reviewText: ''});
   const {id} = useParams();
 
-  const currentMovie = findMovieById(movies, id);
+  const currentMovie = findMovieById(allMovies, id);
 
   const onReviewChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setReview({...review,[e.target.name]: e.target.value});
 
