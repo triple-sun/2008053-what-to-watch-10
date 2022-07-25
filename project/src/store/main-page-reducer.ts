@@ -3,7 +3,7 @@ import { MOVIE_CARD_MAIN_COUNT } from '../const/const';
 import { Genre } from '../const/enums';
 import mockMovies from '../mocks/movies';
 import mockMoviePromo from '../mocks/promo';
-import { changeGenre, filterMovies, getMovies, setRenderedMovieCount, resetGenre, resetRenderedMovieCount, resetMovies } from './action';
+import { changeGenre, filterMovies, getMovies, setRenderedMovieCount, resetGenre, resetRenderedMovieCount, resetMovies } from './main-page-actions';
 
 const initialState = {
   promo: mockMoviePromo,
@@ -15,7 +15,7 @@ const initialState = {
   renderedMoviesCount: MOVIE_CARD_MAIN_COUNT,
 };
 
-const reducer = createReducer(initialState, (builder) => {
+const mainPageReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeGenre, (state, action) => {
       state.selectedGenre = action.payload;
@@ -43,4 +43,4 @@ const reducer = createReducer(initialState, (builder) => {
     });
 });
 
-export {reducer};
+export default mainPageReducer;

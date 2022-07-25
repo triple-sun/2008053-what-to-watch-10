@@ -4,7 +4,7 @@ import PageFooterElement from '../../components/common/page-footer/page-footer-e
 import SignInForm from '../../components/user/sign-in-form/sign-in-form';
 import { HeaderStyle } from '../../const/enums';
 import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
-import { resetMovies } from '../../store/action';
+import { resetMovies } from '../../store/main-page-actions';
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
