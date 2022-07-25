@@ -25,22 +25,18 @@ const getRandomInteger = (a: number, b: number) => {
 
 const humanizeCommentDate = (date: string) => dayjs(date).format('MMMM D, YYYY');
 
-
 const getRatingName = (rating: number) => {
-  if (rating < RatingValue.Normal) {
-    return RatingName.Bad;
-  }
-  if (rating < RatingValue.Good) {
-    return RatingName.Normal;
-  }
-  if (rating < RatingValue.VeryGood) {
-    return RatingName.Good;
-  }
-  if (rating < RatingValue.Awesome) {
-    return RatingName.VeryGood;
-  }
-  if (rating === RatingValue.Awesome) {
-    return RatingName.Awesome;
+  switch (true) {
+    case rating < RatingValue.Normal:
+      return RatingName.Bad;
+    case rating < RatingValue.Good:
+      return RatingName.Normal;
+    case rating < RatingValue.VeryGood:
+      return RatingName.Good;
+    case rating < RatingValue.Awesome:
+      return RatingName.VeryGood;
+    case rating === RatingValue.Awesome:
+      return RatingName.Awesome;
   }
 };
 
