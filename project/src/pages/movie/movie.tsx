@@ -21,7 +21,7 @@ import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
 const MoviePage = ({myMovies}: AppProps) => {
   const {id} = useParams();
 
-  const currentMovie = mockMovies.find((mov) => mov.id === id);
+  const currentMovie = mockMovies.find((mov) => mov.id.toString() === id);
 
   if (!currentMovie) {
     return <Navigate to={AppRoute.NotFound} />;

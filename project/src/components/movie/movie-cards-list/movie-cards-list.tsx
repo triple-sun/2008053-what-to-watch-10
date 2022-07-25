@@ -1,15 +1,21 @@
-import withVideoPlayer from '../../../hocs/with-video-player/with-video-player';
+import { useCallback, useState } from 'react';
 import TMovie from '../../../types/movie';
 import MovieCardComponent from '../movie-card/movie-card';
 
-const MovieCardComponentWrapped = withVideoPlayer(MovieCardComponent);
+const MovieCardsList = ({movies, count}: {movies: readonly TMovie[], count: number}) => {
+  const [activeMovieId, setActiveMovieId] = useState<null | number>(null);
 
-const MovieCardsList = ({movies, count}: {movies: readonly TMovie[], count: number}) => (
-  <div className="catalog__films-list">
-    {movies.slice(0, count).map(
-      (movie: TMovie, id: number) => <MovieCardComponentWrapped key={`${movie.id}-${movie.name}`} movie={movie} playerId={id} isMuted isPreview/>
-    )}
-  </div>
-);
+  const handleMouseEvent = useCallback(
+    (id: number | null) => id === activeMovieId ? null : setActiveMovieId(id),
+    [activeMovieId],
+  );
+
+  return (
+    <div className="catalog__films-list">
+      {movies.slice(0, count).map(
+        (movie: TMovie) => <MovieCardComponent key={`${movie.id}-${movie.name}`} movie={movie} activeMovieId={activeMovieId} handleMouseEvent={handleMouseEvent}/>
+      )}
+    </div>
+  );};
 
 export default MovieCardsList;

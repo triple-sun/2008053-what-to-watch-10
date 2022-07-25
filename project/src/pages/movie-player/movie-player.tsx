@@ -13,7 +13,7 @@ const MoviePlayerPage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const {id} = useParams();
 
-  const currentMovie = mockMovies.find((mov) => mov.id === id);
+  const currentMovie = mockMovies.find((mov) => mov.id.toString() === id);
 
   const handlePlayButtonToggle = useCallback(
     () => setIsPlaying(!isPlaying),

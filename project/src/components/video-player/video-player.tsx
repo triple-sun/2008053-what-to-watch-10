@@ -23,8 +23,13 @@ const VideoPlayer = ({movie, isPlaying, isMuted = false, isPreview = false}: Mov
     videoRef.current.addEventListener(VIDEO_LOADED_DATA, () => setIsLoading(!isLoading));
     videoRef.current.muted = isMuted;
 
-    if (isPlaying && !isLoading) {
+    if (isPlaying && !isLoading && isPreview) {
       setTimeout(() => videoRef.current?.play(), 1000);
+      return;
+    }
+
+    if (isPlaying && !isLoading && !isPreview) {
+      videoRef.current.play();
       return;
     }
 

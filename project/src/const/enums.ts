@@ -29,7 +29,7 @@ export enum RatingName {
   Awesome = 'Awesome',
 }
 
-export enum RatingValue {
+export enum RatingMinNumber {
   Normal = 3,
   Good = 5,
   VeryGood = 8,

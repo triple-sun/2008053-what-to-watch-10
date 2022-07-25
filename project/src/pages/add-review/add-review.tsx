@@ -20,7 +20,7 @@ const AddReviewPage = () => {
   const [review, setReview] = useState<ReviewState>({rating: '', reviewText: ''});
   const {id} = useParams();
 
-  const currentMovie = mockMovies.find((mov) => mov.id === id);
+  const currentMovie = mockMovies.find((mov) => mov.id.toString() === id);
 
   const onReviewChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setReview({...review,[e.target.name]: e.target.value});
 
