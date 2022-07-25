@@ -3,9 +3,10 @@ import { MOVIE_CARD_MAIN_COUNT } from '../const/const';
 import { Genre } from '../const/enums';
 import mockMovies from '../mocks/movies';
 import mockMoviePromo from '../mocks/promo';
+import { MainPageInitialState } from '../types/initial-states';
 import { changeGenre, filterMovies, getMovies, setRenderedMovieCount, resetGenre, resetRenderedMovieCount, resetMovies } from './main-page-actions';
 
-const initialState = {
+const initialState: MainPageInitialState = {
   promo: mockMoviePromo,
   movies: mockMovies,
   allMovies: mockMovies,

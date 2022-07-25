@@ -59,6 +59,7 @@ export enum Action {
   ResetMovies = '/movies/resetMovies',
   SetRenderedMovieCount = '/movies/setRendereMovieCount',
   ResetRenderedMovieCount = '/movies/resetRenderedMovieCount',
+  SetActiveMovie = 'movies/setActiveMovie'
 }
 
 export enum Genre {

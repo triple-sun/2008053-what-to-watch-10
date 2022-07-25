@@ -1,16 +1,15 @@
 import { Link, useNavigate } from 'react-router-dom';
 import THandlePageChange from '../../../types/page-change';
 import { MovieCardProps } from '../../../types/props';
+import VideoPlayer from '../../video-player/video-player';
 
-type MovieCardComponentProps = MovieCardProps & THandlePageChange & {
-  activePlayerId: number
-}
+type MovieCardComponentProps = MovieCardProps & THandlePageChange
 
-const MovieCardComponent = ({movie, playerId, activePlayerId, renderPlayer, handleMouseEvent, handlePageChange, isMuted, isPreview}: MovieCardComponentProps) => {
+const MovieCardComponent = ({movie, activeMovieId, handleMouseEvent, handlePageChange}: MovieCardComponentProps) => {
   const navigate = useNavigate();
-  const isPlaying = playerId === activePlayerId;
+  const isPlaying = movie.id === activeMovieId;
 
-  const onMouseEnter = () => handleMouseEvent(playerId);
+  const onMouseEnter = () => handleMouseEvent(movie.id);
   const onMouseLeave = () => handleMouseEvent(null);
 
   const onMovieLinkClick = (e: React.MouseEvent) => {
@@ -27,7 +26,7 @@ const MovieCardComponent = ({movie, playerId, activePlayerId, renderPlayer, hand
         <div className="small-film-card__image">
           {!isPlaying
             ? <img src={movie.previewImage} alt={movie.name} width="280" height="175" />
-            : renderPlayer(movie, isPlaying, isMuted, isPreview)}
+            : <VideoPlayer movie={movie} isPlaying isMuted isPreview />}
         </div>
         <h3 className="small-film-card__title">
           {movie.name}
