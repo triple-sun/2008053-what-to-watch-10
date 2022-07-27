@@ -1,12 +1,12 @@
 
-import { AppProps } from '../../../types/props';
-import Genre from '../genre/genre';
+import { GenreList } from '../../../const/const';
+import { Genre } from '../../../const/enums';
+import GenreElement from '../genre/genre';
 
-const GenresList = ({genres}: AppProps) => (
+const GenresList = ({selectedGenre, handleGenreClick}: {selectedGenre: Genre, handleGenreClick: (genre: Genre) => void}) => (
   <ul className="catalog__genres-list">
-    {genres.map((genre) => <Genre key={genre} genre={genre}/>)}
+    {GenreList.map((genre, index) => <GenreElement key={genre} genre={Object.values(Genre)[index]} selectedGenre={selectedGenre} handleGenreClick={handleGenreClick}/>)}
   </ul>
 );
-
 export default GenresList;
 

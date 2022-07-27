@@ -11,18 +11,19 @@ import MovieButtons from '../movie-buttons/movie-buttons';
 import MyListAddButton from '../movie-buttons/my-list-add-button/my-list-add-button';
 import PlayMovieButton from '../movie-buttons/play-movie-button/play-movie-button';
 import MovieCardDescription from '../movie-card-description/movie-card-description';
+import THandlePageChange from '../../../types/page-change';
 
-type MoviePromoProps = Pick<AppProps, 'promo' | 'myMovies'>
+type MoviePromoProps = Pick<AppProps, 'promo' | 'myMovies'> & THandlePageChange
 
-const MovieCardPromo = ({promo, myMovies}: MoviePromoProps) => (
+const MovieCardPromo = ({promo, myMovies, handlePageChange}: MoviePromoProps) => (
   <section className="film-card">
     <MovieBackground movie={promo} />
 
     <WTWElement />
 
     <HeaderElement style={HeaderStyle.MovieCard}>
-      <LogoElement />
-      <UserBlock />
+      <LogoElement handlePageChange={handlePageChange}/>
+      <UserBlock handlePageChange={handlePageChange}/>
     </HeaderElement>
 
     <div className="film-card__wrap">
@@ -31,9 +32,9 @@ const MovieCardPromo = ({promo, myMovies}: MoviePromoProps) => (
         <MoviePoster {...promo} />
         <MovieCardDescription movie={promo}>
           <MovieButtons>
-            <PlayMovieButton {...promo} />
-            <MyListAddButton count={myMovies.length} />
-            <AddReviewButton {...promo} />
+            <PlayMovieButton {...promo} handlePageChange={handlePageChange}/>
+            <MyListAddButton count={myMovies.length} handlePageChange={handlePageChange}/>
+            <AddReviewButton {...promo} handlePageChange={handlePageChange}/>
           </MovieButtons>
         </MovieCardDescription>
       </div>
