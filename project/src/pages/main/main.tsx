@@ -33,13 +33,13 @@ const MainPage = () => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenresList selectedGenre={selectedGenre} handleGenreClick={handleGenreClick}/>
-          <MovieCardsList movies={filteredMovies} count={renderedMoviesCount} />
+          <MovieCardsList movies={filteredMovies} count={renderedMoviesCount} handlePageChange={handlePageChange}/>
           {!(filteredMovies.length - renderedMoviesCount)
             ? null
             : <ShowMoreButton movies={filteredMovies} countPerStep={MOVIE_CARD_MAIN_COUNT} renderedMoviesCount={renderedMoviesCount} handleShowMoreButtonClick={handleShowMoreButtonClick}/>}
         </section>
 
-        <PageFooter />
+        <PageFooter handlePageChange={handlePageChange} />
       </div>
     </>
   );};
