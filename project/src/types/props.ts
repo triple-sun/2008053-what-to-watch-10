@@ -1,10 +1,10 @@
 import { ChangeEvent } from 'react';
+import { Genre } from '../const/enums';
 import TMovie from './movie';
 
 type AppProps = {
   promo: TMovie;
   movies: readonly TMovie[];
-  genres: readonly string[];
   myMovies: TMovie[];
   randomMovie: TMovie
 }
@@ -16,14 +16,19 @@ type ReviewProps = {
 type MovieCardProps = {
   movie: TMovie;
   activeMovieId: number | null;
-  isMuted?: boolean;
-  isPreview?: boolean;
   handleMouseEvent: (id: number | null) => void;
+}
+
+type GenreProps = {
+  genre: Genre;
+  selectedGenre: Genre;
+  handleGenreClick: (genre: Genre) => void;
 }
 
 export type {
   AppProps,
   ReviewProps,
-  MovieCardProps
+  MovieCardProps,
+  GenreProps,
 };
 
