@@ -1,4 +1,4 @@
-import MovieCardListComponent from '../../components/movie/movie-card-list/movie-card-list';
+import MovieCardsList from '../../components/movie/movie-cards-list/movie-cards-list';
 import LogoElement from '../../components/common/logo-element/logo-element';
 import PageFooterElement from '../../components/common/page-footer/page-footer-element';
 import UserBlock from '../../components/common/user-block-element/user-block-element';
@@ -6,6 +6,7 @@ import HeaderElement from '../../components/common/header-element/header-element
 import { AppRoute, HeaderStyle } from '../../const/enums';
 import { AppProps } from '../../types/props';
 import { Navigate } from 'react-router-dom';
+import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
 
 const MyListPage = ({myMovies}: AppProps) => {
   if (!myMovies) {
@@ -23,7 +24,7 @@ const MyListPage = ({myMovies}: AppProps) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <MovieCardListComponent movies={myMovies}/>
+        <MovieCardsList movies={myMovies} count={MOVIE_CARD_MAIN_COUNT}/>
       </section>
 
       <PageFooterElement />

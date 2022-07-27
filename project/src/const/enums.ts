@@ -21,12 +21,19 @@ export enum PosterSize {
   Small = 'small'
 }
 
-export enum Rating {
+export enum RatingName {
   Bad = 'Bad',
   Normal = 'Normal',
   Good = 'Good',
   VeryGood = 'Very good',
   Awesome = 'Awesome',
+}
+
+export enum RatingMinNumber {
+  Normal = 3,
+  Good = 5,
+  VeryGood = 8,
+  Awesome = 10,
 }
 
 export enum HeaderStyle {
@@ -38,4 +45,8 @@ export enum MovieNavigation {
   Overview = 'Overview',
   Details = 'Details',
   Reviews = 'Reviews',
+}
+
+export enum ApiAddress {
+  Movies = 'https://10.react.pages.academy/wtw/films/'
 }

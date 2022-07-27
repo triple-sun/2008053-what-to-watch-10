@@ -19,7 +19,7 @@ const mockMovies: readonly TMovie[] = [
     'runTime': 104,
     'genre': 'Comedy',
     'released': 2000,
-    'id': '1',
+    'id': 1,
     'isFavorite': false,
     'videoLink': 'https://10.react.pages.academy/static/film/video/matrix.mp4',
     'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4'
@@ -42,7 +42,7 @@ const mockMovies: readonly TMovie[] = [
     'runTime': 167,
     'genre': 'Crime',
     'released': 2002,
-    'id': '2',
+    'id': 2,
     'isFavorite': false,
     'videoLink': 'https://10.react.pages.academy/static/film/video/matrix.mp4',
     'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4'
@@ -65,7 +65,7 @@ const mockMovies: readonly TMovie[] = [
     'runTime': 116,
     'genre': 'Adventure',
     'released': 2005,
-    'id': '3',
+    'id': 3,
     'isFavorite': false,
     'videoLink': 'https://10.react.pages.academy/static/film/video/matrix.mp4',
     'previewVideoLink': 'https://10.react.pages.academy/static/film/video/traffic.mp4'
@@ -88,7 +88,7 @@ const mockMovies: readonly TMovie[] = [
     'runTime': 88,
     'genre': 'Comedy',
     'released': 2003,
-    'id': '4',
+    'id': 4,
     'isFavorite': true,
     'videoLink': 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
     'previewVideoLink': 'https://10.react.pages.academy/static/film/video/traffic.mp4'
@@ -111,7 +111,7 @@ const mockMovies: readonly TMovie[] = [
     'runTime': 91,
     'genre': 'Adventure',
     'released': 2007,
-    'id': '5',
+    'id': 5,
     'isFavorite': true,
     'videoLink': 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
     'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4'
@@ -134,7 +134,7 @@ const mockMovies: readonly TMovie[] = [
     'runTime': 30,
     'genre': 'Comedy',
     'released': 2019,
-    'id': '6',
+    'id': 6,
     'isFavorite': false,
     'videoLink': 'https://10.react.pages.academy/static/film/video/matrix.mp4',
     'previewVideoLink': 'https://10.react.pages.academy/static/film/video/traffic.mp4'
@@ -157,7 +157,7 @@ const mockMovies: readonly TMovie[] = [
     'runTime': 94,
     'genre': 'Adventure',
     'released': 2012,
-    'id': '7',
+    'id': 7,
     'isFavorite': true,
     'videoLink': 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
     'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4'
@@ -180,7 +180,7 @@ const mockMovies: readonly TMovie[] = [
     'runTime': 170,
     'genre': 'Drama',
     'released': 2014,
-    'id': '8',
+    'id': 8,
     'isFavorite': false,
     'videoLink': 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
     'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4'

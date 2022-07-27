@@ -13,8 +13,17 @@ type ReviewProps = {
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
+type MovieCardProps = {
+  movie: TMovie;
+  activeMovieId: number | null;
+  isMuted?: boolean;
+  isPreview?: boolean;
+  handleMouseEvent: (id: number | null) => void;
+}
+
 export type {
   AppProps,
-  ReviewProps
+  ReviewProps,
+  MovieCardProps
 };
 
