@@ -15,10 +15,6 @@ export const resetRenderedMovieCount = createAction(Action.ResetRenderedMovieCou
 
 export const resetMovies = createAction(Action.ResetMovies);
 
-export const getMovies = createAction(Action.GetMovies, (movies) => ({
-  payload: movies
-}));
-
 export const filterMovies = createAction<{genre: Genre}>(Action.FilterMovies);
 
 

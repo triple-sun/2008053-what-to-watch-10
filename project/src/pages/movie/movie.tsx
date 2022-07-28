@@ -18,9 +18,11 @@ import MovieTabs from '../../components/movie/movie-tabs/movie-tabs';
 import { MOVIE_CARD_SIMILAR_COUNT } from '../../const/const';
 import { findMovieById } from '../../utils/utils';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
+import { getMovies, getMyMovies } from '../../utils/selectors/selectors';
 
 const MoviePage = () => {
-  const {allMovies: movies, myMovies} = useAppSelector((state) => state);
+  const movies = useAppSelector(getMovies);
+  const myMovies = useAppSelector(getMyMovies);
   const {id} = useParams();
 
   const currentMovie = findMovieById(movies, id);
@@ -67,7 +69,7 @@ const MoviePage = () => {
             <section className="catalog catalog--like-this">
               <h2 className="catalog__title">More like this</h2>
 
-              <MovieCardsList movies={mockMovies.filter((movie) => movie.genre === currentMovie.genre)} count={MOVIE_CARD_SIMILAR_COUNT}/>
+              <MovieCardsList movies={similarMovies} renderedMovieCount={MOVIE_CARD_SIMILAR_COUNT}/>
             </section>
           )
           : null}

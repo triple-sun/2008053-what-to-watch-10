@@ -1,9 +1,8 @@
 import { useCallback, useState } from 'react';
 import TMovie from '../../../types/movie';
-import THandlePageChange from '../../../types/page-change';
 import MovieCardComponent from '../movie-card/movie-card';
 
-const MovieCardsList = ({movies, count, handlePageChange}: {movies: readonly TMovie[], count: number} & THandlePageChange) => {
+const MovieCardsList = ({movies, renderedMovieCount}: {movies: readonly TMovie[], renderedMovieCount: number}) => {
   const [activeMovieId, setActiveMovieId] = useState<null | number>(null);
 
   const handleMouseEvent = useCallback(
@@ -13,8 +12,8 @@ const MovieCardsList = ({movies, count, handlePageChange}: {movies: readonly TMo
 
   return (
     <div className="catalog__films-list">
-      {movies.slice(0, count).map(
-        (movie: TMovie) => <MovieCardComponent key={`${movie.id}-${movie.name}`} movie={movie} activeMovieId={activeMovieId} handleMouseEvent={handleMouseEvent} handlePageChange={handlePageChange}/>
+      {movies.slice(0, renderedMovieCount).map(
+        (movie: TMovie) => <MovieCardComponent key={`${movie.id}-${movie.name}`} movie={movie} activeMovieId={activeMovieId} handleMouseEvent={handleMouseEvent} />
       )}
     </div>
   );};

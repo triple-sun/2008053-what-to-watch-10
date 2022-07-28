@@ -11,6 +11,7 @@ import WTWElement from '../../components/common/wtw-element/wtw-element';
 import HeaderElement from '../../components/common/header-element/header-element';
 import { findMovieById } from '../../utils/utils';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
+import { getMovies } from '../../utils/selectors/selectors';
 
 type ReviewState = {
   rating: string;
@@ -18,9 +19,9 @@ type ReviewState = {
 }
 
 const AddReviewPage = () => {
-  const {allMovies} = useAppSelector((state) => state);
   const [review, setReview] = useState<ReviewState>({rating: '', reviewText: ''});
   const {id} = useParams();
+  const allMovies = useAppSelector(getMovies);
 
   const currentMovie = findMovieById(allMovies, id);
 

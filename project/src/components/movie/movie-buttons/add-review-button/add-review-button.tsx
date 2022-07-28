@@ -1,20 +1,6 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import TMovie from '../../../../types/movie';
-import THandlePageChange from '../../../../types/page-change';
 
-const AddReviewButton = ({id, handlePageChange}: TMovie & THandlePageChange) => {
-  const navigate = useNavigate();
-
-  const onAddReviewLinkClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (handlePageChange) {
-      handlePageChange();
-    }
-    navigate(`/films/${id}/review`);
-  };
-
-  return <a href={`/films/${id}/review`} className="btn film-card__button" onClick={onAddReviewLinkClick}>Add review</a>;
-};
+const AddReviewButton = ({id}: TMovie ) => <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>;
 
 export default AddReviewButton;

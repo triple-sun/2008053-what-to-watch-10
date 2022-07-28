@@ -4,7 +4,6 @@ const MOVIE_CARD_MAIN_COUNT = 8;
 const MOVIE_CARD_SIMILAR_COUNT = 4;
 
 const MOVIE_NAVIGATION_ACTIVE_CLASS = 'film-nav__item--active';
-const GENRE_NAVIGATION_ACTIVE_CLASS = 'catalog__genres-item--active';
 
 const GenreList = [
   'AllGenres',
@@ -26,7 +25,6 @@ export {
   MOVIE_CARD_MAIN_COUNT,
   MOVIE_CARD_SIMILAR_COUNT,
   MOVIE_NAVIGATION_ACTIVE_CLASS,
-  GENRE_NAVIGATION_ACTIVE_CLASS,
   GenreList,
   RatingValues
 };
