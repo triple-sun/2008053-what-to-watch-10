@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 const UserBlockElement = () => (
   <ul className="user-block">
     <li className="user-block__item">
@@ -8,7 +6,7 @@ const UserBlockElement = () => (
       </div>
     </li>
     <li className="user-block__item">
-      <Link to="#signout" className="user-block__link" >Sign out</Link>
+      <a href="#signout" className="user-block__link">Sign out</a>
     </li>
   </ul>
 );
