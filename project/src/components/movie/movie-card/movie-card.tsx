@@ -2,9 +2,7 @@ import { Link } from 'react-router-dom';
 import { MovieCardProps } from '../../../types/props';
 import VideoPlayer from '../../video-player/video-player';
 
-type MovieCardComponentProps = MovieCardProps
-
-const MovieCardComponent = ({movie, activeMovieId, handleMouseEvent}: MovieCardComponentProps) => {
+const MovieCardComponent = ({movie, activeMovieId, handleMouseEvent}: MovieCardProps) => {
   const isPlaying = movie.id === activeMovieId;
 
   const onMouseEnter = () => handleMouseEvent(movie.id);
