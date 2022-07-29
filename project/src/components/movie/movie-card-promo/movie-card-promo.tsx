@@ -13,8 +13,12 @@ import MovieCardDescription from '../movie-card-description/movie-card-descripti
 import TMovie from '../../../types/movie';
 import { filterMyMovies } from '../../../utils/utils';
 
-const MovieCardPromo = ({promo, movies}: {promo: TMovie, movies: TMovie[]}) => {
+const MovieCardPromo = ({promo, movies}: {promo: TMovie | null, movies: TMovie[]}) => {
   const myMovies = filterMyMovies(movies);
+
+  if (!promo) {
+    return null;
+  }
 
   return (
     <section className="film-card">

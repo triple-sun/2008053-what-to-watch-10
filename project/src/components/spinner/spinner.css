@@ -1,0 +1,11 @@
+.spinner {
+  position: absolute;
+  display: flexbox;
+  margin: auto;
+  padding-left: 47%;
+  padding-right: 47%;
+  width: 100%;
+  align-items: center;
+  align-self: center;
+  text-align: center;
+}

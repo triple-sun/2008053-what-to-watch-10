@@ -1,0 +1,29 @@
+.loading-page__title {
+  text-align: center;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%); }
+
+.loading-page__content {
+  align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  width: 100%; }
+
+
+.loading-page {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#170202), to(#0c0101));
+  background-image: linear-gradient(-180deg, #170202 0%, #0c0101 100%);
+  color: #C9B37E;
+  padding: 15px;
+  padding-bottom: 70px;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+         flex-direction: column; }
+

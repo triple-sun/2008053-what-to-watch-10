@@ -52,18 +52,24 @@ export enum ApiAddress {
 }
 
 export enum Action {
+  FetchMovies = 'data/fetchMovies',
+  FetchPromo = 'data/fetchPromo',
+  LoadMovies = 'movies/loadMovies',
+  LoadPromo = 'movies/loadPromo',
+  SetDataLoaded = 'data/setDataLoaded',
   ChangeGenre = 'movies/genre/changeGenre',
   ResetGenre = 'movies/genre/resetGenre',
-  GetMovies = 'movies/getMovies',
-  FilterMovies = '/movies/filterMovies',
-  ResetMovies = '/movies/resetMovies',
-  SetRenderedMovieCount = '/movies/setRendereMovieCount',
-  ResetRenderedMovieCount = '/movies/resetRenderedMovieCount',
-  SetActiveMovie = 'movies/setActiveMovie'
+  ReqAuth = 'user/requireAuthorization',
+  CheckAuth = 'user/checkAuthorizattion',
+  Login = 'user/login',
+  Logout = 'user/logout',
+  SetError = 'app/setError',
+  ClearError = 'app/clearError'
 }
 
 export enum Genre {
   AllGenres = 'All Genres',
+  Adventure = 'Adventure',
   Comedy = 'Comedy',
   Crime = 'Crime',
   Documentary = 'Documentary',
@@ -73,4 +79,11 @@ export enum Genre {
   Romance = 'Romance',
   SciFi = 'Sci-Fi',
   Thriller = 'Thriller',
+}
+
+export enum APIRoute {
+  Promo = '/promo',
+  Movies = '/films',
+  Login = '/login',
+  Logout = '/logout',
 }

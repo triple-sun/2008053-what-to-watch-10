@@ -1,0 +1,14 @@
+.error-message {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#170202), to(#0c0101));
+  background-image: linear-gradient(-180deg, #170202 0%, #0c0101 100%);
+  display: block;
+  width: 100%;
+  padding: 24px 40px;
+  border: 3px solid rgba(217, 205, 141, 0.41);
+  transition: border-color 0.2s;
+  font-size: 24px;
+  line-height: 34px;
+  text-align: center;
+  color: #D9CD8D;
+  cursor: pointer;
+}

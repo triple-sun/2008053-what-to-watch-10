@@ -1,6 +1,15 @@
 import {configureStore} from '@reduxjs/toolkit';
+import { createAPI } from '../services/api/api';
 import mainPageReducer from './main-page-reducer';
 
-const store = configureStore({reducer: mainPageReducer});
+export const api = createAPI();
 
-export default store;
+export const store = configureStore({
+  reducer: mainPageReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: api,
+      },
+    }),
+});
