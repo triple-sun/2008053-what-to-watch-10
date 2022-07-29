@@ -17,7 +17,7 @@ const goToMainPage = <Navigate to={AppRoute.Main} />;
 const App = () => {
   const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
 
-  if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
+  if (!isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return (
       <Loading />
     );

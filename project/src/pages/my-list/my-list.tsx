@@ -1,7 +1,7 @@
 import MovieCardsList from '../../components/movie/movie-cards-list/movie-cards-list';
 import LogoElement from '../../components/common/logo-element/logo-element';
 import PageFooterElement from '../../components/common/page-footer/page-footer-element';
-import UserBlock from '../../components/common/user-block-element/user-block-element';
+import UserBlock from '../../components/common/user-block/user-block';
 import HeaderElement from '../../components/common/header-element/header-element';
 import { HeaderStyle } from '../../const/enums';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';

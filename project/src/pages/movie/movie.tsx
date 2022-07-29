@@ -2,7 +2,7 @@ import { Navigate, useParams } from 'react-router-dom';
 import MovieCardsList from '../../components/movie/movie-cards-list/movie-cards-list';
 import LogoElement from '../../components/common/logo-element/logo-element';
 import PageFooterElement from '../../components/common/page-footer/page-footer-element';
-import UserBlock from '../../components/common/user-block-element/user-block-element';
+import UserBlock from '../../components/common/user-block/user-block';
 import { AppRoute, HeaderStyle, PosterSize } from '../../const/enums';
 import MovieBackground from '../../components/movie/movie-images/movie-background/movie-background';
 import MoviePoster from '../../components/movie/movie-images/movie-poster/movie-poster';

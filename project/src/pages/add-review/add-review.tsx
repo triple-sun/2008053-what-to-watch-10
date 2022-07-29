@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import ReviewForm from '../../components/review/review-form/review-form';
 import LogoElement from '../../components/common/logo-element/logo-element';
-import UserBlock from '../../components/common/user-block-element/user-block-element';
+import UserBlock from '../../components/common/user-block/user-block';
 import { AppRoute, PosterSize } from '../../const/enums';
 import MovieBackground from '../../components/movie/movie-images/movie-background/movie-background';
 import MoviePoster from '../../components/movie/movie-images/movie-poster/movie-poster';

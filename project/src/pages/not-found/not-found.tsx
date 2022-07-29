@@ -2,6 +2,7 @@ import HeaderElement from '../../components/common/header-element/header-element
 import LogoElement from '../../components/common/logo-element/logo-element';
 import PageFooterElement from '../../components/common/page-footer/page-footer-element';
 import { AppRoute, HeaderStyle } from '../../const/enums';
+import './not-found.css';
 
 const NotFoundPage = () => (
   <div className="not-found-page">

@@ -1,7 +1,7 @@
 import { HeaderStyle } from '../../../const/enums';
 import HeaderElement from '../../common/header-element/header-element';
 import LogoElement from '../../common/logo-element/logo-element';
-import UserBlock from '../../common/user-block-element/user-block-element';
+import UserBlock from '../../common/user-block/user-block';
 import WTWElement from '../../common/wtw-element/wtw-element';
 import MovieBackground from '../movie-images/movie-background/movie-background';
 import MoviePoster from '../movie-images/movie-poster/movie-poster';
