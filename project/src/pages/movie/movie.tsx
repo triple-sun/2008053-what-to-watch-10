@@ -15,7 +15,7 @@ import MyListAddButton from '../../components/movie/movie-buttons/my-list-add-bu
 import MovieCardDescription from '../../components/movie/movie-card-description/movie-card-description';
 import MovieTabs from '../../components/movie/movie-tabs/movie-tabs';
 import { MOVIE_CARD_SIMILAR_COUNT } from '../../const/const';
-import { findMovieById, filterMyMovies } from '../../utils/utils';
+import { findMovieById, filterMyMovies, filterMoviesByGenre } from '../../utils/utils';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 import { getMovies } from '../../utils/selectors/selectors';
 
@@ -25,7 +25,8 @@ const MoviePage = () => {
 
   const myMovies = filterMyMovies(movies);
   const currentMovie = findMovieById(movies, id);
-  const similarMovies = movies.filter((movie) => movie.genre === currentMovie?.genre);
+
+  const similarMovies = currentMovie ? filterMoviesByGenre(movies, currentMovie?.genre) : null;
 
   if (!currentMovie) {
     return <Navigate to={AppRoute.NotFound} />;

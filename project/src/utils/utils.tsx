@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { RatingName, RatingMinNumber, AuthorizationStatus } from '../const/enums';
+import { RatingName, RatingMinNumber, AuthorizationStatus, Genre } from '../const/enums';
 import TMovie from '../types/movie';
 
 export const minutesToHoursAndMinutes = (totalMinutes: number, forPlayer = true) => {
@@ -32,6 +32,8 @@ export const getRatingName = (rating: number) => {
 };
 
 export const findMovieById = (movies: readonly TMovie[], id?: string) => movies.find((movie) => movie.id.toString() === id);
+
+export const filterMoviesByGenre = (movies: TMovie[], genre: Genre) => movies.filter((movie) => movie.genre === genre);
 
 export const filterMyMovies = (movies: readonly TMovie[]) => movies.filter((movie) => movie.isFavorite);
 

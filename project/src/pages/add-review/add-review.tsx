@@ -21,9 +21,10 @@ type ReviewState = {
 const AddReviewPage = () => {
   const [review, setReview] = useState<ReviewState>({rating: '', reviewText: ''});
   const {id} = useParams();
-  const allMovies = useAppSelector(getMovies);
 
-  const currentMovie = findMovieById(allMovies, id);
+  const movies = useAppSelector(getMovies);
+
+  const currentMovie = findMovieById(movies, id);
 
   const onReviewChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setReview({...review,[e.target.name]: e.target.value});
 

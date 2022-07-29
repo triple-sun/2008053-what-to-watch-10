@@ -10,7 +10,7 @@ import { getMovies, getPromo, getSelectedGenre } from '../../utils/selectors/sel
 import { Genre } from '../../const/enums';
 import { useDispatch } from 'react-redux';
 import { resetGenre } from '../../store/main-page-actions';
-import TMovie from '../../types/movie';
+import { filterMoviesByGenre } from '../../utils/utils';
 
 const MainPage = () => {
   const [renderedMovieCount, setRenderedMovieCount] = useState(MOVIE_CARD_MAIN_COUNT);
@@ -20,7 +20,7 @@ const MainPage = () => {
   const selectedGenre = useAppSelector(getSelectedGenre);
   const dispatch = useDispatch();
 
-  const filteredMovies = selectedGenre === Genre.AllGenres ? movies : movies.filter((movie: TMovie) => movie.genre === selectedGenre);
+  const filteredMovies = selectedGenre === Genre.AllGenres ? movies : filterMoviesByGenre(movies, selectedGenre);
 
   const handleShowMoreButtonClick = useCallback(
     (count: number) => setRenderedMovieCount(() => Math.min(renderedMovieCount + count, filteredMovies.length)),
