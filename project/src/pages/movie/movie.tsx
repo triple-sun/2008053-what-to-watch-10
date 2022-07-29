@@ -4,7 +4,6 @@ import LogoElement from '../../components/common/logo-element/logo-element';
 import PageFooterElement from '../../components/common/page-footer/page-footer-element';
 import UserBlock from '../../components/common/user-block-element/user-block-element';
 import { AppRoute, HeaderStyle, PosterSize } from '../../const/enums';
-import mockMovies from '../../mocks/movies';
 import MovieBackground from '../../components/movie/movie-images/movie-background/movie-background';
 import MoviePoster from '../../components/movie/movie-images/movie-poster/movie-poster';
 import MovieButtons from '../../components/movie/movie-buttons/movie-buttons';
@@ -26,7 +25,7 @@ const MoviePage = () => {
 
   const myMovies = filterMyMovies(movies);
   const currentMovie = findMovieById(movies, id);
-  const similarMovies = mockMovies.filter((movie) => movie.genre === currentMovie?.genre);
+  const similarMovies = movies.filter((movie) => movie.genre === currentMovie?.genre);
 
   if (!currentMovie) {
     return <Navigate to={AppRoute.NotFound} />;
