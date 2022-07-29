@@ -1,9 +1,8 @@
-import THandlePageChange from '../../../types/page-change';
 import LogoElement from '../logo-element/logo-element';
 
-const PageFooterElement = ({handlePageChange}: THandlePageChange) => (
+const PageFooterElement = () => (
   <footer className="page-footer">
-    <LogoElement handlePageChange={handlePageChange} isLight/>
+    <LogoElement isLight/>
     <div className="copyright">
       <p>© 2019 What to watch Ltd.</p>
     </div>

@@ -16,15 +16,15 @@ import MyListAddButton from '../../components/movie/movie-buttons/my-list-add-bu
 import MovieCardDescription from '../../components/movie/movie-card-description/movie-card-description';
 import MovieTabs from '../../components/movie/movie-tabs/movie-tabs';
 import { MOVIE_CARD_SIMILAR_COUNT } from '../../const/const';
-import { findMovieById } from '../../utils/utils';
+import { findMovieById, filterMyMovies } from '../../utils/utils';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { getMovies, getMyMovies } from '../../utils/selectors/selectors';
+import { getMovies } from '../../utils/selectors/selectors';
 
 const MoviePage = () => {
   const movies = useAppSelector(getMovies);
-  const myMovies = useAppSelector(getMyMovies);
   const {id} = useParams();
 
+  const myMovies = filterMyMovies(movies);
   const currentMovie = findMovieById(movies, id);
   const similarMovies = mockMovies.filter((movie) => movie.genre === currentMovie?.genre);
 

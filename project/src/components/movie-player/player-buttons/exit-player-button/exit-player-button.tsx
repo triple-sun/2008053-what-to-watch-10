@@ -1,10 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../../const/enums';
 
-const ExitPlayerButton = () => {
-  const navigate = useNavigate();
-
-  return <button type="button" className="player__exit" onClick={() => navigate(AppRoute.Main)}>Exit</button>;
-};
+const ExitPlayerButton = () => <Link to={AppRoute.Main} type="button" className="player__exit" >Exit</Link>;
 
 export default ExitPlayerButton;

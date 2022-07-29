@@ -33,10 +33,13 @@ const getRatingName = (rating: number) => {
 
 const findMovieById = (movies: readonly TMovie[], id?: string) => movies.find((movie) => movie.id.toString() === id);
 
+const filterMyMovies = (movies: readonly TMovie[]) => movies.filter((movie) => movie.isFavorite);
+
 export {
   minutesToHoursAndMinutes,
   humanizeRuntime,
   humanizeCommentDate,
   getRatingName,
-  findMovieById
+  findMovieById,
+  filterMyMovies
 };

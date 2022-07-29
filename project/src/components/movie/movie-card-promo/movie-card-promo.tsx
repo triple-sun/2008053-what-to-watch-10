@@ -10,12 +10,11 @@ import MovieButtons from '../movie-buttons/movie-buttons';
 import MyListAddButton from '../movie-buttons/my-list-add-button/my-list-add-button';
 import PlayMovieButton from '../movie-buttons/play-movie-button/play-movie-button';
 import MovieCardDescription from '../movie-card-description/movie-card-description';
-import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
-import { getMyMovies, getPromo } from '../../../utils/selectors/selectors';
+import TMovie from '../../../types/movie';
+import { filterMyMovies } from '../../../utils/utils';
 
-const MovieCardPromo = () => {
-  const promo = useAppSelector(getPromo);
-  const myMovies = useAppSelector(getMyMovies);
+const MovieCardPromo = ({promo, movies}: {promo: TMovie, movies: TMovie[]}) => {
+  const myMovies = filterMyMovies(movies);
 
   return (
     <section className="film-card">

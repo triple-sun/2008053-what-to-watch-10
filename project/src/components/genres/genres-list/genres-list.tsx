@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { GenreList } from '../../../const/const';
 import { Genre } from '../../../const/enums';
 import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
@@ -7,7 +7,7 @@ import { changeGenre } from '../../../store/main-page-actions';
 import { getSelectedGenre } from '../../../utils/selectors/selectors';
 import GenreElement from '../genre/genre';
 
-const GenresList = () => {
+const GenresList = ({handleGenreReset}: {handleGenreReset: () => void}) => {
   const selectedGenre = useAppSelector(getSelectedGenre);
   const dispatch = useAppDispatch();
 
@@ -15,6 +15,11 @@ const GenresList = () => {
     (genre: Genre) => {
       dispatch(changeGenre(genre));},
     [dispatch]
+  );
+
+  useEffect(
+    () => handleGenreReset,
+    [handleGenreReset]
   );
 
   return (

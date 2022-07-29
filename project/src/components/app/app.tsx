@@ -26,14 +26,8 @@ const App = () => (
 
         <Route path={AppRoute.Movies}>
           <Route index element={goToMainPage} />
-        </Route>
-
-        <Route path={AppRoute.Movie}>
-          <Route index element={<MoviePage />} />
-        </Route>
-
-        <Route path={AppRoute.AddReview}>
-          <Route index element={<AddReviewPage />} />
+          <Route path={AppRoute.Movie} element={<MoviePage />} />
+          <Route path={AppRoute.AddReview} element={<AddReviewPage />} />
         </Route>
 
         <Route

@@ -14,6 +14,7 @@ const MovieTabNavigation = ({name, activeTab, handleTabEvent}: MovieTabProps) =>
     evt.preventDefault();
     handleTabEvent(name);
   };
+
   return (
     <li className={`film-nav__item ${name === activeTab ? NAV_ITEM_ACTIVE_CLASS : ''}`}>
       <Link to={`#${name.toLowerCase()}`} className="film-nav__link" onClick={onTabClick}>{name}</Link>

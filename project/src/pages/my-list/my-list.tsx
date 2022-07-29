@@ -5,11 +5,13 @@ import UserBlock from '../../components/common/user-block-element/user-block-ele
 import HeaderElement from '../../components/common/header-element/header-element';
 import { HeaderStyle } from '../../const/enums';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { getMyMovies } from '../../utils/selectors/selectors';
+import { getMovies } from '../../utils/selectors/selectors';
 import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
+import { filterMyMovies } from '../../utils/utils';
 
 const MyListPage = () => {
-  const myMovies = useAppSelector(getMyMovies);
+  const movies = useAppSelector(getMovies);
+  const myMovies = filterMyMovies(movies);
 
   return (
     <div className="user-page">

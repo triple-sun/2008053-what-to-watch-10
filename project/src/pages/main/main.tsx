@@ -6,33 +6,42 @@ import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 import { useCallback, useState } from 'react';
-import { getMovies, getSelectedGenre } from '../../utils/selectors/selectors';
+import { getMovies, getPromo, getSelectedGenre } from '../../utils/selectors/selectors';
 import { Genre } from '../../const/enums';
+import { useDispatch } from 'react-redux';
+import { resetGenre } from '../../store/main-page-actions';
 
 const MainPage = () => {
   const [renderedMovieCount, setRenderedMovieCount] = useState(MOVIE_CARD_MAIN_COUNT);
 
   const movies = useAppSelector(getMovies);
+  const promo = useAppSelector(getPromo);
   const selectedGenre = useAppSelector(getSelectedGenre);
+  const dispatch = useDispatch();
 
   const filteredMovies = selectedGenre === Genre.AllGenres ? movies : movies.filter((movie) => movie.genre === selectedGenre);
 
   const handleShowMoreButtonClick = useCallback(
-    (count: number) => setRenderedMovieCount(() => Math.min(renderedMovieCount + count, movies.length)),
-    [movies.length, renderedMovieCount],
+    (count: number) => setRenderedMovieCount(() => Math.min(renderedMovieCount + count, filteredMovies.length)),
+    [filteredMovies.length, renderedMovieCount],
+  );
+
+  const handleGenreReset = useCallback(
+    () => dispatch(resetGenre()),
+    [dispatch]
   );
 
   return (
     <>
-      <MovieCardPromo />
+      <MovieCardPromo promo={promo} movies={movies}/>
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresList />
+          <GenresList handleGenreReset={handleGenreReset}/>
           <MovieCardsList movies={filteredMovies} renderedMovieCount={renderedMovieCount} />
-          {!(movies.length > renderedMovieCount)
+          {filteredMovies.length <= renderedMovieCount
             ? null
-            : <ShowMoreButton movies={filteredMovies} countPerStep={MOVIE_CARD_MAIN_COUNT} renderedMoviesCount={renderedMovieCount} handleShowMoreButtonClick={handleShowMoreButtonClick}/>}
+            : <ShowMoreButton movies={filteredMovies} renderedMoviesCount={renderedMovieCount} handleShowMoreButtonClick={handleShowMoreButtonClick} />}
         </section>
 
         <PageFooter />

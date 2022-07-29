@@ -67,10 +67,10 @@ export enum Genre {
   Comedy = 'Comedy',
   Crime = 'Crime',
   Documentary = 'Documentary',
-  Drama = 'Dramas',
+  Drama = 'Drama',
   Horror = 'Horror',
   Family = 'Kids & Family',
   Romance = 'Romance',
   SciFi = 'Sci-Fi',
-  Thriller = 'Thrillers',
+  Thriller = 'Thriller',
 }
