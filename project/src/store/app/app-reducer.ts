@@ -6,7 +6,6 @@ type StatusInitialState = {
   isDataLoaded: boolean;
 };
 
-
 const initialState: StatusInitialState = {
   error: null,
   isDataLoaded: false,

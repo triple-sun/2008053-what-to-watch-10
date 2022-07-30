@@ -37,6 +37,6 @@ export const filterMoviesByGenre = (movies: TMovie[], genre: Genre) => movies.fi
 
 export const filterMyMovies = (movies: readonly TMovie[]) => movies.filter((movie) => movie.isFavorite);
 
-export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean => authorizationStatus === AuthorizationStatus.Unknown;
+export const checkAuth = (authorizationStatus: AuthorizationStatus, reference: AuthorizationStatus): boolean => authorizationStatus === reference;
 
 export const getFavoriteStatus = (isFavorite: boolean) => isFavorite ? Favorite.SetNotFavorite : Favorite.SetFavorite;

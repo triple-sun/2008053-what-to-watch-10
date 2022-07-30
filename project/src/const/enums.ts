@@ -39,6 +39,7 @@ export enum RatingMinNumber {
 export enum HeaderStyle {
   UserPage = 'user-page__head',
   MovieCard = 'film-card__head',
+  PageHeader = 'page-header'
 }
 
 export enum MovieNavigation {
@@ -69,12 +70,14 @@ export enum ChangeAction {
   AddReview = 'review/addReview',
   ChangeReview = 'review/changeReview',
   ToggleFavorite = 'movies/setFavorite',
+  ResetFavorites = 'movies/resetFavorites',
   ChangeGenre = 'movies/genre/changeGenre',
   ResetGenre = 'movies/genre/resetGenre',
   ClearError = 'app/clearError',
 }
 
 export enum UserAction {
+  SetAuth = 'user/setAuthorization',
   ReqAuth = 'user/requireAuthorization',
   CheckAuth = 'user/checkAuthorizattion',
   Login = 'user/login',

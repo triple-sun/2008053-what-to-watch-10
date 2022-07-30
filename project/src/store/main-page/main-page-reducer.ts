@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import { Genre } from '../../const/enums';
 import TMovie from '../../types/movie';
-import { loadFavorites, loadMovies, loadPromo, resetGenre, setGenre, toggleFavorite } from './main-page-actions';
+import { loadFavorites, loadMovies, loadPromo, resetFavorites, resetGenre, setGenre, toggleFavorite } from './main-page-actions';
 
 type MainInitialState = {
   promo: TMovie | null;
@@ -32,6 +32,9 @@ const mainPageReducer = createReducer(initialState, (builder) => {
       state.favorites = state.favorites.some((fav) => fav.id === action.payload.id)
         ? state.favorites.filter((fav) => fav.id !== action.payload.id)
         : [...state.favorites, action.payload];
+    })
+    .addCase(resetFavorites, (state) => {
+      state.favorites = initialState.favorites;
     })
     .addCase(setGenre, (state, action) => {
       state.selectedGenre = action.payload;

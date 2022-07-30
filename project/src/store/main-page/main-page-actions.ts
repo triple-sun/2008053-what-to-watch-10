@@ -8,6 +8,8 @@ export const loadPromo = createAction<TMovie>(LoadAction.LoadPromo);
 
 export const loadFavorites = createAction<TMovie[]>(LoadAction.LoadFavorites);
 
+export const resetFavorites = createAction(ChangeAction.ResetFavorites);
+
 export const toggleFavorite = createAction<TMovie>(ChangeAction.ToggleFavorite);
 
 export const setGenre = createAction<Genre>(ChangeAction.ChangeGenre);
