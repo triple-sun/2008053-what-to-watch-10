@@ -6,20 +6,18 @@ import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
 import { getMovies } from '../../utils/selectors/selectors';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 
-const MainPage = () =>
-  (
-    <>
-      <MovieCardPromo />
-      <div className="page-content">
-        <section className="catalog">
-          <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresList />
-          <MovieCardsList movies={useAppSelector(getMovies)} countPerStep={MOVIE_CARD_MAIN_COUNT} isMain/>
-        </section>
-
-        <PageFooter />
-      </div>
-    </>
-  );
+const MainPage = () => (
+  <>
+    <MovieCardPromo />
+    <div className="page-content">
+      <section className="catalog">
+        <h2 className="catalog__title visually-hidden">Catalog</h2>
+        <GenresList />
+        <MovieCardsList movies={useAppSelector(getMovies)} countPerStep={MOVIE_CARD_MAIN_COUNT} isMain/>
+      </section>
+      <PageFooter />
+    </div>
+  </>
+);
 
 export default MainPage;
