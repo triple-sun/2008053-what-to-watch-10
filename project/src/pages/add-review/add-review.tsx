@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import ReviewForm from '../../components/review/review-form/review-form';
 import LogoElement from '../../components/common/logo-element/logo-element';
@@ -25,7 +25,8 @@ const AddReviewPage = () => {
 
   const currentMovie = findMovieById(allMovies, id);
 
-  const onReviewChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setReview({...review,[e.target.name]: e.target.value});
+
+  const handleReviewChange = ({target, value}: {target: string, value: string | number}) => setReview({...review, [target]: value});
 
   if (!currentMovie) {
     return <Navigate to={AppRoute.NotFound} />;
@@ -43,7 +44,7 @@ const AddReviewPage = () => {
         </HeaderElement>
         <MoviePoster {...currentMovie} size={PosterSize.Small} />
       </div>
-      <ReviewForm onChange={onReviewChange} />
+      <ReviewForm handleReviewChange={handleReviewChange} />
     </section>
   );
 };

@@ -4,7 +4,6 @@ import LogoElement from '../../components/common/logo-element/logo-element';
 import PageFooterElement from '../../components/common/page-footer/page-footer-element';
 import UserBlock from '../../components/common/user-block-element/user-block-element';
 import { AppRoute, HeaderStyle, PosterSize } from '../../const/enums';
-import mockMovies from '../../mocks/movies';
 import MovieBackground from '../../components/movie/movie-images/movie-background/movie-background';
 import MoviePoster from '../../components/movie/movie-images/movie-poster/movie-poster';
 import MovieButtons from '../../components/movie/movie-buttons/movie-buttons';
@@ -16,7 +15,7 @@ import MyListAddButton from '../../components/movie/movie-buttons/my-list-add-bu
 import MovieCardDescription from '../../components/movie/movie-card-description/movie-card-description';
 import MovieTabs from '../../components/movie/movie-tabs/movie-tabs';
 import { MOVIE_CARD_SIMILAR_COUNT } from '../../const/const';
-import { findMovieById, filterMyMovies } from '../../utils/utils';
+import { filterFavoriteMovies, findMovieById, } from '../../utils/utils';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 import { getMovies } from '../../utils/selectors/selectors';
 
@@ -24,13 +23,14 @@ const MoviePage = () => {
   const movies = useAppSelector(getMovies);
   const {id} = useParams();
 
-  const myMovies = filterMyMovies(movies);
+  const myMovies = filterFavoriteMovies(movies);
   const currentMovie = findMovieById(movies, id);
-  const similarMovies = mockMovies.filter((movie) => movie.genre === currentMovie?.genre);
 
   if (!currentMovie) {
     return <Navigate to={AppRoute.NotFound} />;
   }
+
+  const similarMovies = movies.filter((movie) => movie.genre === currentMovie.genre);
 
   return (
     <>
@@ -69,7 +69,7 @@ const MoviePage = () => {
             <section className="catalog catalog--like-this">
               <h2 className="catalog__title">More like this</h2>
 
-              <MovieCardsList movies={similarMovies} renderedMovieCount={MOVIE_CARD_SIMILAR_COUNT}/>
+              <MovieCardsList movies={similarMovies} countPerStep={MOVIE_CARD_SIMILAR_COUNT}/>
             </section>
           )
           : null}

@@ -7,11 +7,11 @@ import { HeaderStyle } from '../../const/enums';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 import { getMovies } from '../../utils/selectors/selectors';
 import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
-import { filterMyMovies } from '../../utils/utils';
+import { filterFavoriteMovies } from '../../utils/utils';
 
 const MyListPage = () => {
   const movies = useAppSelector(getMovies);
-  const myMovies = filterMyMovies(movies);
+  const myMovies = filterFavoriteMovies(movies);
 
   return (
     <div className="user-page">
@@ -24,7 +24,7 @@ const MyListPage = () => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <MovieCardsList movies={myMovies} renderedMovieCount={MOVIE_CARD_MAIN_COUNT}/>
+        <MovieCardsList movies={myMovies} countPerStep={MOVIE_CARD_MAIN_COUNT}/>
       </section>
 
       <PageFooterElement />
