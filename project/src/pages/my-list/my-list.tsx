@@ -5,28 +5,23 @@ import UserBlock from '../../components/common/user-block/user-block';
 import HeaderElement from '../../components/common/header-element/header-element';
 import { HeaderStyle } from '../../const/enums';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { getMovies } from '../../utils/selectors/selectors';
-import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
-import { filterMyMovies } from '../../utils/utils';
+import { getFavorites } from '../../utils/selectors/selectors';
+
 
 const MyListPage = () => {
-  const movies = useAppSelector(getMovies);
-  const myMovies = filterMyMovies(movies);
+  const favorites = useAppSelector(getFavorites);
 
   return (
     <div className="user-page">
       <HeaderElement style={HeaderStyle.UserPage}>
         <LogoElement />
-        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{myMovies.length}</span></h1>
+        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{favorites.length}</span></h1>
         <UserBlock />
       </HeaderElement>
-
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-        <MovieCardsList movies={myMovies} renderedMovieCount={MOVIE_CARD_MAIN_COUNT}/>
+        <MovieCardsList movies={favorites} isLong />
       </section>
-
       <PageFooterElement />
     </div>
   );

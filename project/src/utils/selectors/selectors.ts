@@ -18,7 +18,7 @@ export const getAuthStatus = (state: State) => state.userReducer.authorizationSt
 
 export const getUserData = (state: State) => state.userReducer.userData;
 
-export const getMainState = (state: State) => state.mainPageReducer;
+export const getMainPageState = (state: State) => state.mainPageReducer;
 
 export const getUserState = (state: State) => state.userReducer;
 

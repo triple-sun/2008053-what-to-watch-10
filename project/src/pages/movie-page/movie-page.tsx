@@ -9,58 +9,47 @@ import MoviePoster from '../../components/movie/movie-images/movie-poster/movie-
 import MovieButtons from '../../components/movie/movie-buttons/movie-buttons';
 import WTWElement from '../../components/common/wtw-element/wtw-element';
 import HeaderElement from '../../components/common/header-element/header-element';
-import AddReviewButton from '../../components/movie/movie-buttons/add-review-button/add-review-button';
-import PlayMovieButton from '../../components/movie/movie-buttons/play-movie-button/play-movie-button';
-import MyListAddButton from '../../components/movie/movie-buttons/my-list-add-button/my-list-add-button';
 import MovieCardDescription from '../../components/movie/movie-card-description/movie-card-description';
 import MovieTabs from '../../components/movie/movie-tabs/movie-tabs';
-import { MOVIE_CARD_SIMILAR_COUNT } from '../../const/const';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { getMovies, getMovieState } from '../../utils/selectors/selectors';
+import { getMovieState } from '../../utils/selectors/selectors';
 import Loading from '../loading/loading';
-import { fetchMoviePageDataAction as fetchSimilarMovies } from '../../store/movie-page/movie-page-api-actions';
 import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
-import { findMovieById } from '../../utils/utils';
+import { fetchCurrentMovieAction, fetchSimilarMoviesAction } from '../../store/movie-page/movie-page-api-actions';
 import { useEffect } from 'react';
+import { checkMovie } from '../../utils/utils';
 
 const MoviePage = () => {
   const {id} = useParams();
-  const movies = useAppSelector(getMovies);
-  const {similarMovies} = useAppSelector(getMovieState);
+  const {currentMovie, similarMovies} = useAppSelector(getMovieState);
   const dispatch = useAppDispatch();
 
-  const currentMovie = findMovieById(movies, id);
-
   useEffect(() => {
-    if (currentMovie && !similarMovies) {
-      dispatch(fetchSimilarMovies(currentMovie.id));
+    if (id && checkMovie(currentMovie, id)) {
+      dispatch(fetchCurrentMovieAction(id));
+      dispatch(fetchSimilarMoviesAction(id));
     }
-  }, [currentMovie, dispatch, id, similarMovies]);
+  },[currentMovie, dispatch, id, similarMovies]
+  );
 
-  if (!similarMovies) {
+  if ((!similarMovies || !currentMovie)) {
     return (<Loading />);
   }
 
-  if (currentMovie) {
+  if (currentMovie && similarMovies) {
     return (
       <>
         <section className="film-card film-card--full">
           <div className="film-card__hero">
             <MovieBackground movie={currentMovie} />
             <WTWElement />
-
             <HeaderElement style={HeaderStyle.MovieCard}>
               <LogoElement />
               <UserBlock />
             </HeaderElement>
-
             <div className="film-card__wrap">
               <MovieCardDescription movie={currentMovie}>
-                <MovieButtons>
-                  <PlayMovieButton {...currentMovie} />
-                  <MyListAddButton id={currentMovie.id} />
-                  <AddReviewButton {...currentMovie} />
-                </MovieButtons>
+                <MovieButtons movie={currentMovie} />
               </MovieCardDescription>
             </div>
           </div>
@@ -74,15 +63,10 @@ const MoviePage = () => {
         </section>
 
         <div className="page-content">
-          {similarMovies
-            ? (
-              <section className="catalog catalog--like-this">
-                <h2 className="catalog__title">More like this</h2>
-                <MovieCardsList movies={similarMovies} renderedMovieCount={MOVIE_CARD_SIMILAR_COUNT}/>
-              </section>
-            )
-            : null}
-
+          <section className="catalog catalog--like-this">
+            <h2 className="catalog__title">More like this</h2>
+            <MovieCardsList movies={similarMovies}/>
+          </section>
           <PageFooterElement />
         </div>
       </>

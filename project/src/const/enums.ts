@@ -52,7 +52,8 @@ export enum FetchAction {
   FetchPromo = 'data/fetchPromo',
   FetchFavorites = 'data/fetchFavorites',
   FetchReviews = 'data/fetchReviews',
-  FetchSimilarMovies = 'data/fetchCurrentMovie',
+  FetchSimilarMovies = '/data/fetchSimilarMovies',
+  FetchCurrentMovie = 'data/fetchCurrentMovie',
 }
 
 export enum LoadAction {
@@ -141,5 +142,7 @@ export enum Error {
 
 export enum ErrorMessage {
   RatingError = 'You forgot to choose your rating!',
-  CommentError = 'You forgot to type in your review!'
+  CommentError = 'You forgot to type in your review!',
+  SimilarError = 'Failed to load similar movies',
+  CurrentError = 'Failed to load movie',
 }

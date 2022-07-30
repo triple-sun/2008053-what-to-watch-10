@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import ReviewForm from '../../components/review/review-form/review-form';
 import LogoElement from '../../components/common/logo-element/logo-element';
@@ -9,39 +9,25 @@ import MoviePoster from '../../components/movie/movie-images/movie-poster/movie-
 import ReviewBreadcrumbs from '../../components/review/review-breadcrumbs/review-breadcrumbs';
 import WTWElement from '../../components/common/wtw-element/wtw-element';
 import HeaderElement from '../../components/common/header-element/header-element';
-import { findMovieById } from '../../utils/utils';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { getMovies } from '../../utils/selectors/selectors';
-import { addReviewAction } from '../../store/review/review-api-actions';
+import { getCurrentMovie } from '../../utils/selectors/selectors';
 import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
-import { TReviewState } from '../../types/review-state';
 import Loading from '../loading/loading';
+import { fetchCurrentMovieAction } from '../../store/movie-page/movie-page-api-actions';
+import { checkMovie } from '../../utils/utils';
 
 const AddReviewPage = () => {
   const {id} = useParams();
-  const movies = useAppSelector(getMovies);
-  const currentMovie = findMovieById(movies, id);
-
-  const [review, setReview] = useState<TReviewState>({rating: 0, comment: null});
-  const {rating, comment} = review;
-
+  const currentMovie = useAppSelector(getCurrentMovie);
   const dispatch = useAppDispatch();
 
-
-  const onSubmitClick = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (currentMovie) {
-      handleReviewSubmit({
-        rating: rating,
-        comment: comment,
-        id: currentMovie.id,
-      });
+  useEffect(() => {
+    if (id && checkMovie(currentMovie, id)) {
+      dispatch(fetchCurrentMovieAction(id));
     }
-  };
-
-  const handleReviewChange = ({target, value}: {target: string, value: string | number}) => setReview({...review, [target]: value});
-
-  const handleReviewSubmit = (reviewData: TReviewState & {id: number}) => dispatch(addReviewAction(reviewData));
+  },
+  [currentMovie, dispatch, id, ]
+  );
 
   if (!currentMovie) {
     return <Loading />;
@@ -60,7 +46,7 @@ const AddReviewPage = () => {
           </HeaderElement>
           <MoviePoster {...currentMovie} size={PosterSize.Small} />
         </div>
-        <ReviewForm handleReviewChange={handleReviewChange} onSubmitClick={onSubmitClick}/>
+        <ReviewForm movie={currentMovie} />
       </section>
     );
   }

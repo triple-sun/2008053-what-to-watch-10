@@ -1,9 +1,29 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { RatingValues } from '../../../const/const';
-import { ReviewProps } from '../../../types/props';
+import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
+import { addReviewAction } from '../../../store/review/review-api-actions';
+import TMovie from '../../../types/movie';
+import { TReviewState } from '../../../types/review-state';
 import RatingElement from '../rating-element/rating-element';
 
-const ReviewForm = ({handleReviewChange, onSubmitClick}: ReviewProps) => {
+const ReviewForm = ({movie}: {movie: TMovie}) => {
+  const [review, setReview] = useState<TReviewState>({rating: 0, comment: null});
+  const {rating, comment} = review;
+  const dispatch = useAppDispatch();
+
+  const handleReviewChange = ({target, value}: {target: string, value: string | number}) => setReview({...review, [target]: value});
+
+  const onSubmitClick = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (movie) {
+      dispatch(addReviewAction(({
+        rating: rating,
+        comment: comment,
+        id: movie.id,
+      })));
+    }
+  };
+
   const onCommentChange = ({target}: ChangeEvent<HTMLTextAreaElement>) => handleReviewChange({target: target.name, value: target.value});
 
   return (
@@ -11,7 +31,7 @@ const ReviewForm = ({handleReviewChange, onSubmitClick}: ReviewProps) => {
       <form action="" className="add-review__form">
         <div className="rating">
           <div className="rating__stars">
-            {RatingValues.map((rating) => <RatingElement key={rating} rating={rating} handleReviewChange={handleReviewChange} />)}
+            {RatingValues.map((value) => <RatingElement key={value} rating={value} handleReviewChange={handleReviewChange} />)}
           </div>
         </div>
         <div className="add-review__text">
