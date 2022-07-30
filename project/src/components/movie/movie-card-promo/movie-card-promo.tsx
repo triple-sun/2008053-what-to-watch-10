@@ -11,11 +11,11 @@ import MyListAddButton from '../movie-buttons/my-list-add-button/my-list-add-but
 import PlayMovieButton from '../movie-buttons/play-movie-button/play-movie-button';
 import MovieCardDescription from '../movie-card-description/movie-card-description';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
-import { getAuthStatus } from '../../../utils/selectors/selectors';
-import TMovie from '../../../types/movie';
+import { getAuthStatus, getPromo } from '../../../utils/selectors/selectors';
 import { checkAuth } from '../../../utils/utils';
 
-const MovieCardPromo = ({promo}: {promo: TMovie | null}) => {
+const MovieCardPromo = () => {
+  const promo = useAppSelector(getPromo);
   const authorizationStatus = useAppSelector(getAuthStatus);
 
   const isAuth = checkAuth(authorizationStatus, AuthorizationStatus.Auth);
