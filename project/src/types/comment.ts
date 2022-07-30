@@ -1,12 +1,12 @@
-type TComment = {
+type TReview = {
   comment: string
   date: string
   id: number
   rating: number
   user: {
-  id: number
-  name: string
+    id: number
+    name: string
   }
 }
 
-export default TComment;
+export default TReview;

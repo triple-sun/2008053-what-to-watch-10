@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import ReviewForm from '../../components/review/review-form/review-form';
 import LogoElement from '../../components/common/logo-element/logo-element';
@@ -12,41 +12,60 @@ import HeaderElement from '../../components/common/header-element/header-element
 import { findMovieById } from '../../utils/utils';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 import { getMovies } from '../../utils/selectors/selectors';
-
-type ReviewState = {
-  rating: string;
-  reviewText: string;
-}
+import { addReviewAction } from '../../store/review/review-api-actions';
+import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
+import { TReviewState } from '../../types/review-state';
+import Loading from '../loading/loading';
 
 const AddReviewPage = () => {
-  const [review, setReview] = useState<ReviewState>({rating: '', reviewText: ''});
   const {id} = useParams();
-
   const movies = useAppSelector(getMovies);
-
   const currentMovie = findMovieById(movies, id);
 
-  const onReviewChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setReview({...review,[e.target.name]: e.target.value});
+  const [review, setReview] = useState<TReviewState>({rating: 0, comment: null});
+  const {rating, comment} = review;
+
+  const dispatch = useAppDispatch();
+
+
+  const onSubmitClick = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (currentMovie) {
+      handleReviewSubmit({
+        rating: rating,
+        comment: comment,
+        id: currentMovie.id,
+      });
+    }
+  };
+
+  const handleReviewChange = ({target, value}: {target: string, value: string | number}) => setReview({...review, [target]: value});
+
+  const handleReviewSubmit = (reviewData: TReviewState & {id: number}) => dispatch(addReviewAction(reviewData));
 
   if (!currentMovie) {
-    return <Navigate to={AppRoute.NotFound} />;
+    return <Loading />;
   }
 
-  return (
-    <section className="film-card film-card--full">
-      <div className="film-card__header">
-        <MovieBackground movie={currentMovie} />
-        <WTWElement />
-        <HeaderElement>
-          <LogoElement />
-          <ReviewBreadcrumbs {...currentMovie} />
-          <UserBlock />
-        </HeaderElement>
-        <MoviePoster {...currentMovie} size={PosterSize.Small} />
-      </div>
-      <ReviewForm onChange={onReviewChange} />
-    </section>
-  );
+  if (currentMovie) {
+    return (
+      <section className="film-card film-card--full">
+        <div className="film-card__header">
+          <MovieBackground movie={currentMovie} />
+          <WTWElement />
+          <HeaderElement>
+            <LogoElement />
+            <ReviewBreadcrumbs {...currentMovie} />
+            <UserBlock />
+          </HeaderElement>
+          <MoviePoster {...currentMovie} size={PosterSize.Small} />
+        </div>
+        <ReviewForm handleReviewChange={handleReviewChange} onSubmitClick={onSubmitClick}/>
+      </section>
+    );
+  }
+
+  return <Navigate to={AppRoute.NotFound} />;
 };
 
 export default AddReviewPage;

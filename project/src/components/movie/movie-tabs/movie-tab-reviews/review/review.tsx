@@ -1,7 +1,7 @@
-import TComment from '../../../../../types/comment';
+import TReview from '../../../../../types/comment';
 import { humanizeCommentDate } from '../../../../../utils/utils';
 
-const Review = (review: TComment) => {
+const Review = (review: TReview) => {
   const commentDate = humanizeCommentDate(review.date);
 
   return (

@@ -1,7 +1,9 @@
 type TUserData = {
-  id: number;
-  email: string;
-  token: string;
-};
+avatarUrl: string
+email: string
+id: number
+name: string
+token: string
+} ;
 
 export default TUserData;

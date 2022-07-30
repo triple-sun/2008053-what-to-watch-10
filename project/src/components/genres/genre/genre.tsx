@@ -1,4 +1,5 @@
 import React from 'react';
+import { GenreName } from '../../../const/enums';
 import { GenreProps } from '../../../types/props';
 
 const GENRE_NAVIGATION_ACTIVE_CLASS = 'catalog__genres-item--active';
@@ -11,7 +12,7 @@ const GenreElement = ({genre, selectedGenre, handleGenreClick}: GenreProps) => {
 
   return (
     <li className={`catalog__genres-item ${selectedGenre === genre ? GENRE_NAVIGATION_ACTIVE_CLASS : ''}`}>
-      <a href={`/${genre}`} className="catalog__genres-link" onClick={onGenreClick}>{genre}</a>
+      <a href={`/${genre}`} className="catalog__genres-link" onClick={onGenreClick}>{GenreName[genre]}</a>
     </li>
   );
 };

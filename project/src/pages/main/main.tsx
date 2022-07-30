@@ -6,18 +6,16 @@ import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 import { useCallback, useState } from 'react';
-import { getMovies, getPromo, getSelectedGenre } from '../../utils/selectors/selectors';
+import { getMainState } from '../../utils/selectors/selectors';
 import { Genre } from '../../const/enums';
 import { useDispatch } from 'react-redux';
-import { resetGenre } from '../../store/main-page-actions';
+import { resetGenre } from '../../store/main-page/main-page-actions';
 import { filterMoviesByGenre } from '../../utils/utils';
 
 const MainPage = () => {
   const [renderedMovieCount, setRenderedMovieCount] = useState(MOVIE_CARD_MAIN_COUNT);
+  const {movies, selectedGenre} = useAppSelector(getMainState);
 
-  const movies = useAppSelector(getMovies);
-  const promo = useAppSelector(getPromo);
-  const selectedGenre = useAppSelector(getSelectedGenre);
   const dispatch = useDispatch();
 
   const filteredMovies = selectedGenre === Genre.AllGenres ? movies : filterMoviesByGenre(movies, selectedGenre);
@@ -34,7 +32,7 @@ const MainPage = () => {
 
   return (
     <>
-      <MovieCardPromo promo={promo} movies={movies}/>
+      <MovieCardPromo />
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>

@@ -1,9 +1,10 @@
-import { ChangeEvent } from 'react';
+import React from 'react';
 import { Genre } from '../const/enums';
 import TMovie from './movie';
 
 type ReviewProps = {
-  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleReviewChange: ({target, value}: {target: string, value: string | number}) => void;
+  onSubmitClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 type MovieCardProps = {

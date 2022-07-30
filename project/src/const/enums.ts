@@ -1,9 +1,9 @@
 export enum AppRoute {
-  AddReview = 'films/:id/review',
+  AddReview = '/films/:id/review/',
   Login = '/login/',
   Main = '/',
   Movies = '/films/',
-  Movie = '/films/:id/',
+  Movie = '/films/:id',
   Player = '/player/',
   MoviePlayer = '/player/:id',
   MyList = '/mylist',
@@ -47,43 +47,97 @@ export enum MovieNavigation {
   Reviews = 'Reviews',
 }
 
-export enum ApiAddress {
-  Movies = 'https://10.react.pages.academy/wtw/films/'
-}
-
-export enum Action {
+export enum FetchAction {
   FetchMovies = 'data/fetchMovies',
   FetchPromo = 'data/fetchPromo',
+  FetchFavorites = 'data/fetchFavorites',
+  FetchReviews = 'data/fetchReviews',
+  FetchSimilarMovies = 'data/fetchCurrentMovie',
+}
+
+export enum LoadAction {
   LoadMovies = 'movies/loadMovies',
   LoadPromo = 'movies/loadPromo',
-  SetDataLoaded = 'data/setDataLoaded',
+  LoadFavorites = 'movies/loadFavorites',
+  LoadUserData = 'user/setUserData',
+  LoadReviews = 'review/loadReviews',
+  LoadCurrentMovie = 'movies/loadCurrentMovie',
+  LoadSimilarMovies = 'movies/loadSimilarMovies',
+}
+
+export enum ChangeAction {
+  AddReview = 'review/addReview',
+  ChangeReview = 'review/changeReview',
+  ToggleFavorite = 'movies/setFavorite',
   ChangeGenre = 'movies/genre/changeGenre',
   ResetGenre = 'movies/genre/resetGenre',
+  ClearError = 'app/clearError',
+}
+
+export enum UserAction {
   ReqAuth = 'user/requireAuthorization',
   CheckAuth = 'user/checkAuthorizattion',
   Login = 'user/login',
   Logout = 'user/logout',
-  SetError = 'app/setError',
-  ClearError = 'app/clearError'
+}
+
+export enum AppAction {
+  SetDataLoaded = 'data/setDataLoaded',
+  RedirectToRoute = 'app/redirectToRoute',
 }
 
 export enum Genre {
-  AllGenres = 'All Genres',
+  AllGenres = 'AllGenres',
+  Action = 'Action',
   Adventure = 'Adventure',
   Comedy = 'Comedy',
   Crime = 'Crime',
   Documentary = 'Documentary',
   Drama = 'Drama',
   Horror = 'Horror',
+  Family = 'Family',
+  Romance = 'Romance',
+  SciFi = 'SciFi',
+  Thriller = 'Thriller',
+  Fantasy = 'Fantasy'
+}
+
+export enum GenreName {
+  AllGenres = 'All Genres',
+  Adventure = 'Adventure',
+  Action = 'Action',
+  Comedy = 'Comedies',
+  Crime = 'Crime',
+  Documentary = 'Documentary',
+  Drama = 'Dramas',
+  Horror = 'Horror',
   Family = 'Kids & Family',
   Romance = 'Romance',
   SciFi = 'Sci-Fi',
-  Thriller = 'Thriller',
+  Thriller = 'Thrillers',
+  Fantasy = 'Fantasy'
 }
 
 export enum APIRoute {
   Promo = '/promo',
   Movies = '/films',
+  Favorites = '/favorite',
   Login = '/login',
   Logout = '/logout',
+  Review = '/comments'
+}
+
+export enum Favorite {
+  SetFavorite = 1,
+  SetNotFavorite = 0
+}
+
+export enum Error {
+  RatingError = 'child "rating" fails because ["rating" must be larger than or equal to 1]',
+  CommentError = 'child "comment" fails because ["comment" must be a string]'
+}
+
+export enum ErrorMessage {
+  RatingError = 'You forgot to choose your rating!',
+  CommentError = 'You forgot to type in your review!'
 }

@@ -1,10 +1,17 @@
-import mockComments from '../../../../mocks/comments';
+import TReview from '../../../../types/comment';
 import Review from './review/review';
 
-const MovieTabReviews = () => (
+const MovieTabReviews = ({reviews}: {reviews: TReview[]}) => (
   <div className="film-card__reviews film-card__row">
     <div className="film-card__reviews-col">
-      {mockComments.map((comment) => <Review key={comment.id} {...comment} />)}
+      {reviews.length > 0
+        ? Object.values(reviews).map((review) => <Review key={review.id} {...review} />)
+        : (
+          <div className="review">
+            <blockquote className="review__quote">
+              <p className="review__text">There are no reviews yet.</p>
+            </blockquote>
+          </div>)}
     </div>
   </div>
 );
