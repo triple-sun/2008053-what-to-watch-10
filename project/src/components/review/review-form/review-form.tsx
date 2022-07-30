@@ -1,9 +1,17 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { RatingValues } from '../../../const/const';
-import { ReviewProps } from '../../../types/props';
 import RatingElement from '../rating-element/rating-element';
 
-const ReviewForm = ({handleReviewChange}: ReviewProps) => {
+type ReviewState = {
+  rating: string;
+  reviewText: string;
+}
+
+const ReviewForm = () => {
+  const [review, setReview] = useState<ReviewState>({rating: '', reviewText: ''});
+
+  const handleReviewChange = ({target, value}: {target: string, value: string | number}) => setReview({...review, [target]: value});
+
   const onCommentChange = ({target}: ChangeEvent<HTMLTextAreaElement>) => handleReviewChange({target: target.name, value: target.value});
 
   return (
