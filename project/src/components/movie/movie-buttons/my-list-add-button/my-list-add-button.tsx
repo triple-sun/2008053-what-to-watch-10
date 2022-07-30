@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
-import { AuthorizationStatus, Favorite } from '../../../../const/enums';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus, Favorite } from '../../../../const/enums';
 import useAppDispatch from '../../../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../../../hooks/use-app-selector/use-app-selector';
 import { toggleFavoriteAction } from '../../../../store/main-page/main-page-api-actions';
@@ -9,10 +10,13 @@ import MovieListIcon from '../../movie-images/movie-icons/movie-list-icon/movie-
 const MyListAddButton = ({id}: {id: number}) => {
   const favorites = useAppSelector(getFavorites);
   const authorizationStatus = useAppSelector(getAuthStatus);
+  const isAuth = (authorizationStatus === AuthorizationStatus.Auth);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const isInList = favorites.some((fav) => fav.id === id);
+
 
   const onFavoriteButtonClick = useCallback(
     () => isInList
@@ -21,12 +25,8 @@ const MyListAddButton = ({id}: {id: number}) => {
     [dispatch, id, isInList]
   );
 
-  if (authorizationStatus !== AuthorizationStatus.Auth) {
-    return null;
-  }
-
   return (
-    <button className="btn btn--list film-card__button" type="button" onClick={onFavoriteButtonClick}>
+    <button className="btn btn--list film-card__button" type="button" onClick={isAuth ? onFavoriteButtonClick : () => navigate(AppRoute.Login)}>
       <MovieListIcon isInList={isInList} />
       <svg viewBox="0 0 19 20" width="19" height="20">
         <use xlinkHref="/my-list/"></use>

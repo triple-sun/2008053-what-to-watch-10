@@ -8,12 +8,9 @@ const REVIEW_LINK_SUFFIX = '/review';
 
 const AddReviewButton = ({id}: TMovie ) => {
   const authorizationStatus = useAppSelector(getAuthStatus);
+  const isAuth = (authorizationStatus === AuthorizationStatus.Auth);
 
-  if (authorizationStatus !== AuthorizationStatus.Auth) {
-    return null;
-  }
-
-  return <Link to={`${AppRoute.Movies}${id}${REVIEW_LINK_SUFFIX}`} className="btn film-card__button">Add review</Link>;
+  return <Link to={isAuth ? `${AppRoute.Movies}${id}${REVIEW_LINK_SUFFIX}` : AppRoute.Login} className="btn film-card__button">Add review</Link>;
 };
 
 export default AddReviewButton;

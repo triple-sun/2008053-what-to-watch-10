@@ -12,9 +12,9 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
+store.dispatch(checkAuthAction());
 store.dispatch(fetchMoviesAction());
 store.dispatch(fetchPromoAction());
-store.dispatch(checkAuthAction());
 
 root.render(
   <React.StrictMode>
