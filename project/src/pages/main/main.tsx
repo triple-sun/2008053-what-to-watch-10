@@ -14,7 +14,7 @@ import { filterMoviesByGenre } from '../../utils/utils';
 
 const MainPage = () => {
   const [renderedMovieCount, setRenderedMovieCount] = useState(MOVIE_CARD_MAIN_COUNT);
-  const {movies, selectedGenre} = useAppSelector(getMainState);
+  const {movies, promo, selectedGenre} = useAppSelector(getMainState);
 
   const dispatch = useDispatch();
 
@@ -32,7 +32,7 @@ const MainPage = () => {
 
   return (
     <>
-      <MovieCardPromo />
+      <MovieCardPromo promo={promo} />
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>

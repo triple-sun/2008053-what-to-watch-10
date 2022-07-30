@@ -62,7 +62,6 @@ const App = () => {
             }
           />
         </Route>
-
         <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
       </Routes>
     </HistoryRouter>
