@@ -134,14 +134,8 @@ export enum Favorite {
   SetNotFavorite = 0
 }
 
-export enum Error {
-  RatingError = 'child "rating" fails because ["rating" must be larger than or equal to 1]',
-  CommentError = 'child "comment" fails because ["comment" must be a string]'
-}
-
 export enum ErrorMessage {
-  RatingError = 'You forgot to choose your rating!',
-  CommentError = 'You forgot to type in your review!',
+  ReviewError = 'Please choose rating and type in your review',
   SimilarError = 'Failed to load similar movies',
   CurrentError = 'Failed to load movie',
 }

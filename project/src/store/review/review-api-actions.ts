@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
-import { APIRoute, AppRoute, ChangeAction, LoadAction } from '../../const/enums';
+import { APIRoute, AppRoute, ChangeAction, ErrorMessage, LoadAction } from '../../const/enums';
 import AppDispatch from '../../types/app-dispatch';
 import TReview from '../../types/comment';
 import { TReviewState } from '../../types/review-state';
@@ -31,8 +31,8 @@ export const addReviewAction = createAsyncThunk<void, TReviewState & {id: number
     try {
       await api.post<TReview[]>(`${APIRoute.Review}/${id}`, {comment, rating});
       dispatch(redirectToRoute(`${AppRoute.Movies}${id}`));
-    } catch (err) {
-      toast.warn('aaaa');
+    } catch {
+      toast.warn(ErrorMessage.ReviewError);
     }
   },
 );

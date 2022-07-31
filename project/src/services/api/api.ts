@@ -1,7 +1,6 @@
 import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
-import { Error, ErrorMessage } from '../../const/enums';
 import { getToken } from '../token/token';
 
 const BACKEND_URL = 'https://10.react.pages.academy/wtw';
@@ -37,15 +36,7 @@ export const createAPI = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError) => {
       if (error.response && shouldDisplayError(error.response)) {
-        switch (true) {
-          case (error.response.data.error === Error.RatingError):
-            toast.warn(ErrorMessage.RatingError);
-            break;
-          case (error.response.data.error === Error.CommentError):
-            toast.warn(ErrorMessage.CommentError);
-            break;
-          default:
-            toast.warn(error.response.data.error);}
+        toast.warn(error.response.data.error);
       }
 
       throw error;
