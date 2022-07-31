@@ -61,10 +61,25 @@ export enum Action {
   ResetRenderedMovieCount = '/movies/resetRenderedMovieCount',
   SetActiveMovie = 'movies/setActiveMovie'
 }
-
 export enum Genre {
-  AllGenres = 'All Genres',
+  AllGenres = 'AllGenres',
+  Adventure = 'Adventure',
   Comedy = 'Comedy',
+  Crime = 'Crime',
+  Documentary = 'Documentary',
+  Drama = 'Drama',
+  Horror = 'Horror',
+  Family = 'Family',
+  Romance = 'Romance',
+  SciFi = 'SciFi',
+  Thriller = 'Thriller',
+  Fantasy = 'Fantasy'
+}
+
+export enum GenreName {
+  AllGenres = 'All Genres',
+  Adventure = 'Adventure',
+  Comedy = 'Comedies',
   Crime = 'Crime',
   Documentary = 'Documentary',
   Drama = 'Dramas',
@@ -73,6 +88,5 @@ export enum Genre {
   Romance = 'Romance',
   SciFi = 'Sci-Fi',
   Thriller = 'Thrillers',
+  Fantasy = 'Fantasy'
 }
-
-

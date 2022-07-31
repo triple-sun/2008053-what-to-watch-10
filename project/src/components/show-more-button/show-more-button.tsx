@@ -1,17 +1,18 @@
-import TMovie from '../../types/movie';
+import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
 
 type ShowMoreButtonProps = {
-  movies: readonly TMovie[];
-  countPerStep: number
+  totalMovieCount: number;
   renderedMoviesCount: number;
-  handleShowMoreButtonClick: (count: number) => void};
+  handleShowMoreButtonClick: (count: number) => void
+};
 
-const ShowMoreButton = ({movies, renderedMoviesCount, countPerStep, handleShowMoreButtonClick}: ShowMoreButtonProps) => {
-  const moviesToLoadCount = Math.min((movies.length - renderedMoviesCount), countPerStep);
+const ShowMoreButton = ({totalMovieCount, renderedMoviesCount, handleShowMoreButtonClick}: ShowMoreButtonProps) => {
+  const moviesToLoadCount = Math.min((totalMovieCount - renderedMoviesCount), MOVIE_CARD_MAIN_COUNT);
 
   const onShowMoreButtonClick = () => {
     handleShowMoreButtonClick(moviesToLoadCount);
   };
+
   return (
     <div className="catalog__more">
       <button className="catalog__button" type="button" onClick={onShowMoreButtonClick}>Show more</button>

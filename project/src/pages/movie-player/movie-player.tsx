@@ -8,10 +8,11 @@ import PlayerProgress from '../../components/movie-player/player-progress/player
 import VideoPlayer from '../../components/video-player/video-player';
 import { AppRoute } from '../../const/enums';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
+import { getMovies } from '../../utils/selectors/selectors';
 import { findMovieById } from '../../utils/utils';
 
 const MoviePlayerPage = () => {
-  const {allMovies: movies} = useAppSelector((state) => state);
+  const movies = useAppSelector(getMovies);
   const [isPlaying, setIsPlaying] = useState(false);
   const {id} = useParams();
 
@@ -25,7 +26,6 @@ const MoviePlayerPage = () => {
   if (!currentMovie) {
     return <Navigate to={AppRoute.NotFound} />;
   }
-
 
   return (
     <div className="player">

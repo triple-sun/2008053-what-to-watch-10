@@ -1,3 +1,5 @@
+import { Genre } from '../const/enums';
+
 type TMovie = {
   name: string;
   posterImage: string;
@@ -10,7 +12,7 @@ type TMovie = {
   director: string;
   starring: string[]
   runTime: number,
-  genre: string;
+  genre: Genre | string;
   released: number;
   id: number,
   isFavorite: boolean;
