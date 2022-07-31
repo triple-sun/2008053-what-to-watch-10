@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../../const/enums';
 import { MovieCardProps } from '../../../types/props';
 import VideoPlayer from '../../video-player/video-player';
 
@@ -10,7 +11,7 @@ const MovieCardComponent = ({movie, activeMovieId, handleMouseEvent}: MovieCardP
 
   return (
     <article className="small-film-card catalog__films-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-      <Link to={`/films/${movie.id}/`} className="small-film-card__link">
+      <Link to={`${AppRoute.Movies}${movie.id}`} className="small-film-card__link">
         <div className="small-film-card__image">
           {!isPlaying
             ? <img src={movie.previewImage} alt={movie.name} width="280" height="175" />

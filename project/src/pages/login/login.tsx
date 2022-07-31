@@ -10,11 +10,9 @@ const LoginPage = () => (
       <LogoElement />
       <h1 className="page-title user-page__title">Sign in</h1>
     </HeaderElement>
-
     <div className="sign-in user-page__content">
       <SignInForm />
     </div>
-
     <PageFooterElement />
   </div>
 );
