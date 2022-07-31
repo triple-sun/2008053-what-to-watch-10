@@ -1,10 +1,8 @@
-import { Navigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { RatingName, RatingMinNumber } from '../const/enums';
+import TMovie from '../types/movie';
 
-const goToPage = (page: string) => <Navigate to={page} />;
-
-const minutesToHoursAndMinutes = (totalMinutes: number, forPlayer = true) => {
+export const minutesToHoursAndMinutes = (totalMinutes: number, forPlayer = true) => {
   const minutes = totalMinutes % 60;
   const hours = Math.floor(totalMinutes / 60);
   const padTo2Digits = (num: number) => num.toString().padStart(2, '0');
@@ -14,18 +12,11 @@ const minutesToHoursAndMinutes = (totalMinutes: number, forPlayer = true) => {
     : `${padTo2Digits(hours)}h ${padTo2Digits(minutes)}m`;
 };
 
-const humanizeRuntime = (runtime: number) => minutesToHoursAndMinutes(runtime, false);
+export const humanizeRuntime = (runtime: number) => minutesToHoursAndMinutes(runtime, false);
 
-const getRandomInteger = (a: number, b: number) => {
-  const min = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const max = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+export const humanizeCommentDate = (date: string) => dayjs(date).format('MMMM D, YYYY');
 
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-const humanizeCommentDate = (date: string) => dayjs(date).format('MMMM D, YYYY');
-
-const getRatingName = (rating: number) => {
+export const getRatingName = (rating: number) => {
   switch (true) {
     case rating < RatingMinNumber.Normal:
       return RatingName.Bad;
@@ -40,11 +31,7 @@ const getRatingName = (rating: number) => {
   }
 };
 
-export {
-  goToPage,
-  minutesToHoursAndMinutes,
-  humanizeRuntime,
-  getRandomInteger,
-  humanizeCommentDate,
-  getRatingName
-};
+export const findMovieById = (movies: readonly TMovie[], id?: string) => movies.find((movie) => movie.id.toString() === id);
+
+export const filterFavoriteMovies = (movies: readonly TMovie[]) => movies.filter((movie) => movie.isFavorite);
+
