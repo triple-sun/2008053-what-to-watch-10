@@ -5,7 +5,7 @@ import AppDispatch from '../../types/app-dispatch';
 import TMovie from '../../types/movie';
 import State from '../../types/state';
 import { setDataLoadedStatus } from '../app/app-actions';
-import { loadFavorites, loadMovies, loadPromo, toggleFavorite } from './main-page-actions';
+import { loadFavorites, loadMovies, loadPromo, setPromoLoadedStatus, toggleFavorite } from './main-page-actions';
 
 export const fetchMoviesAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -14,10 +14,10 @@ export const fetchMoviesAction = createAsyncThunk<void, undefined, {
 }>(
   FetchAction.FetchMovies,
   async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<TMovie>(APIRoute.Promo);
-    dispatch(setDataLoadedStatus(true));
-    dispatch(loadPromo(data));
+    const {data} = await api.get<TMovie[]>(APIRoute.Movies);
     dispatch(setDataLoadedStatus(false));
+    dispatch(loadMovies(data));
+    dispatch(setPromoLoadedStatus(true));
   },
 );
 
@@ -28,10 +28,10 @@ export const fetchPromoAction = createAsyncThunk<void, undefined, {
 }>(
   FetchAction.FetchPromo,
   async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<TMovie[]>(APIRoute.Movies);
-    dispatch(setDataLoadedStatus(true));
-    dispatch(loadMovies(data));
-    dispatch(setDataLoadedStatus(false));
+    const {data} = await api.get<TMovie>(APIRoute.Promo);
+    dispatch(setPromoLoadedStatus(false));
+    dispatch(loadPromo(data));
+    dispatch(setPromoLoadedStatus(true));
   },
 );
 

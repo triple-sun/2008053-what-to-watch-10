@@ -8,7 +8,7 @@ type StatusInitialState = {
 
 const initialState: StatusInitialState = {
   error: null,
-  isDataLoaded: false,
+  isDataLoaded: true,
 };
 
 const appStatusReducer = createReducer(initialState, (builder) => {

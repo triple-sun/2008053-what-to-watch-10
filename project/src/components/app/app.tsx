@@ -29,7 +29,7 @@ const App = () => {
   }, []
   );
 
-  if (checkAuth(authorizationStatus, AuthorizationStatus.Unknown) || isDataLoaded) {
+  if (checkAuth(authorizationStatus, AuthorizationStatus.Unknown) || !isDataLoaded) {
     return (
       <Loading />
     );
@@ -56,7 +56,7 @@ const App = () => {
           <Route
             path={AppRoute.MyList}
             element={
-              <PrivateRoute authorizationStatus={authorizationStatus} >
+              <PrivateRoute>
                 <MyListPage />
               </PrivateRoute>
             }

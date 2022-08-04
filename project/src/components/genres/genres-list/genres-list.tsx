@@ -23,12 +23,14 @@ const GenresList = () => {
     dispatch(resetGenre());
   },
   [dispatch]);
-
-  return (
-    <ul className="catalog__genres-list">
-      {currentGenres.map((genre) => <GenreElement key={genre} genre={genre} selectedGenre={selectedGenre} handleGenreClick={handleGenreClick} />)}
-    </ul>
-  );
+  if (movies) {
+    return (
+      <ul className="catalog__genres-list">
+        {currentGenres.map((genre) => <GenreElement key={genre} genre={genre} selectedGenre={selectedGenre} handleGenreClick={handleGenreClick} />)}
+      </ul>
+    );
+  }
+  return null;
 };
 
 export default GenresList;

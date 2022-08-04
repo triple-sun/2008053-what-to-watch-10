@@ -17,11 +17,11 @@ const MyListAddButton = ({id}: {id: number}) => {
 
   const isInList = favorites.some((fav) => fav.id === id);
 
-
   const onFavoriteButtonClick = useCallback(
-    () => isInList
-      ? dispatch(toggleFavoriteAction({id: id, status: Favorite.SetNotFavorite}))
-      : dispatch(toggleFavoriteAction({id: id, status: Favorite.SetFavorite})),
+    () => dispatch(toggleFavoriteAction({id: id, status: isInList
+      ? Favorite.SetNotFavorite
+      : Favorite.SetFavorite
+    })),
     [dispatch, id, isInList]
   );
 
@@ -36,6 +36,5 @@ const MyListAddButton = ({id}: {id: number}) => {
     </button>
   );
 };
-
 
 export default MyListAddButton;

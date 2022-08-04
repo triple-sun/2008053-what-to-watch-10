@@ -26,32 +26,34 @@ const AddReviewPage = () => {
       dispatch(fetchCurrentMovieAction(id));
     }
   },
-  [currentMovie, dispatch, id, ]
+  [currentMovie, dispatch, id]
   );
 
   if (!currentMovie) {
     return <Loading />;
   }
 
-  if (currentMovie) {
-    return (
-      <section className="film-card film-card--full">
-        <div className="film-card__header">
-          <MovieBackground movie={currentMovie} />
-          <WTWElement />
-          <HeaderElement>
-            <LogoElement />
-            <ReviewBreadcrumbs {...currentMovie} />
-            <UserBlock />
-          </HeaderElement>
-          <MoviePoster {...currentMovie} size={PosterSize.Small} />
-        </div>
-        <ReviewForm movie={currentMovie} />
-      </section>
-    );
+  if (!id) {
+    return <Navigate to={AppRoute.NotFound} />;
   }
 
-  return <Navigate to={AppRoute.NotFound} />;
+  return (
+    <section className="film-card film-card--full">
+      <div className="film-card__header">
+        <MovieBackground movie={currentMovie} />
+        <WTWElement />
+        <HeaderElement>
+          <LogoElement />
+          <ReviewBreadcrumbs {...currentMovie} />
+          <UserBlock />
+        </HeaderElement>
+        <MoviePoster {...currentMovie} size={PosterSize.Small} />
+      </div>
+      <ReviewForm movie={currentMovie} />
+    </section>
+  );
+
+
 };
 
 export default AddReviewPage;

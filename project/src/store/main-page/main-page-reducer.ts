@@ -1,17 +1,23 @@
 import {createReducer} from '@reduxjs/toolkit';
 import { Genre } from '../../const/enums';
 import TMovie from '../../types/movie';
-import { loadFavorites, loadMovies, loadPromo, resetFavorites, resetGenre, setGenre, toggleFavorite } from './main-page-actions';
+import { loadFavorites, loadMovies, loadPromo, resetFavorites, resetGenre, setGenre, setPromoLoadedStatus, toggleFavorite } from './main-page-actions';
 
 type MainInitialState = {
-  promo: TMovie | null;
+  promo: {
+    movie: TMovie | null;
+    isLoaded: boolean
+  };
   movies: TMovie[];
   favorites: TMovie[];
   selectedGenre: Genre;
 };
 
 const initialState: MainInitialState = {
-  promo: null,
+  promo: {
+    movie: null,
+    isLoaded: true
+  },
   movies: [],
   favorites: [],
   selectedGenre: Genre.AllGenres,
@@ -23,7 +29,7 @@ const mainPageReducer = createReducer(initialState, (builder) => {
       state.movies = action.payload;
     })
     .addCase(loadPromo, (state, action) => {
-      state.promo = action.payload;
+      state.promo.movie = action.payload;
     })
     .addCase(loadFavorites, (state, action) => {
       state.favorites = action.payload;
@@ -41,6 +47,9 @@ const mainPageReducer = createReducer(initialState, (builder) => {
     })
     .addCase(resetGenre, (state) => {
       state.selectedGenre = initialState.selectedGenre;
+    })
+    .addCase(setPromoLoadedStatus, (state, action) => {
+      state.promo.isLoaded = action.payload;
     });
 });
 
