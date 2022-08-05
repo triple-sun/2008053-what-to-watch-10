@@ -1,24 +1,27 @@
 import {createReducer} from '@reduxjs/toolkit';
-import TMovie from '../../types/movie';
-import { loadCurrentMovie, loadSimilarMovies } from './movie-page-actions';
-
-type MovieInitialState = {
-  currentMovie: TMovie | null | undefined;
-  similarMovies: TMovie[] | null | undefined;
-};
+import { MovieInitialState } from '../../types/state';
+import { loadCurrentMovie, loadReviews, loadSimilarMovies } from './movie-page-actions';
 
 const initialState: MovieInitialState = {
-  currentMovie: null,
-  similarMovies: null,
+  currentMovie: {
+    data: null,
+    reviews: [],
+  },
+  similarMovies: {
+    data: [],
+  },
 };
 
 const moviePageReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(loadCurrentMovie, (state, action) => {
-      state.currentMovie = action.payload;
+      state.currentMovie.data = action.payload;
     })
     .addCase(loadSimilarMovies, (state, action) => {
-      state.similarMovies = action.payload;
+      state.similarMovies.data = action.payload;
+    })
+    .addCase(loadReviews, (state, action) => {
+      state.currentMovie.reviews = action.payload;
     });
 });
 

@@ -138,4 +138,7 @@ export enum ErrorMessage {
   ReviewError = 'Please choose rating and type in your review',
   SimilarError = 'Failed to load similar movies',
   CurrentError = 'Failed to load movie',
+  PromoError = 'Failed to load promo',
+  FavoritesError = 'Failed to load favorites',
+  AddFavoriteError = 'Couldn`t add to favorites',
 }

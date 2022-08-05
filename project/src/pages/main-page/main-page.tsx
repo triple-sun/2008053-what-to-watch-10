@@ -8,7 +8,7 @@ import { filterMoviesByGenre } from '../../utils/utils';
 import { Genre } from '../../const/enums';
 
 const MainPage = () => {
-  const movies = useAppSelector(getMovies);
+  const movies = useAppSelector(getMovies).data;
   const selectedGenre = useAppSelector(getSelectedGenre);
   const filteredMovies = selectedGenre === Genre.AllGenres ? movies : filterMoviesByGenre(movies, selectedGenre);
   return (

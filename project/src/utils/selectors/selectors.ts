@@ -1,4 +1,4 @@
-import State from '../../types/state';
+import { State } from '../../types/state';
 
 export const getMovies = (state: State) => state.mainPageReducer.movies;
 

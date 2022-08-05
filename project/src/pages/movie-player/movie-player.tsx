@@ -21,7 +21,7 @@ const MoviePlayerPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (id && checkMovie(currentMovie, id)) {
+    if (id && checkMovie(currentMovie.data, id)) {
       dispatch(fetchCurrentMovieAction(id));
       dispatch(fetchSimilarMoviesAction(id));
     }
@@ -37,19 +37,19 @@ const MoviePlayerPage = () => {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
-  if (currentMovie) {
+  if (currentMovie.data) {
     return (
       <div className="player">
-        <VideoPlayer isPlaying={isPlaying} movie={currentMovie} isMuted={false} />
+        <VideoPlayer isPlaying={isPlaying} movie={currentMovie.data} isMuted={false} />
         <ExitPlayerButton />
         <PlayerControls>
           <PlayerControls isRow>
-            <PlayerProgress {...currentMovie} isPlaying={isPlaying}/>
+            <PlayerProgress {...currentMovie.data} isPlaying={isPlaying}/>
           </PlayerControls>
 
           <PlayerControls isRow>
             <PlayMovieButton handlePlayButtonToggle={handlePlayButtonToggle} isPlaying={isPlaying}/>
-            <div className="player__name">{currentMovie.name}</div>
+            <div className="player__name">{currentMovie.data.name}</div>
             <FullScreenButton />
           </PlayerControls>
         </PlayerControls>

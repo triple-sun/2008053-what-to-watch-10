@@ -1,11 +1,27 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { FetchAction, APIRoute, ChangeAction } from '../../const/enums';
+import { toast } from 'react-toastify';
+import { FetchAction, APIRoute, ChangeAction, ErrorMessage } from '../../const/enums';
 import AppDispatch from '../../types/app-dispatch';
 import TMovie from '../../types/movie';
-import State from '../../types/state';
-import { setDataLoadedStatus } from '../app/app-actions';
-import { loadFavorites, loadMovies, loadPromo, setPromoLoadedStatus, toggleFavorite } from './main-page-actions';
+import { State } from '../../types/state';
+import { loadFavorites, loadMovies, loadPromo } from './main-page-actions';
+
+export const fetchPromoAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  FetchAction.FetchPromo,
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<TMovie>(APIRoute.Promo);
+      dispatch(loadPromo(data));
+    } catch {
+      toast.warn(ErrorMessage.PromoError);
+    }
+  },
+);
 
 export const fetchMoviesAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -15,23 +31,7 @@ export const fetchMoviesAction = createAsyncThunk<void, undefined, {
   FetchAction.FetchMovies,
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<TMovie[]>(APIRoute.Movies);
-    dispatch(setDataLoadedStatus(false));
     dispatch(loadMovies(data));
-    dispatch(setPromoLoadedStatus(true));
-  },
-);
-
-export const fetchPromoAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
-  FetchAction.FetchPromo,
-  async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<TMovie>(APIRoute.Promo);
-    dispatch(setPromoLoadedStatus(false));
-    dispatch(loadPromo(data));
-    dispatch(setPromoLoadedStatus(true));
   },
 );
 
@@ -42,8 +42,12 @@ export const fetchFavoritesAction = createAsyncThunk<void, undefined, {
 }>(
   FetchAction.FetchFavorites,
   async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<TMovie[]>(APIRoute.Favorites);
-    dispatch(loadFavorites(data));
+    try {
+      const {data} = await api.get<TMovie[]>(APIRoute.Favorites);
+      dispatch(loadFavorites(data));
+    } catch {
+      toast.warn(ErrorMessage.FavoritesError);
+    }
   },
 );
 
@@ -54,7 +58,10 @@ export const toggleFavoriteAction = createAsyncThunk<void, {id: number, status: 
 }>(
   ChangeAction.ToggleFavorite,
   async ({id, status}, {dispatch, extra: api}) => {
-    const {data: favorite} = await api.post<TMovie>(`${APIRoute.Favorites}/${id}/${status}`);
-    dispatch(toggleFavorite(favorite));
+    try {
+      await api.post<TMovie>(`${APIRoute.Favorites}/${id}/${status}`);
+    } catch {
+      toast.warn(ErrorMessage.AddFavoriteError);
+    }
   },
 );

@@ -14,7 +14,7 @@ const SignInForm = () => {
   const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current !== null && passwordRef.current !== null) {
+    if (loginRef.current && passwordRef.current) {
       handleSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,

@@ -4,11 +4,9 @@ import { APIRoute, AppRoute, AuthorizationStatus, UserAction } from '../../const
 import { dropToken, saveToken } from '../../services/token/token';
 import AppDispatch from '../../types/app-dispatch';
 import TAuthData from '../../types/auth-data';
-import State from '../../types/state';
+import { State } from '../../types/state';
 import TUserData from '../../types/user-data';
 import { redirectToRoute } from '../app/app-actions';
-import { resetFavorites } from '../main-page/main-page-actions';
-import { fetchFavoritesAction } from '../main-page/main-page-api-actions';
 import { loadUserData, setAuthStatus } from './user-actions';
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
@@ -39,7 +37,6 @@ export const loginAction = createAsyncThunk<void, TAuthData, {
     saveToken(data.token);
     dispatch(setAuthStatus(AuthorizationStatus.Auth));
     dispatch(loadUserData(data));
-    dispatch(fetchFavoritesAction());
     dispatch(redirectToRoute(AppRoute.Main));
   },
 );
@@ -54,7 +51,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
-    dispatch(resetFavorites());
     dispatch(redirectToRoute(AppRoute.Main));
   },
 );

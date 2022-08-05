@@ -14,14 +14,14 @@ import Loading from '../../../pages/loading/loading';
 const MovieCardPromo = () => {
   const promo = useAppSelector(getPromo);
 
-  if (!promo.isLoaded) {
+  if (!promo.isDataLoaded) {
     return <Loading />;
   }
 
-  if (promo.movie){
+  if (promo.data){
     return (
       <section className="film-card">
-        <MovieBackground movie={promo.movie} />
+        <MovieBackground movie={promo.data} />
         <WTWElement />
         <HeaderElement style={HeaderStyle.MovieCard}>
           <LogoElement />
@@ -29,9 +29,9 @@ const MovieCardPromo = () => {
         </HeaderElement>
         <div className="film-card__wrap">
           <div className="film-card__info">
-            <MoviePoster {...promo.movie} />
-            <MovieCardDescription movie={promo.movie}>
-              <MovieButtons movie={promo.movie} />
+            <MoviePoster {...promo.data} />
+            <MovieCardDescription movie={promo.data}>
+              <MovieButtons movie={promo.data} />
             </MovieCardDescription>
           </div>
         </div>

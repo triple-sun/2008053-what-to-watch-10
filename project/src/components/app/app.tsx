@@ -5,7 +5,6 @@ import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 import AddReviewPage from '../../pages/add-review/add-review';
 import Loading from '../../pages/loading/loading';
 import LoginPage from '../../pages/login/login';
-import MainPage from '../../pages/main/main';
 import MoviePlayerPage from '../../pages/movie-player/movie-player';
 import MoviePage from '../../pages/movie-page/movie-page';
 import MyListPage from '../../pages/my-list/my-list';
@@ -17,16 +16,20 @@ import HistoryRouter from '../history-route/history-route';
 import { store } from '../../store/store';
 import { useEffect } from 'react';
 import { fetchFavoritesAction } from '../../store/main-page/main-page-api-actions';
+import MainPage from '../../pages/main-page/main-page';
 
 const goToMainPage = <Navigate to={AppRoute.Main} />;
 
 const App = () => {
   const authorizationStatus = useAppSelector(getAuthStatus);
   const isDataLoaded = useAppSelector(getIsDataLoaded);
+  const isAuth = checkAuth(authorizationStatus, AuthorizationStatus.Auth);
 
   useEffect(() => {
-    store.dispatch(fetchFavoritesAction());
-  }, []
+    if (isAuth){
+      store.dispatch(fetchFavoritesAction());
+    }
+  }, [isAuth]
   );
 
   if (checkAuth(authorizationStatus, AuthorizationStatus.Unknown) || !isDataLoaded) {

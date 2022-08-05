@@ -1,13 +1,8 @@
 import {createReducer} from '@reduxjs/toolkit';
+import { AppInitialState } from '../../types/state';
 import { setDataLoadedStatus } from './app-actions';
 
-type StatusInitialState = {
-  error: null | string;
-  isDataLoaded: boolean;
-};
-
-const initialState: StatusInitialState = {
-  error: null,
+const initialState: AppInitialState = {
   isDataLoaded: true,
 };
 

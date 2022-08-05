@@ -18,23 +18,23 @@ import ReviewForm from '../../components/review/review-form/review-form';
 
 const AddReviewPage = () => {
   const {id} = useParams();
-  const currentMovie = useAppSelector(getCurrentMovie);
+  const currentMovie = useAppSelector(getCurrentMovie).data;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (id && checkMovie(currentMovie, id)) {
+    if (!currentMovie && id && checkMovie(currentMovie, id)) {
       dispatch(fetchCurrentMovieAction(id));
     }
   },
   [currentMovie, dispatch, id]
   );
 
-  if (!currentMovie) {
-    return <Loading />;
-  }
-
   if (!id) {
     return <Navigate to={AppRoute.NotFound} />;
+  }
+
+  if (!currentMovie) {
+    return <Loading />;
   }
 
   return (

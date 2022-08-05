@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { MovieNavigation } from '../../../const/enums';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
-import { fetchReviewsAction } from '../../../store/review/review-api-actions';
+import { fetchReviewsAction } from '../../../store/movie-page/movie-page-api-actions';
 import { store } from '../../../store/store';
 import TMovie from '../../../types/movie';
 import { getReviews } from '../../../utils/selectors/selectors';
