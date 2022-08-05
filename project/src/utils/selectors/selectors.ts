@@ -24,4 +24,4 @@ export const getUserState = (state: State) => state.userReducer;
 
 export const getMovieState = (state: State) => state.moviePageReducer;
 
-export const getReviews = (state: State) => state.reviewReducer.reviews;
+export const getReviews = (state: State) => state.moviePageReducer.currentMovie.reviews;

@@ -1,7 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
-import TReview from '../../types/comment';
 import { TReviewState } from '../../types/review-state';
-import { changeReview, loadReviews } from './review-actions';
+import { changeReview } from './review-actions';
 
 type ReviewInitialState = {
   review: TReviewState | null;
