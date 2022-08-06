@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { MOVIE_CARD_MAIN_COUNT, MOVIE_CARD_SIMILAR_COUNT } from '../../../const/const';
 import TMovie from '../../../types/movie';
 import ShowMoreButton from '../../show-more-button/show-more-button';
@@ -31,4 +31,4 @@ const MovieCardsList = ({movies, isLong = false}: {movies: TMovie[], isLong?: bo
   );
 };
 
-export default MovieCardsList;
+export default React.memo(MovieCardsList);

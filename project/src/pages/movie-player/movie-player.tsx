@@ -9,9 +9,10 @@ import VideoPlayer from '../../components/video-player/video-player';
 import { AppRoute } from '../../const/enums';
 import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { fetchCurrentMovieAction, fetchSimilarMoviesAction } from '../../store/movie-page/movie-page-api-actions';
+import { fetchCurrentMovieAction } from '../../store/movie-page/movie-page-api-actions';
 import { getCurrentMovie } from '../../utils/selectors/selectors';
 import { checkMovie } from '../../utils/utils';
+import Loading from '../loading/loading';
 
 const MoviePlayerPage = () => {
   const {id} = useParams();
@@ -23,7 +24,6 @@ const MoviePlayerPage = () => {
   useEffect(() => {
     if (id && checkMovie(currentMovie.data, id)) {
       dispatch(fetchCurrentMovieAction(id));
-      dispatch(fetchSimilarMoviesAction(id));
     }
   },[currentMovie, dispatch, id]
   );
@@ -33,8 +33,12 @@ const MoviePlayerPage = () => {
     [isPlaying]
   );
 
-  if (!currentMovie) {
+  if (!id) {
     return <Navigate to={AppRoute.NotFound} />;
+  }
+
+  if (!currentMovie) {
+    return <Loading />;
   }
 
   if (currentMovie.data) {

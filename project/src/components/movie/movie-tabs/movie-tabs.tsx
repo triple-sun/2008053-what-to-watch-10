@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { MovieNavigation } from '../../../const/enums';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
 import { fetchReviewsAction } from '../../../store/movie-page/movie-page-api-actions';
@@ -49,4 +49,4 @@ const MovieTabs = ({movie, tab}: {movie: TMovie, tab?: MovieNavigation}) => {
   );
 };
 
-export default MovieTabs;
+export default React.memo(MovieTabs);

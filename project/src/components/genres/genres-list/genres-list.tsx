@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Genre } from '../../../const/enums';
 import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
@@ -34,5 +34,5 @@ const GenresList = () => {
   return null;
 };
 
-export default GenresList;
+export default React.memo(GenresList);
 

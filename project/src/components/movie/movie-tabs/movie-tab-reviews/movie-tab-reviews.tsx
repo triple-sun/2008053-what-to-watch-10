@@ -1,3 +1,4 @@
+import React from 'react';
 import TReview from '../../../../types/comment';
 import Review from './review/review';
 
@@ -16,4 +17,4 @@ const MovieTabReviews = ({reviews}: {reviews: TReview[]}) => (
   </div>
 );
 
-export default MovieTabReviews;
+export default React.memo(MovieTabReviews);
