@@ -12,7 +12,7 @@ type TMovie = {
   director: string;
   starring: string[]
   runTime: number,
-  genre: Genre | string;
+  genre: Genre;
   released: number;
   id: number,
   isFavorite: boolean;
