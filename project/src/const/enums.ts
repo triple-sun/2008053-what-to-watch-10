@@ -72,8 +72,6 @@ export enum ChangeAction {
   ToggleFavorite = 'movies/setFavorite',
   ResetFavorites = 'movies/resetFavorites',
   ChangeGenre = 'movies/genre/changeGenre',
-  ResetGenre = 'movies/genre/resetGenre',
-  ClearError = 'app/clearError',
 }
 
 export enum UserAction {
@@ -88,6 +86,7 @@ export enum AppAction {
   SetDataLoaded = 'data/setDataLoaded',
   RedirectToRoute = 'app/redirectToRoute',
 }
+
 export enum Genre {
   AllGenres = 'AllGenres',
   Action = 'Action',

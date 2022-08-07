@@ -6,6 +6,7 @@ const initialState: MovieInitialState = {
   currentMovie: {
     data: null,
     reviews: [],
+    isIdOK: false
   },
   similarMovies: {
     data: [],
