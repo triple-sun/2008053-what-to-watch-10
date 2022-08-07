@@ -4,6 +4,13 @@ import TReview from './comment';
 import { TData } from './data';
 import TMovie from './movie';
 
+export type PlayerState = {
+  movie: TMovie,
+  isPlaying: boolean,
+  progress?: number,
+  isMuted: boolean;
+}
+
 export type AppInitialState = Omit <TData, 'data'>
 
 export type MainPageInitialState = {

@@ -1,19 +1,21 @@
-import { useEffect, useRef, useState } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 import TMovie from '../../types/movie';
 
 const VIDEO_LOADED_DATA = 'loadeddata';
 
 type MoviePlayerProps = {
   movie: TMovie;
+  videoRef: RefObject<HTMLVideoElement>;
   isPlaying: boolean;
   isMuted?: boolean
   isPreview?: boolean
+  handleProgressUpdate?: () => void;
 }
 
-const VideoPlayer = ({movie, isPlaying, isMuted = false, isPreview = false}: MoviePlayerProps) => {
+const VideoPlayer = ({movie, videoRef, isPlaying, handleProgressUpdate, isMuted = false, isPreview = false}: MoviePlayerProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const onTimeUpdate = () => handleProgressUpdate ? handleProgressUpdate() : null;
 
   useEffect(() => {
     if (videoRef.current === null) {
@@ -34,9 +36,9 @@ const VideoPlayer = ({movie, isPlaying, isMuted = false, isPreview = false}: Mov
     }
 
     videoRef.current.pause();
-  }, [isLoading, isMuted, isPlaying, isPreview, movie]);
+  }, [isLoading, isMuted, isPlaying, isPreview, movie, videoRef]);
 
-  return <video src={isPreview ? movie.previewVideoLink : movie.videoLink} ref={videoRef} className="player__video" poster={movie.previewImage}/>;
+  return <video src={isPreview ? movie.previewVideoLink : movie.videoLink} ref={videoRef} className="player__video" poster={movie.previewImage} onTimeUpdate={onTimeUpdate}/>;
 };
 
 export default VideoPlayer;

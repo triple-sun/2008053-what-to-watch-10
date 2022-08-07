@@ -15,7 +15,9 @@ const initialState: MovieInitialState = {
 const moviePageReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(loadCurrentMovie, (state, action) => {
-      state.currentMovie.data = action.payload;
+      if (state.currentMovie.data !== action.payload) {
+        state.currentMovie.data = action.payload;
+      }
     })
     .addCase(loadSimilarMovies, (state, action) => {
       state.similarMovies.data = action.payload;
