@@ -13,15 +13,15 @@ const FAVORITE_SINGLE_STEP = 1;
 const MyListAddButton = ({id}: {id: number}) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const authorizationStatus = useAppSelector(getAuthStatus);
-  const favorites = useAppSelector(getFavorites);
   const isAuth = checkAuth(authorizationStatus, AuthorizationStatus.Auth);
+  const favorites = useAppSelector(getFavorites);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const isInFavorites = favorites.data.some((fav) => fav.id === id);
 
-  const favoritesCount = isFavorite
+  const favoritesCount = isFavorite && !isInFavorites
     ? favorites.data.length + FAVORITE_SINGLE_STEP
     : favorites.data.length;
 
