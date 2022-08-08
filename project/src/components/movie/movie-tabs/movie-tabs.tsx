@@ -31,7 +31,7 @@ const MovieTabs = ({movie, tab}: {movie: TMovie, tab?: MovieNavigation}) => {
     }};
 
   useEffect(() => {
-    store.dispatch(fetchReviewsAction(movie.id.toString()));
+    store.dispatch(fetchReviewsAction(movie.id));
   }, [movie.id]
   );
 

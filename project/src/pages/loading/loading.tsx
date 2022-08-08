@@ -1,3 +1,4 @@
+import React from 'react';
 import HeaderElement from '../../components/common/header-element/header-element';
 import Spinner from '../../components/spinner/spinner';
 import { HeaderStyle } from '../../const/enums';
@@ -15,4 +16,4 @@ const Loading = () => (
   </div>
 );
 
-export default Loading;
+export default React.memo(Loading);

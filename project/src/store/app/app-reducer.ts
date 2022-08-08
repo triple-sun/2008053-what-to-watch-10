@@ -6,11 +6,11 @@ const initialState: AppInitialState = {
   isDataLoaded: true,
 };
 
-const appStatusReducer = createReducer(initialState, (builder) => {
+const appReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setDataLoadedStatus, (state, action) => {
       state.isDataLoaded = action.payload;
     });
 });
 
-export default appStatusReducer;
+export default appReducer;

@@ -3,7 +3,7 @@ import MovieCardsList from '../../components/movie/movie-cards-list/movie-cards-
 import PageFooterElement from '../../components/common/page-footer/page-footer-element';
 import { AppRoute } from '../../const/enums';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { getMovieState } from '../../utils/selectors/selectors';
+import { getMoviePageState } from '../../utils/selectors/selectors';
 import Loading from '../loading/loading';
 import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
 import { fetchCurrentMovieAction, fetchSimilarMoviesAction } from '../../store/movie-page/movie-page-api-actions';
@@ -13,7 +13,7 @@ import MoviePageFilmCard from '../../components/movie-page/movie-page-film-card/
 
 const MoviePage = () => {
   const {id} = useParams();
-  const {currentMovie, similarMovies} = useAppSelector(getMovieState);
+  const {currentMovie, similarMovies} = useAppSelector(getMoviePageState);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

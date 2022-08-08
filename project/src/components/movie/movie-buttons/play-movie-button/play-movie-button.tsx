@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import TMovie from '../../../../types/movie';
 import MoviePlayIcon from '../../movie-images/movie-icons/movie-play-icon/movie-play-icon';
@@ -11,4 +12,4 @@ const PlayMovieButton = ({id}: TMovie) => (
   </Link>
 );
 
-export default PlayMovieButton;
+export default React.memo(PlayMovieButton);

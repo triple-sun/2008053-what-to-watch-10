@@ -42,7 +42,7 @@ export const fetchCurrentMovieAction = createAsyncThunk<void, string, {
   },
 );
 
-export const fetchReviewsAction = createAsyncThunk<void, string, {
+export const fetchReviewsAction = createAsyncThunk<void, number, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance

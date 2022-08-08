@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const/enums';
@@ -26,4 +27,4 @@ const MovieCardComponent = ({movie, activeMovieId, handleMouseEvent}: MovieCardP
     </article>
   );};
 
-export default MovieCardComponent;
+export default React.memo(MovieCardComponent);

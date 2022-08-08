@@ -10,6 +10,7 @@ import MovieCardDescription from '../movie-card-description/movie-card-descripti
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
 import { getPromo } from '../../../utils/selectors/selectors';
 import Loading from '../../../pages/loading/loading';
+import React from 'react';
 
 const MovieCardPromo = () => {
   const promo = useAppSelector(getPromo);
@@ -41,4 +42,4 @@ const MovieCardPromo = () => {
   return null;
 };
 
-export default MovieCardPromo;
+export default React.memo(MovieCardPromo);

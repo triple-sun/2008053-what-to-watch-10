@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../../../const/enums';
 import useAppSelector from '../../../../hooks/use-app-selector/use-app-selector';
@@ -13,4 +14,4 @@ const AddReviewButton = ({id}: TMovie ) => {
   return isAuth ? <Link to={`${AppRoute.Movies}${id}${REVIEW_LINK_SUFFIX}`} className="btn film-card__button">Add review</Link> : null;
 };
 
-export default AddReviewButton;
+export default React.memo(AddReviewButton);

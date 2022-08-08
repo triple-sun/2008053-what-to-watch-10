@@ -15,6 +15,7 @@ import Loading from '../loading/loading';
 import { fetchCurrentMovieAction } from '../../store/movie-page/movie-page-api-actions';
 import { checkMovie } from '../../utils/utils';
 import ReviewForm from '../../components/review/review-form/review-form';
+import React from 'react';
 
 const AddReviewPage = () => {
   const {id} = useParams();
@@ -56,4 +57,4 @@ const AddReviewPage = () => {
 
 };
 
-export default AddReviewPage;
+export default React.memo(AddReviewPage);

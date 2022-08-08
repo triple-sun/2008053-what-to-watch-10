@@ -6,6 +6,7 @@ import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 import { getMovies, getSelectedGenre } from '../../utils/selectors/selectors';
 import { filterMoviesByGenre } from '../../utils/utils';
 import { Genre } from '../../const/enums';
+import React from 'react';
 
 const MainPage = () => {
   const movies = useAppSelector(getMovies).data;
@@ -27,4 +28,4 @@ const MainPage = () => {
     </>
   );};
 
-export default MainPage;
+export default React.memo(MainPage);

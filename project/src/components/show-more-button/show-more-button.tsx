@@ -1,3 +1,4 @@
+import React from 'react';
 import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
 
 type ShowMoreButtonProps = {
@@ -19,4 +20,4 @@ const ShowMoreButton = ({totalMovieCount, renderedMoviesCount, handleShowMoreBut
     </div>
   );};
 
-export default ShowMoreButton;
+export default React.memo(ShowMoreButton);

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, Favorite } from '../../../../const/enums';
 import useAppDispatch from '../../../../hooks/use-app-dispatch/use-app-dispatch';
@@ -12,6 +12,7 @@ const FAVORITE_SINGLE_STEP = 1;
 
 const MyListAddButton = ({id}: {id: number}) => {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [favoritesCount, setFavoritesCount] = useState(0);
   const authorizationStatus = useAppSelector(getAuthStatus);
   const isAuth = checkAuth(authorizationStatus, AuthorizationStatus.Auth);
   const favorites = useAppSelector(getFavorites);
@@ -21,19 +22,16 @@ const MyListAddButton = ({id}: {id: number}) => {
 
   const isInFavorites = favorites.data.some((fav) => fav.id === id);
 
-  const favoritesCount = isFavorite && !isInFavorites
-    ? favorites.data.length + FAVORITE_SINGLE_STEP
-    : favorites.data.length;
-
   const handleFavoriteAction = useCallback(
     () => {
       dispatch(toggleFavoriteAction({id, status: isInFavorites
         ? Favorite.SetNotFavorite
         : Favorite.SetFavorite}));
       setIsFavorite(!isFavorite);
+      setFavoritesCount(isFavorite ? favoritesCount - FAVORITE_SINGLE_STEP : favoritesCount + FAVORITE_SINGLE_STEP);
     }
     ,
-    [dispatch, id, isFavorite, isInFavorites]
+    [dispatch, favoritesCount, id, isFavorite, isInFavorites]
   );
 
   const onFavoriteButtonClick = isAuth
@@ -41,11 +39,12 @@ const MyListAddButton = ({id}: {id: number}) => {
     : () => navigate(AppRoute.Login);
 
   useEffect(() => {
-    if (isAuth && !favorites) {
+    if (isAuth && !favorites.data) {
       dispatch(fetchFavoritesAction());
     }
-    if (isInFavorites) {
-      setIsFavorite(true);
+    if (favorites.data) {
+      setFavoritesCount(favorites.data.length);
+      setIsFavorite(isInFavorites);
     }
   }, [dispatch, favorites, isAuth, isInFavorites]
   );
@@ -62,4 +61,4 @@ const MyListAddButton = ({id}: {id: number}) => {
   );
 };
 
-export default MyListAddButton;
+export default React.memo(MyListAddButton);

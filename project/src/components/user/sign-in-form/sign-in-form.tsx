@@ -1,3 +1,4 @@
+import React from 'react';
 import { FormEvent, useRef } from 'react';
 import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
 import { loginAction } from '../../../store/user/user-api-actions';
@@ -40,4 +41,4 @@ const SignInForm = () => {
     </form>
   );};
 
-export default SignInForm;
+export default React.memo(SignInForm);

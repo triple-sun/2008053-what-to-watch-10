@@ -1,27 +1,30 @@
+import { createSelector } from 'reselect';
 import { State } from '../../types/state';
 
-export const getMovies = (state: State) => state.mainPageReducer.movies;
-
-export const getPromo = (state: State) => state.mainPageReducer.promo;
-
-export const getFavorites = (state: State) => state.mainPageReducer.favorites;
-
-export const getCurrentMovie = (state: State) => state.moviePageReducer.currentMovie;
-
-export const getSimilarMovies = (state: State) => state.moviePageReducer.similarMovies;
-
-export const getSelectedGenre = (state: State) => state.mainPageReducer.selectedGenre;
-
-export const getIsDataLoaded = (state: State) => state.appStatusReducer.isDataLoaded;
-
-export const getAuthStatus = (state: State) => state.userReducer.authorizationStatus;
-
-export const getUserData = (state: State) => state.userReducer.userData;
+export const getAppState = (state: State) => state.appReducer;
 
 export const getMainPageState = (state: State) => state.mainPageReducer;
 
+export const getMoviePageState = (state: State) => state.moviePageReducer;
+
 export const getUserState = (state: State) => state.userReducer;
 
-export const getMovieState = (state: State) => state.moviePageReducer;
+export const getIsDataLoaded = createSelector(getAppState, (state) => state.isDataLoaded);
 
-export const getReviews = (state: State) => state.moviePageReducer.currentMovie.reviews;
+export const getMovies = createSelector(getMainPageState, (state) => state.movies);
+
+export const getFavorites = createSelector(getMainPageState, (state) => state.favorites);
+
+export const getPromo = createSelector(getMainPageState, (state) => state.promo);
+
+export const getSelectedGenre = createSelector(getMainPageState, (state) => state.selectedGenre);
+
+export const getCurrentMovie = createSelector(getMoviePageState, (state) => state.currentMovie);
+
+export const getSimilarMovies = createSelector(getMoviePageState, (state) => state.similarMovies);
+
+export const getReviews = createSelector(getMoviePageState, (state) => state.currentMovie.reviews);
+
+export const getAuthStatus = createSelector(getUserState, (state) => state.authorizationStatus);
+
+export const getUserData = createSelector(getUserState, (state) => state.userData);
