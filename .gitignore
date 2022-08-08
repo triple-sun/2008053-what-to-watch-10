@@ -2,27 +2,3 @@
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-jest.config.ts
-
-# production
-/build
-
-# misc
-Thumbs.db
-.DS_Store
-.env
-*.log*
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# editors
-.idea
-*.sublime*
-.vscode

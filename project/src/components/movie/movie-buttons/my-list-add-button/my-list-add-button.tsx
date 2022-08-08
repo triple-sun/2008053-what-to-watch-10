@@ -13,27 +13,27 @@ const FAVORITE_SINGLE_STEP = 1;
 const MyListAddButton = ({id}: {id: number}) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const authorizationStatus = useAppSelector(getAuthStatus);
-  const favorites = useAppSelector(getFavorites);
   const isAuth = checkAuth(authorizationStatus, AuthorizationStatus.Auth);
+  const favorites = useAppSelector(getFavorites);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const isInList = favorites.data.some((fav) => fav.id === id);
+  const isInFavorites = favorites.data.some((fav) => fav.id === id);
 
-  const favoritesCount = isFavorite
+  const favoritesCount = isFavorite && !isInFavorites
     ? favorites.data.length + FAVORITE_SINGLE_STEP
     : favorites.data.length;
 
   const handleFavoriteAction = useCallback(
     () => {
-      dispatch(toggleFavoriteAction({id, status: isInList
+      dispatch(toggleFavoriteAction({id, status: isInFavorites
         ? Favorite.SetNotFavorite
         : Favorite.SetFavorite}));
       setIsFavorite(!isFavorite);
     }
     ,
-    [dispatch, id, isFavorite, isInList]
+    [dispatch, id, isFavorite, isInFavorites]
   );
 
   const onFavoriteButtonClick = isAuth
@@ -41,16 +41,18 @@ const MyListAddButton = ({id}: {id: number}) => {
     : () => navigate(AppRoute.Login);
 
   useEffect(() => {
-    dispatch(fetchFavoritesAction());
-    if (isInList) {
+    if (isAuth && !favorites) {
+      dispatch(fetchFavoritesAction());
+    }
+    if (isInFavorites) {
       setIsFavorite(true);
     }
-  }, [dispatch, favorites, isInList]
+  }, [dispatch, favorites, isAuth, isInFavorites]
   );
 
   return (
     <button className="btn btn--list film-card__button" type="button" onClick={onFavoriteButtonClick}>
-      <MovieListIcon isInList={isInList} />
+      <MovieListIcon isFavorite={isFavorite} />
       <svg viewBox="0 0 19 20" width="19" height="20">
         <use xlinkHref="/my-list/"></use>
       </svg>
