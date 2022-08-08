@@ -10,6 +10,7 @@ import { fetchCurrentMovieAction, fetchSimilarMoviesAction } from '../../store/m
 import { useEffect } from 'react';
 import { checkMovie } from '../../utils/utils';
 import MoviePageFilmCard from '../../components/movie-page/movie-page-film-card/movie-page-film-card';
+import React from 'react';
 
 const MoviePage = () => {
   const {id} = useParams();
@@ -46,4 +47,4 @@ const MoviePage = () => {
   );
 };
 
-export default MoviePage;
+export default React.memo(MoviePage);
