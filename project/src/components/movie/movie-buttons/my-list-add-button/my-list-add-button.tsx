@@ -28,7 +28,9 @@ const MyListAddButton = ({id}: {id: number}) => {
         ? Favorite.SetNotFavorite
         : Favorite.SetFavorite}));
       setIsFavorite(!isFavorite);
-      setFavoritesCount(isFavorite ? favoritesCount - FAVORITE_SINGLE_STEP : favoritesCount + FAVORITE_SINGLE_STEP);
+      setFavoritesCount(isFavorite
+        ? favoritesCount - FAVORITE_SINGLE_STEP
+        : favoritesCount + FAVORITE_SINGLE_STEP);
     }
     ,
     [dispatch, favoritesCount, id, isFavorite, isInFavorites]
@@ -39,6 +41,9 @@ const MyListAddButton = ({id}: {id: number}) => {
     : () => navigate(AppRoute.Login);
 
   useEffect(() => {
+    if (!isAuth) {
+      setFavoritesCount(0);
+    }
     if (isAuth && !favorites.data) {
       dispatch(fetchFavoritesAction());
     }
