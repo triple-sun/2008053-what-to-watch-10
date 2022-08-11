@@ -10,7 +10,7 @@ const initialState: CurrentMovieInitialState = {
   isLoading: true
 };
 
-const moviePlayerReducer = createReducer(initialState, (builder) => {
+const movieReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(fetchMovieAction.pending, (state, action) => {
       state.isLoading = true;
@@ -31,4 +31,4 @@ const moviePlayerReducer = createReducer(initialState, (builder) => {
     });
 });
 
-export default moviePlayerReducer;
+export default movieReducer;
