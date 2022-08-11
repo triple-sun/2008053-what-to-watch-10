@@ -17,8 +17,9 @@ export const fetchSimilarMoviesAction = createAsyncThunk<void, string, {
 }>(
   FetchAction.FetchSimilarMovies,
   async (id, {dispatch, extra: api}) => {
-    try {
-      const {data: similarMovies} = await api.get<TMovie[]>(`${APIRoute.Movies}/${id}${SIMILAR_MOVIES_URL_SUFFIX}`);
+    const {data: currentMovie} = await api.get<TMovie>(`${APIRoute.Movies}/${id}`);
+    const {data: currentReviews} = await api.get<TReview[]>(`${APIRoute.Review}/${id}`);
+    const {data: similarMovies} = await api.get<TMovie[]>(`${APIRoute.Movies}/${id}${SIMILAR_MOVIES_URL_SUFFIX}`);
       dispatch(loadSimilarMovies(similarMovies));
     } catch {
       toast.warn(ErrorMessage.SimilarError);
