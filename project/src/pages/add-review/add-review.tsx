@@ -18,9 +18,10 @@ import { getMovies } from '../../store/main-page/main-page-selectors';
 import { checkId } from '../../utils/utils';
 
 const AddReviewPage = () => {
+  const id = Number(useParams().id);
+
   const {data: {movie}, isLoading} = useAppSelector(getCurrentMovieState);
 
-  const id = Number(useParams().id);
   const movies = useAppSelector(getMovies);
   const isIdOk = checkId(movies, id);
 

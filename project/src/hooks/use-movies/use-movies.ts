@@ -1,9 +1,9 @@
-import { Genre, MovieList } from '../const/enums';
-import { getMainPageState } from '../store/main-page/main-page-selectors';
-import { getSimilarMovies } from '../store/similar-movies/similar-movies-selectors';
-import { getFavorites } from '../store/user/user-selectors';
-import { filterMoviesByGenre } from '../utils/utils';
-import useAppSelector from './use-app-selector/use-app-selector';
+import { Genre, MovieList } from '../../const/enums';
+import { getMainPageState } from '../../store/main-page/main-page-selectors';
+import { getSimilarMovies } from '../../store/similar-movies/similar-movies-selectors';
+import { getFavorites } from '../../store/user/user-selectors';
+import { filterMoviesByGenre } from '../../utils/utils';
+import useAppSelector from '../use-app-selector/use-app-selector';
 
 const useMovies = (movieList: MovieList) => {
   const {data: {movies}, selectedGenre} = useAppSelector(getMainPageState);

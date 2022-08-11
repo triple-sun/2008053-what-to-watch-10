@@ -21,7 +21,7 @@ import MovieTabs from '../../movie/movie-tabs/movie-tabs';
 const MoviePageFilmCard = () => {
   const id = Number(useParams().id);
 
-  const {data: {movie: data}} = useAppSelector(getCurrentMovieState);
+  const {data: {movie}} = useAppSelector(getCurrentMovieState);
 
   const movies = useAppSelector(getMovies);
   const isIdOk = checkId(movies, id);
@@ -29,34 +29,36 @@ const MoviePageFilmCard = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchCurrentMovieAction(id));
-  }, [dispatch, id]);
+    if (!movie || id !== movie.id) {
+      dispatch(fetchCurrentMovieAction(id));
+    }
+  }, [dispatch, id, movie]);
 
   if (!isIdOk) {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
-  return !data
+  return !movie
     ? <Loading/>
     : (
       <section className="film-card film-card--full">
         <div className="film-card__hero">
-          <MovieBackground movie={data} />
+          <MovieBackground movie={movie} />
           <WTWElement />
           <HeaderElement style={HeaderStyle.MovieCard}>
             <LogoElement />
             <UserBlock />
           </HeaderElement>
           <div className="film-card__wrap">
-            <MovieCardDescription movie={data}>
-              <MovieButtons movie={data} />
+            <MovieCardDescription movie={movie}>
+              <MovieButtons movie={movie} />
             </MovieCardDescription>
           </div>
         </div>
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <MoviePoster {...data} size={PosterSize.Big} />
-            <MovieTabs movie={data} />
+            <MoviePoster {...movie} size={PosterSize.Big} />
+            <MovieTabs movie={movie} />
           </div>
         </div>
       </section>

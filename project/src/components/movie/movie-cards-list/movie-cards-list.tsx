@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { MOVIE_CARD_MAIN_COUNT, MOVIE_CARD_SIMILAR_COUNT } from '../../../const/const';
 import { MovieList } from '../../../const/enums';
 import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
-import useMovies from '../../../hooks/use-movies';
+import useMovies from '../../../hooks/use-movies/use-movies';
 import { fetchSimilarMoviesAction } from '../../../store/similar-movies/similar-movies-api-actions';
 import { fetchFavoritesAction } from '../../../store/user/user-api-actions';
 import TMovie from '../../../types/movie';
