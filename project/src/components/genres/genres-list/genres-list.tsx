@@ -3,12 +3,11 @@ import { Genre } from '../../../const/enums';
 import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
 import { setGenre } from '../../../store/main-page/main-page-actions';
-import { getMovies, getSelectedGenre } from '../../../utils/selectors/selectors';
+import { getMainPageState } from '../../../store/main-page/main-page-selectors';
 import GenreElement from '../genre/genre';
 
 const GenresList = () => {
-  const movies = useAppSelector(getMovies);
-  const selectedGenre = useAppSelector(getSelectedGenre);
+  const {data: {movies}, selectedGenre} = useAppSelector(getMainPageState);
   const dispatch = useAppDispatch();
 
   const currentGenres = [Genre.AllGenres, ...new Set(movies.map((movie) => movie.genre))];

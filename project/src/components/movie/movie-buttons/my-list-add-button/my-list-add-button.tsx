@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../../../const/enums';
+import { AppRoute, AuthStatus } from '../../../../const/enums';
 import useAppDispatch from '../../../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../../../hooks/use-app-selector/use-app-selector';
 import { fetchFavoritesAction, toggleFavoriteAction } from '../../../../store/user/user-api-actions';
-import { getAuthStatus, getFavorites } from '../../../../store/user/user-selectors';
+import { getUserState } from '../../../../store/user/user-selectors';
 import { checkAuth } from '../../../../utils/utils';
 import MovieListIcon from '../../movie-images/movie-icons/movie-list-icon/movie-list-icon';
 
@@ -14,10 +14,9 @@ const MyListAddButton = ({id}: {id: number}) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [favoritesCount, setFavoritesCount] = useState(0);
 
-  const authStatus = useAppSelector(getAuthStatus);
+  const {data:{favorites}, authStatus} = useAppSelector(getUserState);
 
-  const isAuth = checkAuth(authStatus, AuthorizationStatus.Auth);
-  const favorites = useAppSelector(getFavorites);
+  const isAuth = checkAuth(authStatus, AuthStatus.Auth);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

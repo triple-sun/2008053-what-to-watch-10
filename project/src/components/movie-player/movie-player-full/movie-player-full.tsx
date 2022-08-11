@@ -12,15 +12,17 @@ const VIDEO_LOADED_DATA = 'loadeddata';
 const DURATION_DECIMALS = 0;
 
 const MoviePlayerFull = (movie: TMovie) => {
-  const [isLoading, setIsLoading] = useState(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const [isLoading, setIsLoading] = useState(true);
   const [playerState, setPlayerState] = useState({
     isPlaying: false,
     progress: 0,
     isMuted: false,
+    isFullscreen: false
   });
 
-  const {isPlaying, progress, isMuted} = playerState;
+  const {isPlaying, progress, isMuted, isFullscreen} = playerState;
 
   useEffect(() => {
     if (videoRef.current === null) {
@@ -31,11 +33,14 @@ const MoviePlayerFull = (movie: TMovie) => {
     videoRef.current.muted = isMuted;
 
     if (videoRef.current) {
+      if (isFullscreen) {
+        videoRef.current.requestFullscreen();
+      }
       isPlaying
         ? videoRef.current.play()
         : videoRef.current.pause();
     }
-  }, [isLoading, isPlaying, isMuted]);
+  }, [isLoading, isPlaying, isMuted, isFullscreen]);
 
   const handlePlayButtonToggle =
     () => {
@@ -68,10 +73,12 @@ const MoviePlayerFull = (movie: TMovie) => {
     }, [playerState]);
 
   const handleFullScreenClick = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      videoRef.current?.requestFullscreen();
-    }, []);
+    () => {
+      setPlayerState({
+        ...playerState,
+        isFullscreen: !isFullscreen ,
+      });
+    }, [isFullscreen, playerState]);
 
   const onProgressClick = ({currentTarget}: React.FormEvent<HTMLProgressElement>) => handleProgressChange(currentTarget.value);
 

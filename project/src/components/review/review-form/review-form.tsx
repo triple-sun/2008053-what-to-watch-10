@@ -10,6 +10,7 @@ import RatingElement from '../rating-element/rating-element';
 const ReviewForm = ({movie}: {movie: TMovie}) => {
   const [review, setReview] = useState<TReviewState>({rating: 0, comment: null});
   const {rating, comment} = review;
+
   const dispatch = useAppDispatch();
 
   const handleReviewChange = ({target, value}: {target: string, value: string | number}) => setReview({...review, [target]: value});

@@ -8,7 +8,7 @@ import MoviePoster from '../movie-images/movie-poster/movie-poster';
 import MovieButtons from '../movie-buttons/movie-buttons';
 import MovieCardDescription from '../movie-card-description/movie-card-description';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
-import { getPromo } from '../../../utils/selectors/selectors';
+import { getPromo } from '../../../store/main-page/main-page-selectors';
 
 const MovieCardPromo = () => {
   const promo = useAppSelector(getPromo);

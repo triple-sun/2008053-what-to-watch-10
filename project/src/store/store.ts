@@ -2,7 +2,7 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import { createAPI } from '../services/api/api';
 import { redirect } from './middlewares/redirect';
 import mainPageReducer from './main-page/main-page-reducer';
-import moviePageReducer from './movie-page/movie-page-reducer';
+import moviePageReducer from './similar-movies/similar-movies-reducer';
 import moviePlayerReducer from './current-movie/current-movie-reducer';
 import userReducer from './user/user-reducer';
 

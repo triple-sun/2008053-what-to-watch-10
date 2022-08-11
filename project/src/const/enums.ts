@@ -10,7 +10,13 @@ export enum AppRoute {
   NotFound = '*'
 }
 
-export enum AuthorizationStatus {
+export enum MovieList {
+  MainPage = 'MAIN',
+  MoviePage = 'SIMILAR',
+  MyListPage = 'MY_LIST',
+}
+
+export enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',

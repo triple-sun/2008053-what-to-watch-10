@@ -5,33 +5,42 @@ import { AppRoute } from '../../const/enums';
 import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 import { fetchCurrentMovieAction } from '../../store/current-movie/current-movie-api-actions';
-import { getCurrentMovieState } from '../../utils/selectors/selectors';
+import { getCurrentMovieState } from '../../store/current-movie/current-movie-selectors';
+import { getMovies } from '../../store/main-page/main-page-selectors';
+import { checkId } from '../../utils/utils';
 import Loading from '../loading/loading';
 
 const MoviePlayerPage = () => {
-  const {id} = useParams();
-  const {data, isLoading} = useAppSelector(getCurrentMovieState);
+  const id = Number(useParams().id);
+
+  const {data: {movie}, isLoading} = useAppSelector(getCurrentMovieState);
+
+  const movies = useAppSelector(getMovies);
+  const isIdOk = checkId(movies, id);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (id) {
+    if (id !== movie?.id) {
       dispatch(fetchCurrentMovieAction(id));
     }
-  },[dispatch, id]
+  },[dispatch, id, movie?.id]
   );
 
-  if (isLoading) {
+  if (!isIdOk) {
+    return <Navigate to={AppRoute.NotFound} />;
+
+  }
+  if (isLoading || !movie) {
     return <Loading />;
   }
 
-  if (data) {
-    return (
-      <div className="player">
-        <MoviePlayerFull {...data} />
-      </div>
-    );
-  }
-  return <Navigate to={AppRoute.NotFound} />;
+  return (
+    <div className="player">
+      <MoviePlayerFull {...movie} />
+    </div>
+  );
+
 
 };
 

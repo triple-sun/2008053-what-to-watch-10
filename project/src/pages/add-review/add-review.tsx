@@ -11,47 +11,53 @@ import HeaderElement from '../../components/common/header-element/header-element
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
 import Loading from '../loading/loading';
-import { checkMovie } from '../../utils/utils';
 import ReviewForm from '../../components/review/review-form/review-form';
-import { fetchMoviePageDataAction } from '../../store/movie-page/movie-page-api-actions';
-import { getCurrentMovieState } from '../../utils/selectors/selectors';
+import { fetchSimilarMoviesAction } from '../../store/similar-movies/similar-movies-api-actions';
+import { getCurrentMovieState } from '../../store/current-movie/current-movie-selectors';
+import { getMovies } from '../../store/main-page/main-page-selectors';
+import { checkId } from '../../utils/utils';
 
 const AddReviewPage = () => {
-  const {id} = useParams();
-  const {data, isLoading} = useAppSelector(getCurrentMovieState);
+  const {data: {movie}, isLoading} = useAppSelector(getCurrentMovieState);
+
+  const id = Number(useParams().id);
+  const movies = useAppSelector(getMovies);
+  const isIdOk = checkId(movies, id);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (id && checkMovie(data, id)) {
-      dispatch(fetchMoviePageDataAction(id));
+    if (!movie || id !== movie.id) {
+      dispatch(fetchSimilarMoviesAction(id));
     }
   },
-  [data, dispatch, id]
+  [dispatch, id, movie]
   );
 
-  if (isLoading) {
+  if (!isIdOk) {
+    return <Navigate to={AppRoute.NotFound} />;
+  }
+
+  if (!movie || isLoading) {
     return <Loading />;
   }
 
-  if (data) {
-    return (
-      <section className="film-card film-card--full">
-        <div className="film-card__header">
-          <MovieBackground movie={data} />
-          <WTWElement />
-          <HeaderElement>
-            <LogoElement />
-            <ReviewBreadcrumbs {...data} />
-            <UserBlock />
-          </HeaderElement>
-          <MoviePoster {...data} size={PosterSize.Small} />
-        </div>
-        <ReviewForm movie={data} />
-      </section>
-    );
-  }
+  return (
+    <section className="film-card film-card--full">
+      <div className="film-card__header">
+        <MovieBackground movie={movie} />
+        <WTWElement />
+        <HeaderElement>
+          <LogoElement />
+          <ReviewBreadcrumbs {...movie} />
+          <UserBlock />
+        </HeaderElement>
+        <MoviePoster {...movie} size={PosterSize.Small} />
+      </div>
+      <ReviewForm movie={movie} />
+    </section>
+  );
 
-  return <Navigate to={AppRoute.NotFound} />;
 
 };
 

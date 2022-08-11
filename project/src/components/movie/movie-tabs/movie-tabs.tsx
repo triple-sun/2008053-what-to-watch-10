@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { MovieNavigation } from '../../../const/enums';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
+import { getCurrentReviews } from '../../../store/current-movie/current-movie-selectors';
 import TMovie from '../../../types/movie';
-import { getReviews } from '../../../utils/selectors/selectors';
 import MovieTabNavigation from './movie-tab-control/movie-tab-control';
 import MovieTabDetails from './movie-tab-details/movie-tab-details';
 import MovieTabOverview from './movie-tab-overview/movie-tab-overview';
@@ -10,7 +10,8 @@ import MovieTabReviews from './movie-tab-reviews/movie-tab-reviews';
 
 const MovieTabs = ({movie, tab}: {movie: TMovie, tab?: MovieNavigation}) => {
   const [activeTab, setActiveTab] = useState(tab ?? MovieNavigation.Overview);
-  const reviews = useAppSelector(getReviews);
+
+  const reviews = useAppSelector(getCurrentReviews);
 
   const handleTabEvent = useCallback(
     (selectedTab: MovieNavigation) => setActiveTab(activeTab === selectedTab ? activeTab : selectedTab)

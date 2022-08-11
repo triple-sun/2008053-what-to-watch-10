@@ -1,6 +1,6 @@
-import { AuthorizationStatus, Genre } from '../const/enums';
+import { AuthStatus, Genre } from '../const/enums';
 import {store} from '../store/store';
-import { TData, TMainPageData, TMoviePageData, TUserData } from './data';
+import { TCurrentMovieData, TData, TMainPageData, TUserData } from './data';
 import TMovie from './movie';
 
 export type State = ReturnType<typeof store.getState>;
@@ -17,10 +17,12 @@ export type TReviewState = {
   comment: string | null;
 }
 
-export type CurrentMovieInitialState = TData<TMovie | null>;
+export type CurrentMovieInitialState = TData<TCurrentMovieData>;
+
+export type SimilarMoviesInitialState = TData<TMovie[]>;
 
 export type UserDataInitialState = TData<TUserData> & {
-  authorizationStatus: AuthorizationStatus;
+  authStatus: AuthStatus;
 };
 
 export type AddReviewPageInitialState = {
@@ -28,5 +30,3 @@ export type AddReviewPageInitialState = {
 };
 
 export type MainPageInitialState = TData<TMainPageData> & {selectedGenre: Genre}
-
-export type MoviePageInitialState = TData<TMoviePageData>;

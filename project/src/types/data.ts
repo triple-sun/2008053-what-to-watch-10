@@ -22,8 +22,6 @@ export type TMainPageData = {
 }
 
 export type TMoviePageData = {
-  currentMovie: TMovie | null;
-  currentReviews: TReview[];
   similarMovies: TMovie[];
 }
 
