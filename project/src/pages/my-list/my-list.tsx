@@ -5,36 +5,17 @@ import UserBlock from '../../components/common/user-block/user-block';
 import HeaderElement from '../../components/common/header-element/header-element';
 import { HeaderStyle, MovieList } from '../../const/enums';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import Loading from '../loading/loading';
 import { getFavorites } from '../../store/user/user-selectors';
-import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
-import { fetchFavoritesAction } from '../../store/user/user-api-actions';
-import { useEffect } from 'react';
-import { getMainPageState } from '../../store/main-page/main-page-selectors';
-
+import MyListTitle from '../../components/my-list-title/my-list-title';
 
 const MyListPage = () => {
   const favorites = useAppSelector(getFavorites);
-  const {isLoading} = useAppSelector(getMainPageState);
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (!favorites) {
-      dispatch(fetchFavoritesAction);
-    }
-  }, [dispatch, favorites]);
-
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return (
     <div className="user-page">
       <HeaderElement style={HeaderStyle.UserPage}>
         <LogoElement />
-        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{favorites.length}</span></h1>
+        <MyListTitle count={favorites.length}/>
         <UserBlock />
       </HeaderElement>
       <section className="catalog">

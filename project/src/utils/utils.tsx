@@ -38,6 +38,6 @@ export const filterMoviesByGenre = (movies: TMovie[], genre: Genre) => {
 
 export const filterFavorites = (movies: readonly TMovie[]) => movies.filter((movie) => movie.isFavorite);
 
-export const checkAuth = (authorizationStatus: AuthStatus, reference: AuthStatus): boolean => authorizationStatus === reference;
+export const checkAuth = (status: AuthStatus, reference: AuthStatus): boolean => status === reference;
 
 export const checkId = (movies: TMovie[], id: number) => movies.some((movie) => movie.id === id);
