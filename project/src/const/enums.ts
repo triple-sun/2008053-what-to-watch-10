@@ -47,20 +47,18 @@ export enum MovieNavigation {
   Reviews = 'Reviews',
 }
 
+export enum AppAction {
+  RedirectToRoute = 'app/redirectToRoute',
+}
+
 export enum FetchAction {
-  FetchMovies = 'data/fetchMovies',
-  FetchPromo = 'data/fetchPromo',
+  FetchMainPageData = 'data/fetchMainData',
+  FetchMoviePageData = '/data/fetchSimilarMovies',
+  FetchPlayerPageData = 'data/fetchCurrentMovie',
   FetchFavorites = 'data/fetchFavorites',
-  FetchReviews = 'data/fetchReviews',
-  FetchSimilarMovies = '/data/fetchSimilarMovies',
-  FetchCurrentMovie = 'data/fetchCurrentMovie',
 }
 
 export enum LoadAction {
-  LoadMovies = 'movies/loadMovies',
-  LoadPromo = 'movies/loadPromo',
-  LoadFavorites = 'movies/loadFavorites',
-  LoadUserData = 'user/setUserData',
   LoadReviews = 'review/loadReviews',
   LoadCurrentMovie = 'movies/loadCurrentMovie',
   LoadSimilarMovies = 'movies/loadSimilarMovies',
@@ -68,23 +66,16 @@ export enum LoadAction {
 
 export enum ChangeAction {
   AddReview = 'review/addReview',
-  ChangeReview = 'review/changeReview',
+  SetReview = 'review/changeReview',
   ToggleFavorite = 'movies/setFavorite',
-  ResetFavorites = 'movies/resetFavorites',
   ChangeGenre = 'movies/genre/changeGenre',
 }
 
 export enum UserAction {
   SetAuth = 'user/setAuthorization',
-  ReqAuth = 'user/requireAuthorization',
   CheckAuth = 'user/checkAuthorizattion',
   Login = 'user/login',
   Logout = 'user/logout',
-}
-
-export enum AppAction {
-  SetDataLoaded = 'data/setDataLoaded',
-  RedirectToRoute = 'app/redirectToRoute',
 }
 
 export enum Genre {
@@ -126,11 +117,6 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Review = '/comments'
-}
-
-export enum Favorite {
-  SetFavorite = 1,
-  SetNotFavorite = 0
 }
 
 export enum ErrorMessage {

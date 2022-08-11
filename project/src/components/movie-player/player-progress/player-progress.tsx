@@ -1,9 +1,9 @@
 import React from 'react';
-import { PlayerState } from '../../../types/state';
+import { TPlayerState } from '../../../types/state';
 import { minutesToHoursAndMinutes } from '../../../utils/utils';
 
 type PlayerProgressProps = {
-  state: PlayerState;
+  state: TPlayerState;
   handleProgressChange: (value: number) => void;
 }
 
@@ -22,4 +22,4 @@ const PlayerProgress = ({state, handleProgressChange}: PlayerProgressProps) => {
     </>
   );};
 
-export default PlayerProgress;
+export default React.memo(PlayerProgress);

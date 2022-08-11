@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const/enums';
 
@@ -11,4 +12,4 @@ const LogoElement = ({isLight = false}: {isLight?: boolean}) => (
   </div>
 );
 
-export default LogoElement;
+export default React.memo(LogoElement);

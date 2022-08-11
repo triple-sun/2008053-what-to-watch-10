@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../../../const/enums';
 import useAppSelector from '../../../../hooks/use-app-selector/use-app-selector';
+import { getAuthStatus } from '../../../../store/user/user-selectors';
 import TMovie from '../../../../types/movie';
-import { getAuthStatus } from '../../../../utils/selectors/selectors';
 
 const REVIEW_LINK_SUFFIX = '/review';
 

@@ -3,11 +3,9 @@ import { AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
 import { APIRoute, AppRoute, ChangeAction, ErrorMessage } from '../../const/enums';
 import AppDispatch from '../../types/app-dispatch';
-import TReview from '../../types/comment';
-import { TReviewState } from '../../types/review-state';
-import {State} from '../../types/state';
-import { redirectToRoute } from '../app/app-actions';
-
+import TReview from '../../types/review';
+import {State, TReviewState} from '../../types/state';
+import { redirectToRoute } from '../common/common-actions';
 
 export const addReviewAction = createAsyncThunk<void, TReviewState & {id: number}, {
   dispatch: AppDispatch,

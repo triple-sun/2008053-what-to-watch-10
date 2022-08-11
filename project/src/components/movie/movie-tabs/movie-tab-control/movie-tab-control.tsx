@@ -23,5 +23,5 @@ const MovieTabNavigation = ({name, activeTab, handleTabEvent}: MovieTabProps) =>
   );
 };
 
-export default MovieTabNavigation;
+export default React.memo(MovieTabNavigation);
 

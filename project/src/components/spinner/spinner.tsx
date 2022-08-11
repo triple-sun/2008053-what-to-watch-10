@@ -4,4 +4,4 @@ import './spinner.css';
 
 const Spinner = () => <><Bars color="#C9B37E" height={100} width={100} />Loading</>;
 
-export default React.memo(Spinner);
+export default Spinner;

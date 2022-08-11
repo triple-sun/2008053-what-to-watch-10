@@ -11,4 +11,4 @@ const RatingElement = ({rating, handleReviewChange}: Pick<ReviewProps, 'handleRe
     </>
   );};
 
-export default RatingElement;
+export default React.memo(RatingElement);

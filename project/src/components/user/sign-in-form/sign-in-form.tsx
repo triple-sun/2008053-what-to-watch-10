@@ -2,7 +2,7 @@ import React from 'react';
 import { FormEvent, useRef } from 'react';
 import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
 import { loginAction } from '../../../store/user/user-api-actions';
-import TAuthData from '../../../types/auth-data';
+import { TAuthData } from '../../../types/data';
 
 const SignInForm = () => {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -41,4 +41,4 @@ const SignInForm = () => {
     </form>
   );};
 
-export default React.memo(SignInForm);
+export default SignInForm;

@@ -3,15 +3,15 @@ import MovieCardPromo from '../../components/movie/movie-card-promo/movie-card-p
 import MovieCardsList from '../../components/movie/movie-cards-list/movie-cards-list';
 import PageFooter from '../../components/common/page-footer/page-footer-element';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { getMovies, getSelectedGenre } from '../../utils/selectors/selectors';
+import { getMainPageState } from '../../utils/selectors/selectors';
 import { filterMoviesByGenre } from '../../utils/utils';
 import { Genre } from '../../const/enums';
-import React from 'react';
 
 const MainPage = () => {
-  const movies = useAppSelector(getMovies).data;
-  const selectedGenre = useAppSelector(getSelectedGenre);
+  const {data: {movies}, selectedGenre} = useAppSelector(getMainPageState);
+
   const filteredMovies = selectedGenre === Genre.AllGenres ? movies : filterMoviesByGenre(movies, selectedGenre);
+
   return (
     <>
       <MovieCardPromo />
@@ -28,4 +28,4 @@ const MainPage = () => {
     </>
   );};
 
-export default React.memo(MainPage);
+export default MainPage;

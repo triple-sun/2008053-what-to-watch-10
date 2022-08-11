@@ -102,4 +102,4 @@ const MoviePlayerFull = (movie: TMovie) => {
   );
 };
 
-export default MoviePlayerFull;
+export default React.memo(MoviePlayerFull);

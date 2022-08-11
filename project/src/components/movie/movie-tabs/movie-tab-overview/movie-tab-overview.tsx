@@ -1,3 +1,4 @@
+import React from 'react';
 import TMovie from '../../../../types/movie';
 import { getRatingName } from '../../../../utils/utils';
 
@@ -24,4 +25,4 @@ const MovieTabOverview = (movie: TMovie) => {
     </>
   );};
 
-export default MovieTabOverview;
+export default React.memo(MovieTabOverview);

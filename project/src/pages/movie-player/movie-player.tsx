@@ -4,13 +4,13 @@ import MoviePlayerFull from '../../components/movie-player/movie-player-full/mov
 import { AppRoute } from '../../const/enums';
 import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { fetchCurrentMovieAction } from '../../store/movie-page/movie-page-api-actions';
-import { getCurrentMovie } from '../../utils/selectors/selectors';
+import { fetchCurrentMovieAction } from '../../store/current-movie/current-movie-api-actions';
+import { getCurrentMovieState } from '../../utils/selectors/selectors';
 import Loading from '../loading/loading';
 
 const MoviePlayerPage = () => {
   const {id} = useParams();
-  const currentMovie = useAppSelector(getCurrentMovie);
+  const {data, isLoading} = useAppSelector(getCurrentMovieState);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -20,14 +20,14 @@ const MoviePlayerPage = () => {
   },[dispatch, id]
   );
 
-  if (!currentMovie.data) {
+  if (isLoading) {
     return <Loading />;
   }
 
-  if (currentMovie.data) {
+  if (data) {
     return (
       <div className="player">
-        <MoviePlayerFull {...currentMovie.data} />
+        <MoviePlayerFull {...data} />
       </div>
     );
   }

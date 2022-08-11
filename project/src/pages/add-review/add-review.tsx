@@ -9,52 +9,50 @@ import ReviewBreadcrumbs from '../../components/review/review-breadcrumbs/review
 import WTWElement from '../../components/common/wtw-element/wtw-element';
 import HeaderElement from '../../components/common/header-element/header-element';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { getCurrentMovie } from '../../utils/selectors/selectors';
 import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
 import Loading from '../loading/loading';
-import { fetchCurrentMovieAction } from '../../store/movie-page/movie-page-api-actions';
 import { checkMovie } from '../../utils/utils';
 import ReviewForm from '../../components/review/review-form/review-form';
-import React from 'react';
+import { fetchMoviePageDataAction } from '../../store/movie-page/movie-page-api-actions';
+import { getCurrentMovieState } from '../../utils/selectors/selectors';
 
 const AddReviewPage = () => {
   const {id} = useParams();
-  const currentMovie = useAppSelector(getCurrentMovie).data;
+  const {data, isLoading} = useAppSelector(getCurrentMovieState);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!currentMovie && id && checkMovie(currentMovie, id)) {
-      dispatch(fetchCurrentMovieAction(id));
+    if (id && checkMovie(data, id)) {
+      dispatch(fetchMoviePageDataAction(id));
     }
   },
-  [currentMovie, dispatch, id]
+  [data, dispatch, id]
   );
 
-  if (!id) {
-    return <Navigate to={AppRoute.NotFound} />;
-  }
-
-  if (!currentMovie) {
+  if (isLoading) {
     return <Loading />;
   }
 
-  return (
-    <section className="film-card film-card--full">
-      <div className="film-card__header">
-        <MovieBackground movie={currentMovie} />
-        <WTWElement />
-        <HeaderElement>
-          <LogoElement />
-          <ReviewBreadcrumbs {...currentMovie} />
-          <UserBlock />
-        </HeaderElement>
-        <MoviePoster {...currentMovie} size={PosterSize.Small} />
-      </div>
-      <ReviewForm movie={currentMovie} />
-    </section>
-  );
+  if (data) {
+    return (
+      <section className="film-card film-card--full">
+        <div className="film-card__header">
+          <MovieBackground movie={data} />
+          <WTWElement />
+          <HeaderElement>
+            <LogoElement />
+            <ReviewBreadcrumbs {...data} />
+            <UserBlock />
+          </HeaderElement>
+          <MoviePoster {...data} size={PosterSize.Small} />
+        </div>
+        <ReviewForm movie={data} />
+      </section>
+    );
+  }
 
+  return <Navigate to={AppRoute.NotFound} />;
 
 };
 
-export default React.memo(AddReviewPage);
+export default AddReviewPage;

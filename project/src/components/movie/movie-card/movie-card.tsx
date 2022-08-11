@@ -1,12 +1,10 @@
 import React from 'react';
-import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const/enums';
 import { MovieCardProps } from '../../../types/props';
 import VideoPlayer from '../../video-player/video-player';
 
 const MovieCardComponent = ({movie, activeMovieId, handleMouseEvent}: MovieCardProps) => {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
   const isPlaying = movie.id === activeMovieId;
 
   const onMouseEnter = () => handleMouseEvent(movie.id);
@@ -18,7 +16,7 @@ const MovieCardComponent = ({movie, activeMovieId, handleMouseEvent}: MovieCardP
         <div className="small-film-card__image">
           {!isPlaying
             ? <img src={movie.previewImage} alt={movie.name} width="280" height="175" />
-            : <VideoPlayer movie={movie} videoRef={videoRef} isPlaying isMuted isPreview />}
+            : <VideoPlayer movie={movie} isPlaying isMuted isPreview />}
         </div>
         <h3 className="small-film-card__title">
           {movie.name}

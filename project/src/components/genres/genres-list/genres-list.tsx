@@ -7,7 +7,7 @@ import { getMovies, getSelectedGenre } from '../../../utils/selectors/selectors'
 import GenreElement from '../genre/genre';
 
 const GenresList = () => {
-  const movies = useAppSelector(getMovies).data;
+  const movies = useAppSelector(getMovies);
   const selectedGenre = useAppSelector(getSelectedGenre);
   const dispatch = useAppDispatch();
 

@@ -1,6 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
-import { AppRoute, AppAction } from '../../const/enums';
-
-export const setDataLoadedStatus = createAction<boolean>(AppAction.SetDataLoaded);
+import { AppAction, AppRoute } from '../../const/enums';
 
 export const redirectToRoute = createAction<AppRoute | string>(AppAction.RedirectToRoute);

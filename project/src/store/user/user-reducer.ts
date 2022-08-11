@@ -1,25 +1,35 @@
 import {createReducer} from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../const/enums';
-import TUserData from '../../types/user-data';
-import { loadUserData, setAuthStatus } from './user-actions';
+import { UserDataInitialState } from '../../types/state';
+import { checkAuthAction, loginAction, logoutAction } from './user-api-actions';
 
-type UserInitialState = {
-  authorizationStatus: AuthorizationStatus;
-  userData: TUserData | null;
-};
-
-const initialState: UserInitialState = {
+const initialState: UserDataInitialState = {
+  data: {
+    userInfo: null,
+    favorites: [],
+  },
   authorizationStatus: AuthorizationStatus.Unknown,
-  userData: null,
 };
 
 const userReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(loadUserData, (state, action) => {
-      state.userData = action.payload;
+    .addCase(checkAuthAction.fulfilled, (state, action) => {
+      state.authorizationStatus = AuthorizationStatus.Auth;
+      state.data = action.payload;
     })
-    .addCase(setAuthStatus, (state, action) => {
-      state.authorizationStatus = action.payload;
+    .addCase(checkAuthAction.rejected, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    .addCase(loginAction.fulfilled, (state, action) => {
+      state.authorizationStatus = AuthorizationStatus.Auth;
+      state.data.userInfo = action.payload;
+    })
+    .addCase(loginAction.rejected, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    .addCase(logoutAction.fulfilled, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+      state.data = initialState.data;
     });
 });
 

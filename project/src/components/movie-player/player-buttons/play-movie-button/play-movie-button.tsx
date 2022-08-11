@@ -1,3 +1,5 @@
+import React from 'react';
+
 const PlayMovieButton = ({handlePlayButtonToggle, isPlaying}: {handlePlayButtonToggle: () => void, isPlaying?: boolean}) => (
   <button type="button" className="player__play" onClick={handlePlayButtonToggle}>
     {isPlaying
@@ -21,6 +23,6 @@ const PlayMovieButton = ({handlePlayButtonToggle, isPlaying}: {handlePlayButtonT
   </button>
 );
 
-export default PlayMovieButton;
+export default React.memo(PlayMovieButton);
 
 

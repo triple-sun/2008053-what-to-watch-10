@@ -1,4 +1,5 @@
-import TReview from '../../../../../types/comment';
+import React from 'react';
+import TReview from '../../../../../types/review';
 import { humanizeCommentDate } from '../../../../../utils/utils';
 
 const Review = (review: TReview) => {
@@ -19,4 +20,4 @@ const Review = (review: TReview) => {
     </div>
   );};
 
-export default Review;
+export default React.memo(Review);

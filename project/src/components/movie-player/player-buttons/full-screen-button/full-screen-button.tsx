@@ -1,3 +1,4 @@
+import React from 'react';
 import { MouseEventHandler } from 'react';
 
 const FullScreenButton = ({handleFullScreenClick}: {handleFullScreenClick: MouseEventHandler}) => {
@@ -12,4 +13,4 @@ const FullScreenButton = ({handleFullScreenClick}: {handleFullScreenClick: Mouse
     </button>
   );};
 
-export default FullScreenButton;
+export default React.memo(FullScreenButton);

@@ -1,3 +1,4 @@
+import React from 'react';
 import { HeaderStyle, PosterSize } from '../../../const/enums';
 import TMovie from '../../../types/movie';
 import HeaderElement from '../../common/header-element/header-element';
@@ -34,4 +35,4 @@ const MoviePageFilmCard = (movie: TMovie) => (
   </section>
 );
 
-export default MoviePageFilmCard;
+export default React.memo(MoviePageFilmCard);

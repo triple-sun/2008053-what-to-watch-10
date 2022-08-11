@@ -9,21 +9,22 @@ import MoviePlayerPage from '../../pages/movie-player/movie-player';
 import MoviePage from '../../pages/movie-page/movie-page';
 import MyListPage from '../../pages/my-list/my-list';
 import NotFoundPage from '../../pages/not-found/not-found';
-import { getAuthStatus, getIsDataLoaded } from '../../utils/selectors/selectors';
+import { getIsMainDataLoading } from '../../utils/selectors/selectors';
 import { checkAuth } from '../../utils/utils';
 import PrivateRoute from '../common/private-route/private-route';
 import HistoryRouter from '../history-route/history-route';
 import { store } from '../../store/store';
 import { useEffect } from 'react';
-import { fetchFavoritesAction } from '../../store/main-page/main-page-api-actions';
 import MainPage from '../../pages/main-page/main-page';
+import { getAuthStatus } from '../../store/user/user-selectors';
+import { fetchFavoritesAction } from '../../store/user/user-api-actions';
 
 const goToMainPage = <Navigate to={AppRoute.Main} />;
 
 const App = () => {
-  const authorizationStatus = useAppSelector(getAuthStatus);
-  const isDataLoaded = useAppSelector(getIsDataLoaded);
-  const isAuth = checkAuth(authorizationStatus, AuthorizationStatus.Auth);
+  const authStatus = useAppSelector(getAuthStatus);
+  const isLoading = useAppSelector(getIsMainDataLoading);
+  const isAuth = checkAuth(authStatus, AuthorizationStatus.Auth);
 
   useEffect(() => {
     if (isAuth){
@@ -32,7 +33,7 @@ const App = () => {
   }, [isAuth]
   );
 
-  if (checkAuth(authorizationStatus, AuthorizationStatus.Unknown) || !isDataLoaded) {
+  if (checkAuth(authStatus, AuthorizationStatus.Unknown) || isLoading) {
     return (
       <Loading />
     );

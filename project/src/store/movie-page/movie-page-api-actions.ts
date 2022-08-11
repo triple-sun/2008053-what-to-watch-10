@@ -1,56 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { toast } from 'react-toastify';
-import { FetchAction, APIRoute, ErrorMessage, LoadAction } from '../../const/enums';
+import { FetchAction, APIRoute } from '../../const/enums';
 import AppDispatch from '../../types/app-dispatch';
-import TReview from '../../types/comment';
+import TReview from '../../types/review';
 import TMovie from '../../types/movie';
 import { State } from '../../types/state';
-import { loadCurrentMovie, loadReviews, loadSimilarMovies } from './movie-page-actions';
+import { TMoviePageData } from '../../types/data';
 
 const SIMILAR_MOVIES_URL_SUFFIX = '/similar';
 
-export const fetchSimilarMoviesAction = createAsyncThunk<void, string, {
+export const fetchMoviePageDataAction = createAsyncThunk<TMoviePageData, string, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
-  FetchAction.FetchSimilarMovies,
+  FetchAction.FetchMoviePageData,
   async (id, {dispatch, extra: api}) => {
     const {data: currentMovie} = await api.get<TMovie>(`${APIRoute.Movies}/${id}`);
     const {data: currentReviews} = await api.get<TReview[]>(`${APIRoute.Review}/${id}`);
     const {data: similarMovies} = await api.get<TMovie[]>(`${APIRoute.Movies}/${id}${SIMILAR_MOVIES_URL_SUFFIX}`);
-      dispatch(loadSimilarMovies(similarMovies));
-    } catch {
-      toast.warn(ErrorMessage.SimilarError);
-    }
-  },
-);
-
-export const fetchCurrentMovieAction = createAsyncThunk<void, string, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
-  FetchAction.FetchSimilarMovies,
-  async (id, {dispatch, extra: api}) => {
-    try {
-      const {data} = await api.get<TMovie>(`${APIRoute.Movies}/${id}`);
-      dispatch(loadCurrentMovie(data));
-    } catch {
-      toast.warn(ErrorMessage.CurrentError);
-    }
-  },
-);
-
-export const fetchReviewsAction = createAsyncThunk<void, number, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
-  LoadAction.LoadReviews,
-  async (id, {dispatch, extra: api}) => {
-    const {data: reviews} = await api.get<TReview[]>(`${APIRoute.Review}/${id}`);
-    dispatch(loadReviews(reviews));
+    return {currentMovie, currentReviews, similarMovies};
   },
 );

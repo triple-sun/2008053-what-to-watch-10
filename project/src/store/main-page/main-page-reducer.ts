@@ -1,36 +1,26 @@
 import {createReducer} from '@reduxjs/toolkit';
 import { Genre } from '../../const/enums';
 import { MainPageInitialState } from '../../types/state';
-import {loadFavorites, loadMovies, loadPromo, setGenre } from './main-page-actions';
+import { setGenre } from './main-page-actions';
+import { fetchMainPageDataAction } from './main-page-api-actions';
 
 const initialState: MainPageInitialState = {
-  movies: {
-    data: [],
-    isDataLoaded: false
-  },
-  promo: {
-    data: null,
-    isDataLoaded: false
-  },
-  favorites: {
-    data: [],
-    isDataLoaded: false
+  data: {
+    movies: [],
+    promo: null,
   },
   selectedGenre: Genre.AllGenres,
+  isLoading: false
 };
 
 const mainPageReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(loadMovies, (state, action) => {
-      state.movies.data = action.payload;
-      state.movies.isDataLoaded = true;
+    .addCase(fetchMainPageDataAction.pending, (state) => {
+      state.isLoading = true;
     })
-    .addCase(loadPromo, (state, action) => {
-      state.promo.data = action.payload;
-      state.promo.isDataLoaded = true;
-    })
-    .addCase(loadFavorites, (state, action) => {
-      state.favorites.data = action.payload;
+    .addCase(fetchMainPageDataAction.fulfilled, (state, action) => {
+      state.data = action.payload;
+      state.isLoading = false;
     })
     .addCase(setGenre, (state, action) => {
       state.selectedGenre = action.payload;

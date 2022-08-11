@@ -1,5 +1,5 @@
 import React from 'react';
-import TReview from '../../../../types/comment';
+import TReview from '../../../../types/review';
 import Review from './review/review';
 
 const MovieTabReviews = ({reviews}: {reviews: TReview[]}) => (

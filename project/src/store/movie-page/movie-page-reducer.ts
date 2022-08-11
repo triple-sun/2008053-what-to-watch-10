@@ -1,30 +1,24 @@
 import {createReducer} from '@reduxjs/toolkit';
-import { MovieInitialState } from '../../types/state';
-import { loadCurrentMovie, loadReviews, loadSimilarMovies } from './movie-page-actions';
+import { MoviePageInitialState } from '../../types/state';
+import { fetchMoviePageDataAction } from './movie-page-api-actions';
 
-const initialState: MovieInitialState = {
-  currentMovie: {
-    data: null,
-    reviews: [],
-    isIdOK: false
+const initialState: MoviePageInitialState = {
+  data: {
+    currentMovie: null,
+    currentReviews: [],
+    similarMovies: [],
   },
-  similarMovies: {
-    data: [],
-  },
+  isLoading: false,
 };
 
 const moviePageReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(loadCurrentMovie, (state, action) => {
-      if (state.currentMovie.data !== action.payload) {
-        state.currentMovie.data = action.payload;
-      }
+    .addCase(fetchMoviePageDataAction.pending, (state) => {
+      state.isLoading = true;
     })
-    .addCase(loadSimilarMovies, (state, action) => {
-      state.similarMovies.data = action.payload;
-    })
-    .addCase(loadReviews, (state, action) => {
-      state.currentMovie.reviews = action.payload;
+    .addCase(fetchMoviePageDataAction.fulfilled, (state, action) => {
+      state.data = action.payload;
+      state.isLoading = false;
     });
 });
 
