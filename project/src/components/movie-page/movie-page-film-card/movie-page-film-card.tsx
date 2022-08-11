@@ -62,4 +62,4 @@ const MoviePageFilmCard = () => {
       </section>
     );};
 
-export default React.memo(MoviePageFilmCard);
+export default MoviePageFilmCard;
