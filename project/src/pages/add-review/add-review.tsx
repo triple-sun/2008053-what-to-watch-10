@@ -13,14 +13,14 @@ import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
 import Loading from '../loading/loading';
 import ReviewForm from '../../components/review/review-form/review-form';
 import { fetchSimilarMoviesAction } from '../../store/similar-movies/similar-movies-api-actions';
-import { getCurrentMovieState } from '../../store/current-movie/current-movie-selectors';
+import { getMovieState } from '../../store/movie/movie-selectors';
 import { getMovies } from '../../store/main-page/main-page-selectors';
 import { checkId } from '../../utils/utils';
 
 const AddReviewPage = () => {
   const id = Number(useParams().id);
 
-  const {data: {movie}, isLoading} = useAppSelector(getCurrentMovieState);
+  const {data: {movie}, isLoading} = useAppSelector(getMovieState);
 
   const movies = useAppSelector(getMovies);
   const isIdOk = checkId(movies, id);
@@ -58,8 +58,6 @@ const AddReviewPage = () => {
       <ReviewForm movie={movie} />
     </section>
   );
-
-
 };
 
 export default AddReviewPage;

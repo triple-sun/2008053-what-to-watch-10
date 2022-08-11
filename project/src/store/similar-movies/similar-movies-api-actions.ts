@@ -12,7 +12,7 @@ export const fetchSimilarMoviesAction = createAsyncThunk<TMovie[], number, {
   state: State,
   extra: AxiosInstance
 }>(
-  FetchAction.FetchMoviePageData,
+  FetchAction.FetchSimilarMovies,
   async (id, {dispatch, extra: api}) => {
     const {data} = await api.get<TMovie[]>(`${APIRoute.Movies}/${id}${SIMILAR_MOVIES_URL_SUFFIX}`);
     return data;

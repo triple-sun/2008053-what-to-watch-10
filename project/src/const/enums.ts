@@ -58,9 +58,11 @@ export enum AppAction {
 }
 
 export enum FetchAction {
-  FetchMainPageData = 'data/fetchMainData',
-  FetchMoviePageData = '/data/fetchSimilarMovies',
-  FetchPlayerPageData = 'data/fetchCurrentMovie',
+  FetchMainPageData = 'data/fetchMainPageData',
+  FetchCurrentMovie = 'data/fetchCurrentMovie',
+  FetchSimilarMovies = '/data/fetchSimilarMovies',
+  FetchReviews = 'data/fetchCurrentReviews',
+  FetchUserInfo = 'data/fetchUserInfo',
   FetchFavorites = 'data/fetchFavorites',
 }
 

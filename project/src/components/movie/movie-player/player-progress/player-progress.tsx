@@ -1,6 +1,6 @@
 import React from 'react';
-import { TPlayerState } from '../../../types/state';
-import { minutesToHoursAndMinutes } from '../../../utils/utils';
+import { TPlayerState } from '../../../../types/state';
+import { minutesToHoursAndMinutes } from '../../../../utils/utils';
 
 type PlayerProgressProps = {
   state: TPlayerState;

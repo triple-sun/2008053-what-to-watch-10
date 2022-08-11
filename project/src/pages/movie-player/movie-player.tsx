@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import MoviePlayerFull from '../../components/movie-player/movie-player-full/movie-player-full';
+import MoviePlayerFull from '../../components/movie/movie-player/movie-player-full/movie-player-full';
 import { AppRoute } from '../../const/enums';
 import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { fetchCurrentMovieAction } from '../../store/current-movie/current-movie-api-actions';
-import { getCurrentMovieState } from '../../store/current-movie/current-movie-selectors';
+import { fetchMovieAction } from '../../store/movie/movie-api-actions';
+import { getMovieState } from '../../store/movie/movie-selectors';
 import { getMovies } from '../../store/main-page/main-page-selectors';
 import { checkId } from '../../utils/utils';
 import Loading from '../loading/loading';
@@ -13,7 +13,7 @@ import Loading from '../loading/loading';
 const MoviePlayerPage = () => {
   const id = Number(useParams().id);
 
-  const {data: {movie}, isLoading} = useAppSelector(getCurrentMovieState);
+  const {data: {movie}, isLoading} = useAppSelector(getMovieState);
 
   const movies = useAppSelector(getMovies);
   const isIdOk = checkId(movies, id);
@@ -22,7 +22,7 @@ const MoviePlayerPage = () => {
 
   useEffect(() => {
     if (id !== movie?.id) {
-      dispatch(fetchCurrentMovieAction(id));
+      dispatch(fetchMovieAction(id));
     }
   },[dispatch, id, movie?.id]
   );

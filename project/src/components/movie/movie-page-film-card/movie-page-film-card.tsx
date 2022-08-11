@@ -4,24 +4,24 @@ import { AppRoute, HeaderStyle, PosterSize } from '../../../const/enums';
 import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
 import Loading from '../../../pages/loading/loading';
-import { fetchCurrentMovieAction } from '../../../store/current-movie/current-movie-api-actions';
-import { getCurrentMovieState } from '../../../store/current-movie/current-movie-selectors';
+import { fetchMovieAction } from '../../../store/movie/movie-api-actions';
+import { getMovieState } from '../../../store/movie/movie-selectors';
 import { getMovies } from '../../../store/main-page/main-page-selectors';
 import { checkId } from '../../../utils/utils';
 import HeaderElement from '../../common/header-element/header-element';
 import LogoElement from '../../common/logo-element/logo-element';
 import UserBlock from '../../common/user-block/user-block';
 import WTWElement from '../../common/wtw-element/wtw-element';
-import MovieButtons from '../../movie/movie-buttons/movie-buttons';
-import MovieCardDescription from '../../movie/movie-card-description/movie-card-description';
-import MovieBackground from '../../movie/movie-images/movie-background/movie-background';
-import MoviePoster from '../../movie/movie-images/movie-poster/movie-poster';
-import MovieTabs from '../../movie/movie-tabs/movie-tabs';
+import MovieButtons from '../movie-buttons/movie-buttons';
+import MovieCardDescription from '../movie-card-description/movie-card-description';
+import MovieBackground from '../movie-images/movie-background/movie-background';
+import MoviePoster from '../movie-images/movie-poster/movie-poster';
+import MovieTabs from '../movie-tabs/movie-tabs';
 
 const MoviePageFilmCard = () => {
   const id = Number(useParams().id);
 
-  const {data: {movie}} = useAppSelector(getCurrentMovieState);
+  const {data: {movie}} = useAppSelector(getMovieState);
 
   const movies = useAppSelector(getMovies);
   const isIdOk = checkId(movies, id);
@@ -30,7 +30,7 @@ const MoviePageFilmCard = () => {
 
   useEffect(() => {
     if (!movie || id !== movie.id) {
-      dispatch(fetchCurrentMovieAction(id));
+      dispatch(fetchMovieAction(id));
     }
   }, [dispatch, id, movie]);
 

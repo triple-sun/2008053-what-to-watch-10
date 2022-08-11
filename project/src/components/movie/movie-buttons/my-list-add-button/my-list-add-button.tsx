@@ -40,9 +40,6 @@ const MyListAddButton = ({id}: {id: number}) => {
     : () => navigate(AppRoute.Login);
 
   useEffect(() => {
-    if (!isAuth) {
-      setFavoritesCount(0);
-    }
     if (isAuth && !favorites) {
       dispatch(fetchFavoritesAction());
     }

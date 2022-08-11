@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import { AuthStatus } from '../../const/enums';
 import { UserDataInitialState } from '../../types/state';
-import { checkAuthAction, loginAction, logoutAction } from './user-api-actions';
+import { checkAuthAction, fetchFavoritesAction, fetchUserInfoAction, loginAction, logoutAction } from './user-api-actions';
 
 const initialState: UserDataInitialState = {
   data: {
@@ -13,9 +13,14 @@ const initialState: UserDataInitialState = {
 
 const userReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(checkAuthAction.fulfilled, (state, action) => {
+    .addCase(fetchUserInfoAction.fulfilled, (state, action) => {
+      state.data.userInfo = action.payload;
+    })
+    .addCase(fetchFavoritesAction.fulfilled, (state, action) => {
+      state.data.favorites = action.payload;
+    })
+    .addCase(checkAuthAction.fulfilled, (state) => {
       state.authStatus = AuthStatus.Auth;
-      state.data = action.payload;
     })
     .addCase(checkAuthAction.rejected, (state) => {
       state.authStatus = AuthStatus.NoAuth;

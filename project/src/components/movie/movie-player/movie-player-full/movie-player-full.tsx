@@ -1,10 +1,10 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { AppRoute } from '../../../const/enums';
-import { minutesToHoursAndMinutes } from '../../../utils/utils';
-import TMovie from '../../../types/movie';
-import VideoElement from '../../video-element/video-element';
-import useVideoPlayer from '../../../hooks/use-video-player/use-video-player';
+import { AppRoute } from '../../../../const/enums';
+import { minutesToHoursAndMinutes } from '../../../../utils/utils';
+import TMovie from '../../../../types/movie';
+import VideoElement from '../../../video-element/video-element';
+import useVideoPlayer from '../../../../hooks/use-video-player/use-video-player';
 import ExitPlayerButton from '../player-buttons/exit-player-button/exit-player-button';
 import FullScreenButton from '../player-buttons/full-screen-button/full-screen-button';
 import PlayMovieButton from '../player-buttons/play-movie-button/play-movie-button';

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthStatus } from '../../../const/enums';
 import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
-import { checkAuthAction, logoutAction } from '../../../store/user/user-api-actions';
+import { fetchUserInfoAction, logoutAction } from '../../../store/user/user-api-actions';
 import { getUserState } from '../../../store/user/user-selectors';
 import { checkAuth } from '../../../utils/utils';
 
@@ -19,10 +19,10 @@ const UserBlock = () => {
   };
 
   useEffect(() => {
-    if (isAuth) {
-      dispatch(checkAuthAction());
+    if (!userInfo && isAuth) {
+      dispatch(fetchUserInfoAction());
     }
-  }, [dispatch, isAuth]);
+  }, [dispatch, isAuth, userInfo]);
 
   return isAuth && userInfo
     ? (

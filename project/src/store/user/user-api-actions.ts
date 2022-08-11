@@ -4,21 +4,43 @@ import { toast } from 'react-toastify';
 import { APIRoute, AppRoute, ChangeAction, ErrorMessage, FetchAction, UserAction } from '../../const/enums';
 import { dropToken, saveToken } from '../../services/token/token';
 import AppDispatch from '../../types/app-dispatch';
-import { TAuthData, TUserData, TUserInfo } from '../../types/data';
+import { TAuthData, TUserInfo } from '../../types/data';
 import TMovie from '../../types/movie';
 import { State } from '../../types/state';
 import { redirectToRoute } from '../common/common-actions';
 
-export const checkAuthAction = createAsyncThunk<TUserData, undefined, {
+export const fetchUserInfoAction = createAsyncThunk<TUserInfo, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  FetchAction.FetchUserInfo,
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<TUserInfo>(APIRoute.Login);
+    return data;
+  },
+);
+
+export const fetchFavoritesAction = createAsyncThunk<TMovie[], undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  FetchAction.FetchFavorites,
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<TMovie[]>(APIRoute.Favorites);
+    return data;
+  },
+);
+
+export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   UserAction.CheckAuth,
   async (_arg, {dispatch, extra: api}) => {
-    const {data: userInfo} = await api.get<TUserInfo>(APIRoute.Login);
-    const {data: favorites} = await api.get<TMovie[]>(APIRoute.Favorites);
-    return {userInfo: userInfo, favorites: favorites};
+    await api.get<TUserInfo>(APIRoute.Login);
   },
 );
 
@@ -46,18 +68,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(redirectToRoute(AppRoute.Main));
-  },
-);
-
-export const fetchFavoritesAction = createAsyncThunk<TMovie[], undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
-  FetchAction.FetchFavorites,
-  async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<TMovie[]>(APIRoute.Favorites);
-    return data;
   },
 );
 

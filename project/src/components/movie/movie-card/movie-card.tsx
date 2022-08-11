@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const/enums';
 import { MovieCardProps } from '../../../types/props';
-import MovieCardPlayer from '../movie-card-player';
+import MovieCardPlayer from '../movie-player/movie-player-card/movie-player-card';
 
 const MovieCardComponent = ({movie, activeMovieId, handleMouseEvent}: MovieCardProps) => {
   const isPlaying = movie.id === activeMovieId;

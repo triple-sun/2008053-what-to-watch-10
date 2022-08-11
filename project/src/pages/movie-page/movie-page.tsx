@@ -1,7 +1,7 @@
 import MovieCardsList from '../../components/movie/movie-cards-list/movie-cards-list';
 import PageFooterElement from '../../components/common/page-footer/page-footer-element';
 import { MovieList } from '../../const/enums';
-import MoviePageFilmCard from '../../components/movie-page/movie-page-film-card/movie-page-film-card';
+import MoviePageFilmCard from '../../components/movie/movie-page-film-card/movie-page-film-card';
 
 const MoviePage = () => (
   <>
