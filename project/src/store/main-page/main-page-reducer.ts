@@ -2,7 +2,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import { Genre } from '../../const/enums';
 import { MainPageInitialState } from '../../types/state';
 import { setGenre } from './main-page-actions';
-import { fetchMoviesAction, fetchPromoAction } from './main-page-api-actions';
+import { fetchAllMoviesAction, fetchPromoAction } from './main-page-api-actions';
 
 const initialState: MainPageInitialState = {
   data: {
@@ -15,10 +15,10 @@ const initialState: MainPageInitialState = {
 
 const mainPageReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(fetchMoviesAction.pending, (state) => {
+    .addCase(fetchAllMoviesAction.pending, (state) => {
       state.isLoading = true;
     })
-    .addCase(fetchMoviesAction.fulfilled, (state, action) => {
+    .addCase(fetchAllMoviesAction.fulfilled, (state, action) => {
       state.data.movies = action.payload;
       state.isLoading = false;
     })

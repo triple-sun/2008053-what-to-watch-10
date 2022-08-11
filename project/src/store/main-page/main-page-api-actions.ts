@@ -17,12 +17,12 @@ export const fetchPromoAction = createAsyncThunk<TMovie, undefined, {
   },
 );
 
-export const fetchMoviesAction = createAsyncThunk<TMovie[], undefined, {
+export const fetchAllMoviesAction = createAsyncThunk<TMovie[], undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
-  FetchAction.FetchPromo,
+  FetchAction.FetchAllMovies,
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<TMovie[]>(APIRoute.Movies);
     return data;

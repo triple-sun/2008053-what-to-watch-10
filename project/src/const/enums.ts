@@ -59,8 +59,8 @@ export enum AppAction {
 
 export enum FetchAction {
   FetchPromo = 'data/fetchMovies',
-  FetchMovies = 'data/fetchPromo',
-  FetchCurrentMovie = 'data/fetchCurrentMovie',
+  FetchAllMovies = 'data/fetchPromo',
+  FetchMovie = 'data/fetchCurrentMovie',
   FetchSimilarMovies = '/data/fetchSimilarMovies',
   FetchReviews = 'data/fetchCurrentReviews',
   FetchUserInfo = 'data/fetchUserInfo',
