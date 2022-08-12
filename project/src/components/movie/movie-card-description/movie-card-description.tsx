@@ -1,3 +1,4 @@
+import React from 'react';
 import { PropsWithChildren } from 'react';
 import TMovie from '../../../types/movie';
 
@@ -12,4 +13,4 @@ const MovieCardDescription = ({movie, children}: PropsWithChildren<{movie: TMovi
   </div>
 );
 
-export default MovieCardDescription;
+export default React.memo(MovieCardDescription);

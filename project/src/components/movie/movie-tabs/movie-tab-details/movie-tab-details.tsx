@@ -1,3 +1,4 @@
+import React from 'react';
 import TMovie from '../../../../types/movie';
 import { humanizeRuntime } from '../../../../utils/utils';
 
@@ -37,4 +38,4 @@ const MovieTabDetails = (movie: TMovie) => {
   );
 };
 
-export default MovieTabDetails;
+export default React.memo(MovieTabDetails);

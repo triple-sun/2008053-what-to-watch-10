@@ -9,51 +9,55 @@ import ReviewBreadcrumbs from '../../components/review/review-breadcrumbs/review
 import WTWElement from '../../components/common/wtw-element/wtw-element';
 import HeaderElement from '../../components/common/header-element/header-element';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { getCurrentMovie } from '../../utils/selectors/selectors';
 import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
 import Loading from '../loading/loading';
-import { fetchCurrentMovieAction } from '../../store/movie-page/movie-page-api-actions';
-import { checkMovie } from '../../utils/utils';
 import ReviewForm from '../../components/review/review-form/review-form';
+import { fetchSimilarMoviesAction } from '../../store/similar-movies/similar-movies-api-actions';
+import { getMovieState } from '../../store/movie/movie-selectors';
+import { getMovies } from '../../store/main-page/main-page-selectors';
+import { checkId } from '../../utils/utils';
 
 const AddReviewPage = () => {
-  const {id} = useParams();
-  const currentMovie = useAppSelector(getCurrentMovie).data;
+  const id = Number(useParams().id);
+
+  const {data: {movie}, isLoading} = useAppSelector(getMovieState);
+
+  const movies = useAppSelector(getMovies);
+  const isIdOk = checkId(movies, id);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!currentMovie && id && checkMovie(currentMovie, id)) {
-      dispatch(fetchCurrentMovieAction(id));
+    if (!movie || id !== movie.id) {
+      dispatch(fetchSimilarMoviesAction(id));
     }
   },
-  [currentMovie, dispatch, id]
+  [dispatch, id, movie]
   );
 
-  if (!id) {
+  if (!isIdOk) {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
-  if (!currentMovie) {
+  if (!movie || isLoading) {
     return <Loading />;
   }
 
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
-        <MovieBackground movie={currentMovie} />
+        <MovieBackground movie={movie} />
         <WTWElement />
         <HeaderElement>
           <LogoElement />
-          <ReviewBreadcrumbs {...currentMovie} />
+          <ReviewBreadcrumbs {...movie} />
           <UserBlock />
         </HeaderElement>
-        <MoviePoster {...currentMovie} size={PosterSize.Small} />
+        <MoviePoster {...movie} size={PosterSize.Small} />
       </div>
-      <ReviewForm movie={currentMovie} />
+      <ReviewForm movie={movie} />
     </section>
   );
-
-
 };
 
 export default AddReviewPage;

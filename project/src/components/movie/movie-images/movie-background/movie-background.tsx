@@ -1,3 +1,4 @@
+import React from 'react';
 import TMovie from '../../../../types/movie';
 
 const MovieBackground = ({movie}: {movie: TMovie}) => (
@@ -6,4 +7,4 @@ const MovieBackground = ({movie}: {movie: TMovie}) => (
   </div>
 );
 
-export default MovieBackground;
+export default React.memo(MovieBackground);

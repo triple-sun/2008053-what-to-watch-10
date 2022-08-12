@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import TMovie from '../../../types/movie';
 
@@ -14,4 +15,4 @@ const ReviewBreadcrumbs = ({id, name}: TMovie) => (
   </nav>
 );
 
-export default ReviewBreadcrumbs;
+export default React.memo(ReviewBreadcrumbs);

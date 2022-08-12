@@ -3,29 +3,24 @@ import LogoElement from '../../components/common/logo-element/logo-element';
 import PageFooterElement from '../../components/common/page-footer/page-footer-element';
 import UserBlock from '../../components/common/user-block/user-block';
 import HeaderElement from '../../components/common/header-element/header-element';
-import { HeaderStyle } from '../../const/enums';
+import { HeaderStyle, MovieList } from '../../const/enums';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { getFavorites } from '../../utils/selectors/selectors';
-import Loading from '../loading/loading';
-
+import { getFavorites } from '../../store/user/user-selectors';
+import MyListTitle from '../../components/my-list-title/my-list-title';
 
 const MyListPage = () => {
   const favorites = useAppSelector(getFavorites);
-
-  if (!favorites.isDataLoaded) {
-    return <Loading />;
-  }
 
   return (
     <div className="user-page">
       <HeaderElement style={HeaderStyle.UserPage}>
         <LogoElement />
-        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{favorites.data.length}</span></h1>
+        <MyListTitle count={favorites.length}/>
         <UserBlock />
       </HeaderElement>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <MovieCardsList movies={favorites.data} isLong />
+        <MovieCardsList movieList={MovieList.MyListPage} isLong />
       </section>
       <PageFooterElement />
     </div>

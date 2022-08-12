@@ -1,13 +1,12 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import { createAPI } from '../services/api/api';
-import appStatusReducer from './app/app-reducer';
 import { redirect } from './middlewares/redirect';
 import mainPageReducer from './main-page/main-page-reducer';
+import similarMoviesReducer from './similar-movies/similar-movies-reducer';
+import movieReducer from './movie/movie-reducer';
 import userReducer from './user/user-reducer';
-import moviePageReducer from './movie-page/movie-page-reducer';
-import reviewReducer from './review/review-reducer';
 
-export const rootReducer = combineReducers({mainPageReducer, moviePageReducer, reviewReducer, userReducer, appStatusReducer});
+export const rootReducer = combineReducers({mainPageReducer, similarMoviesReducer, movieReducer, userReducer});
 
 export const api = createAPI();
 

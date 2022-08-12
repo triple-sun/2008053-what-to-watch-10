@@ -1,63 +1,47 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import ExitPlayerButton from '../../components/movie-player/player-buttons/exit-player-button/exit-player-button';
-import FullScreenButton from '../../components/movie-player/player-buttons/full-screen-button/full-screen-button';
-import PlayMovieButton from '../../components/movie-player/player-buttons/play-movie-button/play-movie-button';
-import PlayerControls from '../../components/movie-player/player-controls/player-controls';
-import PlayerProgress from '../../components/movie-player/player-progress/player-progress';
-import VideoPlayer from '../../components/video-player/video-player';
+import MoviePlayerFull from '../../components/movie/movie-player/movie-player-full/movie-player-full';
 import { AppRoute } from '../../const/enums';
 import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { fetchCurrentMovieAction, fetchSimilarMoviesAction } from '../../store/movie-page/movie-page-api-actions';
-import { getCurrentMovie } from '../../utils/selectors/selectors';
-import { checkMovie } from '../../utils/utils';
+import { fetchMovieAction } from '../../store/movie/movie-api-actions';
+import { getMovieState } from '../../store/movie/movie-selectors';
+import { getMovies } from '../../store/main-page/main-page-selectors';
+import { checkId } from '../../utils/utils';
+import Loading from '../loading/loading';
 
 const MoviePlayerPage = () => {
-  const {id} = useParams();
-  const currentMovie = useAppSelector(getCurrentMovie);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const id = Number(useParams().id);
+
+  const {data: {movie}, isLoading} = useAppSelector(getMovieState);
+
+  const movies = useAppSelector(getMovies);
+  const isIdOk = checkId(movies, id);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (id && checkMovie(currentMovie.data, id)) {
-      dispatch(fetchCurrentMovieAction(id));
-      dispatch(fetchSimilarMoviesAction(id));
+    if (id !== movie?.id) {
+      dispatch(fetchMovieAction(id));
     }
-  },[currentMovie, dispatch, id]
+  },[dispatch, id, movie?.id]
   );
 
-  const handlePlayButtonToggle = useCallback(
-    () => setIsPlaying(!isPlaying),
-    [isPlaying]
-  );
-
-  if (!currentMovie) {
+  if (!isIdOk) {
     return <Navigate to={AppRoute.NotFound} />;
+
+  }
+  if (isLoading || !movie) {
+    return <Loading />;
   }
 
-  if (currentMovie.data) {
-    return (
-      <div className="player">
-        <VideoPlayer isPlaying={isPlaying} movie={currentMovie.data} isMuted={false} />
-        <ExitPlayerButton />
-        <PlayerControls>
-          <PlayerControls isRow>
-            <PlayerProgress {...currentMovie.data} isPlaying={isPlaying}/>
-          </PlayerControls>
+  return (
+    <div className="player">
+      <MoviePlayerFull {...movie} />
+    </div>
+  );
 
-          <PlayerControls isRow>
-            <PlayMovieButton handlePlayButtonToggle={handlePlayButtonToggle} isPlaying={isPlaying}/>
-            <div className="player__name">{currentMovie.data.name}</div>
-            <FullScreenButton />
-          </PlayerControls>
-        </PlayerControls>
-      </div>
-    );
-  }
 
-  return <Navigate to={AppRoute.NotFound} />;
 };
 
 export default MoviePlayerPage;

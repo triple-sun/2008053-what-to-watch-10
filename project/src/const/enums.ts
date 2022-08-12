@@ -10,7 +10,13 @@ export enum AppRoute {
   NotFound = '*'
 }
 
-export enum AuthorizationStatus {
+export enum MovieList {
+  MainPage = 'MAIN',
+  MoviePage = 'SIMILAR',
+  MyListPage = 'MY_LIST',
+}
+
+export enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
@@ -47,20 +53,21 @@ export enum MovieNavigation {
   Reviews = 'Reviews',
 }
 
+export enum AppAction {
+  RedirectToRoute = 'app/redirectToRoute',
+}
+
 export enum FetchAction {
-  FetchMovies = 'data/fetchMovies',
-  FetchPromo = 'data/fetchPromo',
-  FetchFavorites = 'data/fetchFavorites',
-  FetchReviews = 'data/fetchReviews',
+  FetchPromo = 'data/fetchMovies',
+  FetchAllMovies = 'data/fetchPromo',
+  FetchMovie = 'data/fetchCurrentMovie',
   FetchSimilarMovies = '/data/fetchSimilarMovies',
-  FetchCurrentMovie = 'data/fetchCurrentMovie',
+  FetchReviews = 'data/fetchCurrentReviews',
+  FetchUserInfo = 'data/fetchUserInfo',
+  FetchFavorites = 'data/fetchFavorites',
 }
 
 export enum LoadAction {
-  LoadMovies = 'movies/loadMovies',
-  LoadPromo = 'movies/loadPromo',
-  LoadFavorites = 'movies/loadFavorites',
-  LoadUserData = 'user/setUserData',
   LoadReviews = 'review/loadReviews',
   LoadCurrentMovie = 'movies/loadCurrentMovie',
   LoadSimilarMovies = 'movies/loadSimilarMovies',
@@ -68,23 +75,16 @@ export enum LoadAction {
 
 export enum ChangeAction {
   AddReview = 'review/addReview',
-  ChangeReview = 'review/changeReview',
+  SetReview = 'review/changeReview',
   ToggleFavorite = 'movies/setFavorite',
-  ResetFavorites = 'movies/resetFavorites',
   ChangeGenre = 'movies/genre/changeGenre',
 }
 
 export enum UserAction {
   SetAuth = 'user/setAuthorization',
-  ReqAuth = 'user/requireAuthorization',
   CheckAuth = 'user/checkAuthorizattion',
   Login = 'user/login',
   Logout = 'user/logout',
-}
-
-export enum AppAction {
-  SetDataLoaded = 'data/setDataLoaded',
-  RedirectToRoute = 'app/redirectToRoute',
 }
 
 export enum Genre {
@@ -126,11 +126,6 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Review = '/comments'
-}
-
-export enum Favorite {
-  SetFavorite = 1,
-  SetNotFavorite = 0
 }
 
 export enum ErrorMessage {

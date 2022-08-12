@@ -1,3 +1,4 @@
+import React from 'react';
 import TMovie from '../../../types/movie';
 import AddReviewButton from './add-review-button/add-review-button';
 import MyListAddButton from './my-list-add-button/my-list-add-button';
@@ -11,4 +12,4 @@ const MovieButtons = ({movie}: {movie: TMovie}) => (
   </div>
 );
 
-export default MovieButtons;
+export default React.memo(MovieButtons);
