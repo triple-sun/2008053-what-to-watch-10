@@ -15,7 +15,6 @@ type MovieCardProps = {
 
 type GenreProps = {
   genre: Genre;
-  selectedGenre: Genre;
   handleGenreClick: (genre: Genre) => void;
 }
 

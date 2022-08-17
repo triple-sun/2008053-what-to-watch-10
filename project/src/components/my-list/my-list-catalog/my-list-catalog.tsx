@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { AppRoute, AuthStatus, MovieList } from '../../../const/enums';
+import { AppRoute, AuthStatus, ComponentText, MovieList } from '../../../const/enums';
 import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
-import Loading from '../../../pages/loading/loading';
+import LoadingPage from '../../../pages/loading-page/loading-page';
 import { fetchFavoritesAction } from '../../../store/user/user-api-actions';
 import { getUserState } from '../../../store/user/user-selectors';
 import { checkAuth } from '../../../utils/utils';
@@ -27,12 +27,12 @@ const MyListCatalog = () => {
   }
 
   if (isLoading || !favorites) {
-    return <Loading />;
+    return <LoadingPage />;
   }
 
   return (
     <section className="catalog">
-      <h2 className="catalog__title visually-hidden">Catalog</h2>
+      <h2 className="catalog__title visually-hidden">{ComponentText.Catalog}</h2>
       <MovieCardsList movieList={MovieList.MyListPage} isLong />
     </section>
   );

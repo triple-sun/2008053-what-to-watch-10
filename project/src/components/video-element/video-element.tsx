@@ -1,4 +1,5 @@
 import React from 'react';
+import { ElementTestID } from '../../const/enums';
 import TMovie from '../../types/movie';
 
 const VIDEO_ELEMENT_DISPLAY_NAME = 'Video Element';
@@ -17,8 +18,9 @@ const VideoElement = React.forwardRef<HTMLVideoElement, VideoElementProps>(
         : props.movie.videoLink}
       ref={ref}
       className="player__video"
-      poster={props.movie.previewImage}
+      poster={props.movie.backgroundImage}
       onTimeUpdate={props.handleProgressUpdate}
+      data-testid={ElementTestID.Video}
     />
   )
 );

@@ -14,6 +14,7 @@ export type TAuthData = {
 export type TCurrentMovieData = {
   movie: TMovie | null;
   reviews: TReview[];
+  similar: TMovie[];
 }
 
 export type TMainPageData = {

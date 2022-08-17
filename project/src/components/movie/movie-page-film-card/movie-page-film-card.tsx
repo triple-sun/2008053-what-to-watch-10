@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { AppRoute, HeaderStyle, PosterSize } from '../../../const/enums';
+import { AppRoute, HeaderStyle, PosterSize, ComponentTestID } from '../../../const/enums';
 import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
-import Loading from '../../../pages/loading/loading';
-import { fetchMovieAction } from '../../../store/movie/movie-api-actions';
-import { getMovieState } from '../../../store/movie/movie-selectors';
+import LoadingPage from '../../../pages/loading-page/loading-page';
+import { fetchCurrentMovieAction } from '../../../store/current-movie/current-movie-api-actions';
+import { getCurrentMovieState } from '../../../store/current-movie/current-movie-selectors';
 import { getMovies } from '../../../store/main-page/main-page-selectors';
 import { checkId } from '../../../utils/utils';
 import HeaderElement from '../../common/header-element/header-element';
@@ -21,7 +21,7 @@ import MovieTabs from '../movie-tabs/movie-tabs';
 const MoviePageFilmCard = () => {
   const id = Number(useParams().id);
 
-  const {data: {movie}} = useAppSelector(getMovieState);
+  const {data: {movie}} = useAppSelector(getCurrentMovieState);
 
   const movies = useAppSelector(getMovies);
   const isIdOk = checkId(movies, id);
@@ -30,7 +30,7 @@ const MoviePageFilmCard = () => {
 
   useEffect(() => {
     if (!movie || id !== movie.id) {
-      dispatch(fetchMovieAction(id));
+      dispatch(fetchCurrentMovieAction(id));
     }
   }, [dispatch, id, movie]);
 
@@ -39,9 +39,9 @@ const MoviePageFilmCard = () => {
   }
 
   return !movie
-    ? <Loading/>
+    ? <LoadingPage/>
     : (
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" data-testid={ComponentTestID.MoviePageCard}>
         <div className="film-card__hero">
           <MovieBackground movie={movie} />
           <WTWElement />

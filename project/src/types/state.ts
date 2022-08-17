@@ -10,6 +10,7 @@ export type TPlayerState = {
   isPlaying: boolean,
   progress?: number,
   isMuted: boolean;
+  isFullscreen?: boolean;
 }
 
 export type TReviewState = {
@@ -17,16 +18,17 @@ export type TReviewState = {
   comment: string | null;
 }
 
-export type CurrentMovieInitialState = TData<TCurrentMovieData>;
+export type CurrentMovieState = TData<TCurrentMovieData>;
 
-export type SimilarMoviesInitialState = TData<TMovie[]>;
+export type SimilarMoviesState = TData<TMovie[]>;
 
-export type UserDataInitialState = TData<TUserData> & {
+export type UserState = TData<TUserData> & {
   authStatus: AuthStatus;
 };
 
-export type AddReviewPageInitialState = {
+export type AddReviewPageState = {
   review: TReviewState | null;
 };
 
-export type MainPageInitialState = TData<TMainPageData> & {selectedGenre: Genre}
+export type MainPageState = TData<TMainPageData> & {selectedGenre: Genre}
+

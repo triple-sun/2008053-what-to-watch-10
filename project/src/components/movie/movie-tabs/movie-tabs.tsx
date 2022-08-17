@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { MovieNavigation } from '../../../const/enums';
 import TMovie from '../../../types/movie';
-import MovieTabNavigation from './movie-tab-control/movie-tab-control';
+import MovieTabNavigation from './movie-tab-control/movie-tab-navigation';
 import MovieTabDetails from './movie-tab-details/movie-tab-details';
 import MovieTabOverview from './movie-tab-overview/movie-tab-overview';
 import MovieTabReviews from './movie-tab-reviews/movie-tab-reviews';

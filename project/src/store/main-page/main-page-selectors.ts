@@ -1,9 +1,7 @@
 import { createSelector } from 'reselect';
 import { State } from '../../types/state';
 
-export const getMainPageState = (state: State) => state.mainPageReducer;
-
-export const getMoviePageState = (state: State) => state.similarMoviesReducer;
+export const getMainPageState = (state: State) => state.MAIN;
 
 export const getIsMainDataLoading = createSelector(getMainPageState, (state) => state.isLoading);
 

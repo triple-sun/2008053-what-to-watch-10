@@ -1,17 +1,15 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import browserHistory from '../../browser-history';
 import { AppRoute, AuthStatus } from '../../const/enums';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import AddReviewPage from '../../pages/add-review/add-review';
-import Loading from '../../pages/loading/loading';
-import LoginPage from '../../pages/login/login';
-import MoviePlayerPage from '../../pages/movie-player/movie-player';
+import AddReviewPage from '../../pages/add-review-page/add-review-page';
+import LoadingPage from '../../pages/loading-page/loading-page';
+import LoginPage from '../../pages/login-page/login-page';
+import MoviePlayerPage from '../../pages/movie-player-page/movie-player-page';
 import MoviePage from '../../pages/movie-page/movie-page';
-import MyListPage from '../../pages/my-list/my-list';
-import NotFoundPage from '../../pages/not-found/not-found';
+import MyListPage from '../../pages/my-list-page/my-list-page';
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import { checkAuth } from '../../utils/utils';
 import PrivateRoute from '../common/private-route/private-route';
-import HistoryRouter from '../history-route/history-route';
 import { store } from '../../store/store';
 import { useEffect } from 'react';
 import MainPage from '../../pages/main-page/main-page';
@@ -35,40 +33,38 @@ const App = () => {
 
   if (checkAuth(authStatus, AuthStatus.Unknown) || isLoading) {
     return (
-      <Loading />
+      <LoadingPage />
     );
   }
 
   return (
-    <HistoryRouter history={browserHistory}>
-      <Routes>
-        <Route path={AppRoute.Main}>
-          <Route index element={<MainPage />} />
+    <Routes>
+      <Route path={AppRoute.Main}>
+        <Route index element={<MainPage />} />
 
-          <Route path={AppRoute.Login} element={<LoginPage />} />
+        <Route path={AppRoute.Login} element={<LoginPage />} />
 
-          <Route path={AppRoute.Player} element={goToMainPage} />
+        <Route path={AppRoute.Player} element={goToMainPage} />
 
-          <Route path={AppRoute.MoviePlayer} element={<MoviePlayerPage />} />
+        <Route path={AppRoute.MoviePlayer} element={<MoviePlayerPage />} />
 
-          <Route path={AppRoute.Movies} element={goToMainPage} />
+        <Route path={AppRoute.Movies} element={goToMainPage} />
 
-          <Route path={AppRoute.Movie} element={<MoviePage />} />
+        <Route path={AppRoute.Movie} element={<MoviePage />} />
 
-          <Route path={AppRoute.AddReview} element={<AddReviewPage />} />
+        <Route path={AppRoute.AddReview} element={<AddReviewPage />} />
 
-          <Route
-            path={AppRoute.MyList}
-            element={
-              <PrivateRoute>
-                <MyListPage />
-              </PrivateRoute>
-            }
-          />
-        </Route>
-        <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
-      </Routes>
-    </HistoryRouter>
+        <Route
+          path={AppRoute.MyList}
+          element={
+            <PrivateRoute>
+              <MyListPage />
+            </PrivateRoute>
+          }
+        />
+      </Route>
+      <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
+    </Routes>
   );
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
+import { ComponentText } from '../../const/enums';
 
 type ShowMoreButtonProps = {
   totalMovieCount: number;
@@ -16,7 +17,7 @@ const ShowMoreButton = ({totalMovieCount, renderedMoviesCount, handleShowMoreBut
 
   return (
     <div className="catalog__more">
-      <button className="catalog__button" type="button" onClick={onShowMoreButtonClick}>Show more</button>
+      <button className="catalog__button" type="button" onClick={onShowMoreButtonClick}>{ComponentText.ShowMore}</button>
     </div>
   );};
 

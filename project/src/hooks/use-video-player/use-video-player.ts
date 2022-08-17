@@ -1,12 +1,8 @@
 import { useState, useEffect, RefObject, useCallback } from 'react';
+import { playerInitialState } from '../../const/initial-states';
 
 const useVideoPlayer = (videoRef: RefObject<HTMLVideoElement>) => {
-  const [playerState, setPlayerState] = useState({
-    progress: 0,
-    isPlaying: false,
-    isMuted: false,
-    isFullscreen: false
-  });
+  const [playerState, setPlayerState] = useState(playerInitialState);
 
   const {isPlaying, isMuted, isFullscreen} = playerState;
 
@@ -34,11 +30,11 @@ const useVideoPlayer = (videoRef: RefObject<HTMLVideoElement>) => {
     (value: number) => {
       if (videoRef.current) {
         videoRef.current.currentTime = (100 / videoRef.current.duration) * value;
-        setPlayerState({
-          ...playerState,
-          progress: value,
-        });
       }
+      setPlayerState({
+        ...playerState,
+        progress: value,
+      });
     }, [playerState, videoRef]);
 
   const handleFullScreenClick = useCallback(

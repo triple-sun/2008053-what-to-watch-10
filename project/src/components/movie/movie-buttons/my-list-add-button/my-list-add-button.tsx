@@ -6,7 +6,8 @@ import useAppSelector from '../../../../hooks/use-app-selector/use-app-selector'
 import { fetchFavoritesAction, toggleFavoriteAction } from '../../../../store/user/user-api-actions';
 import { getUserState } from '../../../../store/user/user-selectors';
 import { checkAuth } from '../../../../utils/utils';
-import MovieListIcon from '../../movie-images/movie-icons/movie-list-icon/movie-list-icon';
+import MovieAddIcon from '../../movie-images/movie-icons/movie-list-icons/movie-add-icon/movie-add-icon';
+import MovieAddedIcon from '../../movie-images/movie-icons/movie-list-icons/movie-added-icon/movie-added-icon';
 
 const FAVORITE_SINGLE_STEP = 1;
 
@@ -52,7 +53,7 @@ const MyListAddButton = ({id}: {id: number}) => {
 
   return (
     <button className="btn btn--list film-card__button" type="button" onClick={onFavoriteButtonClick}>
-      <MovieListIcon isFavorite={isFavorite} />
+      {isFavorite ? <MovieAddedIcon /> : <MovieAddIcon />}
       <svg viewBox="0 0 19 20" width="19" height="20">
         <use xlinkHref="/my-list/"></use>
       </svg>

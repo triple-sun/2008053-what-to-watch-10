@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { MOVIE_CARD_MAIN_COUNT, MOVIE_CARD_SIMILAR_COUNT } from '../../../const/const';
-import { MovieList } from '../../../const/enums';
+import { MovieList, ComponentTestID } from '../../../const/enums';
 import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
 import useMovies from '../../../hooks/use-movies/use-movies';
-import { fetchSimilarMoviesAction } from '../../../store/similar-movies/similar-movies-api-actions';
+import { fetchSimilarMoviesAction } from '../../../store/current-movie/current-movie-api-actions';
 import { fetchFavoritesAction } from '../../../store/user/user-api-actions';
 import TMovie from '../../../types/movie';
 import ShowMoreButton from '../../show-more-button/show-more-button';
@@ -32,6 +32,17 @@ const MovieCardsList = ({movieList, isLong = false}: {movieList: MovieList, isLo
     [activeMovieId],
   );
 
+  const getTestId = () => {
+    switch (movieList) {
+      case MovieList.MainPage:
+        return ComponentTestID.MainMovies;
+      case MovieList.MoviePage:
+        return ComponentTestID.SimilarMovies;
+      case MovieList.MyListPage:
+        return ComponentTestID.FavoriteMovies;
+    }
+  };
+
   useEffect(() => {
     if (!movies) {
       switch (true) {
@@ -47,7 +58,7 @@ const MovieCardsList = ({movieList, isLong = false}: {movieList: MovieList, isLo
 
   return (
     <>
-      <div className="catalog__films-list">
+      <div className="catalog__films-list" data-testid={getTestId()}>
         {movies.slice(0, renderedMovieCount).map(
           (movie: TMovie) => <MovieCardComponent key={`${movie.id}-${movie.name}`} movie={movie} activeMovieId={activeMovieId} handleMouseEvent={handleMovieMouseOver} />
         )}

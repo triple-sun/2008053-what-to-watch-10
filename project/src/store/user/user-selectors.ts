@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { State } from '../../types/state';
 
-export const getUserState = (state: State) => state.userReducer;
+export const getUserState = (state: State) => state.USER;
 
 export const getAuthStatus = createSelector(getUserState, (state) => state.authStatus);
 

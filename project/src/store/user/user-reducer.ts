@@ -1,17 +1,9 @@
 import {createReducer} from '@reduxjs/toolkit';
 import { AuthStatus } from '../../const/enums';
-import { UserDataInitialState } from '../../types/state';
+import { userInitialState } from '../../const/initial-states';
 import { checkAuthAction, fetchFavoritesAction, fetchUserInfoAction, loginAction, logoutAction } from './user-api-actions';
 
-const initialState: UserDataInitialState = {
-  data: {
-    userInfo: null,
-    favorites: [],
-  },
-  authStatus: AuthStatus.Unknown,
-};
-
-const userReducer = createReducer(initialState, (builder) => {
+const userReducer = createReducer(userInitialState, (builder) => {
   builder
     .addCase(fetchUserInfoAction.fulfilled, (state, action) => {
       state.data.userInfo = action.payload;
@@ -27,14 +19,13 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(loginAction.fulfilled, (state, action) => {
       state.authStatus = AuthStatus.Auth;
-      state.data.userInfo = action.payload;
     })
     .addCase(loginAction.rejected, (state) => {
       state.authStatus = AuthStatus.NoAuth;
     })
     .addCase(logoutAction.fulfilled, (state) => {
       state.authStatus = AuthStatus.NoAuth;
-      state.data = initialState.data;
+      state.data = userInitialState.data;
     });
 });
 

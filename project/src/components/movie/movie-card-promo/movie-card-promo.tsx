@@ -1,4 +1,4 @@
-import { HeaderStyle } from '../../../const/enums';
+import { ComponentTestID, HeaderStyle } from '../../../const/enums';
 import HeaderElement from '../../common/header-element/header-element';
 import LogoElement from '../../common/logo-element/logo-element';
 import UserBlock from '../../common/user-block/user-block';
@@ -13,9 +13,9 @@ import { getPromo } from '../../../store/main-page/main-page-selectors';
 const MovieCardPromo = () => {
   const promo = useAppSelector(getPromo);
 
-  if (promo){
-    return (
-      <section className="film-card">
+  return promo
+    ? (
+      <section className="film-card" data-testid={ComponentTestID.PromoCard}>
         <MovieBackground movie={promo} />
         <WTWElement />
         <HeaderElement style={HeaderStyle.MovieCard}>
@@ -31,9 +31,8 @@ const MovieCardPromo = () => {
           </div>
         </div>
       </section>
-    );}
-
-  return null;
+    )
+    : null;
 };
 
 export default MovieCardPromo;
