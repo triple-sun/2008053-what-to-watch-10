@@ -2,19 +2,11 @@ import {renderHook} from '@testing-library/react';
 import useMovies from './use-movies';
 import { random } from 'faker';
 import { MovieList } from '../../const/enums';
-import { createMockStore } from '../../utils/mocks';
-import { filterMoviesByGenre, getWrapper } from '../../utils/utils';
+import { testUtils } from '../../utils/mocks';
+import { filterMoviesByGenre } from '../../utils/utils';
 
 describe('Hook: useMovies', () => {
-  const mockStore = createMockStore();
-
-  const wrapper = getWrapper(mockStore);
-
-  const {
-    MAIN: {data: {movies}, selectedGenre},
-    USER: {data: {favorites}},
-    CURRENT: {data: {similar}},
-  } = mockStore.getState();
+  const {wrapper, movies, selectedGenre, favorites, similarMovies} = testUtils();
 
   const fakeMovieList = random.objectElement(MovieList) as MovieList;
 
@@ -22,7 +14,7 @@ describe('Hook: useMovies', () => {
 
   const fakeMovieListSelector = {
     [MovieList.MainPage]: filteredMovies,
-    [MovieList.MoviePage]: similar,
+    [MovieList.MoviePage]: similarMovies,
     [MovieList.MyListPage]: favorites,
   };
 

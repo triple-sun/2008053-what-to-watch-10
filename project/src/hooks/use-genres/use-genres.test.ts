@@ -1,32 +1,16 @@
 import {renderHook} from '@testing-library/react';
-import { Genre, Reducer } from '../../const/enums';
-import { createMockStore } from '../../utils/mocks';
-import { getWrapper } from '../../utils/utils';
+import { Genre } from '../../const/enums';
+import { testUtils } from '../../utils/mocks';
 import useGenres from './use-genres';
-import { MainPageState } from '../../types/state';
+
+const {movies, wrapper} = testUtils();
 
 describe('Hook: useGenres', () => {
-  const mockStore = createMockStore();
-
-  const wrapper = getWrapper(mockStore);
-
-  it('should return array', () => {
-    const {result} = renderHook(() =>
-      useGenres(), {wrapper}
-    );
-
-    expect(result.current).toBeInstanceOf(Array);
-  });
-
-  it('should return genres for available movies', () => {
-    const {data: {movies}} = mockStore.getState()[Reducer.MainPage] as MainPageState;
-
+  it('should return currentGenres for movies', () => {
     const mockGenres = [Genre.AllGenres, ...new Set(movies.map((movie) => movie.genre))] as Genre[];
 
-    const {result} = renderHook(() =>
-      useGenres(), {wrapper}
-    );
+    const {result} = renderHook(() => useGenres(), {wrapper});
 
-    expect(result.current).toStrictEqual(mockGenres);
+    expect(result.current.currentGenres).toStrictEqual(mockGenres);
   });
 });

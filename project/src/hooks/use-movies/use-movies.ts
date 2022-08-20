@@ -7,6 +7,7 @@ import useAppSelector from '../use-app-selector/use-app-selector';
 
 const useMovies = (movieList: MovieList) => {
   const {data: {movies}, selectedGenre} = useAppSelector(getMainPageState);
+
   const filteredMovies = filterMoviesByGenre(movies, selectedGenre);
 
   const movieListSelector = {

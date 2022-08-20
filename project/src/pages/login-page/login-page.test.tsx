@@ -1,29 +1,19 @@
 import {render, screen} from '@testing-library/react';
-import {createMemoryHistory} from 'history';
-import {Provider} from 'react-redux';
 import userEvent from '@testing-library/user-event';
-import HistoryRouter from '../../components/history-route/history-route';
 import { AppRoute, ComponentText, ElementTestID } from '../../const/enums';
 import LoginPage from './login-page';
-import { createMockStore, makeFakeAuthData } from '../../utils/mocks';
-
-const store = createMockStore();
-const fakeAuthData = makeFakeAuthData();
+import { makeFakeAuthData, testUtils } from '../../utils/mocks';
 
 describe('Component: LoginPage', () => {
   it('should render "LoginPage" when user navigate to "login" url', async () => {
-    const history = createMemoryHistory();
-
-    const {login, password} = fakeAuthData;
+    const {history, wrapper} = testUtils();
+    const {login, password} = makeFakeAuthData();
 
     history.push(AppRoute.Login);
 
     render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <LoginPage />
-        </HistoryRouter>
-      </Provider>,
+      <LoginPage />,
+      {wrapper}
     );
 
     expect(screen.getByText(ComponentText.Email)).toBeInTheDocument();

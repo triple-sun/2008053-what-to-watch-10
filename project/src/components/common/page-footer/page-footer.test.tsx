@@ -1,17 +1,15 @@
 import {render, screen} from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 import { ComponentText } from '../../../const/enums';
-import HistoryRouter from '../../history-route/history-route';
+import { testUtils } from '../../../utils/mocks';
 import PageFooter from './page-footer';
 
-const history = createMemoryHistory();
+const {wrapper} = testUtils();
 
 describe('Component: PageFooter', () => {
   it('should render correctly', () => {
     render(
-      <HistoryRouter history={history}>
-        <PageFooter />
-      </HistoryRouter>
+      <PageFooter />,
+      {wrapper}
     );
 
     expect(screen.getByText(ComponentText.Footer)).toBeInTheDocument();

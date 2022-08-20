@@ -4,13 +4,16 @@ import { createRef } from 'react';
 
 const FAKE_PROGRESS_CHANGE_VALUE = 10;
 
+beforeAll(() => {
+  window.HTMLVideoElement.prototype.play = () => Promise.resolve();
+  window.HTMLVideoElement.prototype.pause = jest.fn();
+});
+
 describe('Hook: useVideoPlayer', () => {
   it('should return handlers', () => {
     const fakeVideoRef = createRef<HTMLVideoElement>();
 
-    const {result} = renderHook(() =>
-      useVideoPlayer(fakeVideoRef),
-    );
+    const {result} = renderHook(() => useVideoPlayer(fakeVideoRef));
 
     const {
       handlePlayButtonToggle,
@@ -25,12 +28,10 @@ describe('Hook: useVideoPlayer', () => {
     expect(handleFullScreenClick).toBeInstanceOf(Function);
   });
 
-  it('should be correctly change state', () => {
+  it('should correctly change progress', () => {
     const fakeVideoRef = createRef<HTMLVideoElement>();
 
-    const {result} = renderHook(
-      () => useVideoPlayer(fakeVideoRef),
-    );
+    const {result} = renderHook(() => useVideoPlayer(fakeVideoRef));
 
     act(() => result.current.handleProgressChange(FAKE_PROGRESS_CHANGE_VALUE));
     expect(result.current.playerState.progress).toBe(FAKE_PROGRESS_CHANGE_VALUE);

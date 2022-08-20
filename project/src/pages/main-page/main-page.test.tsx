@@ -1,22 +1,15 @@
 import {render, screen} from '@testing-library/react';
-import {createMemoryHistory} from 'history';
-import { Provider } from 'react-redux';
-import HistoryRouter from '../../components/history-route/history-route';
 import { ComponentTestID, ComponentText } from '../../const/enums';
-import { createMockStore } from '../../utils/mocks';
+import { testUtils } from '../../utils/mocks';
 import MainPage from './main-page';
 
-const store = createMockStore();
-const history = createMemoryHistory();
+const {wrapper} = testUtils();
 
 describe('Component: MainPage', () => {
   it('should render correctly', () => {
     render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <MainPage />
-        </HistoryRouter>
-      </Provider>,
+      <MainPage />,
+      {wrapper}
     );
 
     expect(screen.getByTestId(ComponentTestID.PromoCard)).toBeInTheDocument();

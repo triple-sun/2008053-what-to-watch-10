@@ -1,77 +1,66 @@
 import {Routes, Route} from 'react-router-dom';
-import {createMemoryHistory} from 'history';
 import {render, screen} from '@testing-library/react';
-import {Provider} from 'react-redux';
 import PrivateRoute from './private-route';
 import { AppRoute, AuthStatus } from '../../../const/enums';
-import { createMockStore } from '../../../utils/mocks';
-import HistoryRouter from '../../history-route/history-route';
+import { makeFakeElement, testUtils } from '../../../utils/mocks';
 
 const MOCK_PRIVATE_ROUTE = '/private';
 
 const PUBLIC_ROUTE_MOCK_TEXT = 'Public Route';
 const PRIVATE_ROUTE_MOCK_TEXT = 'Private Route';
 
-const mockPublicRouteElement = <h1>{PUBLIC_ROUTE_MOCK_TEXT}</h1>;
-const mockPrivateRouteElement = <h1>{PRIVATE_ROUTE_MOCK_TEXT}</h1>;
+const mockPublicRouteElement = makeFakeElement(PUBLIC_ROUTE_MOCK_TEXT);
+const mockPrivateRouteElement = makeFakeElement(PRIVATE_ROUTE_MOCK_TEXT);
 
-const history = createMemoryHistory();
+const {wrapper, history} = testUtils();
 
 describe('Component: PrivateRouter', () => {
   beforeEach(() => {
     history.push(MOCK_PRIVATE_ROUTE);
   });
 
-  it('should render component for public route, when user not authorized', () => {
-    const store = createMockStore({authStatus: AuthStatus.NoAuth});
+  it('should render component for public route, when user not authorized', async () => {
+    const noAuthWrapper = testUtils({storeProps: {authStatus: AuthStatus.NoAuth}}).wrapper;
 
     render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <Routes>
-            <Route
-              path={AppRoute.Login}
-              element={mockPublicRouteElement}
-            />
-            <Route
-              path={MOCK_PRIVATE_ROUTE}
-              element={
-                <PrivateRoute>
-                  {mockPrivateRouteElement}
-                </PrivateRoute>
-              }
-            />
-          </Routes>
-        </HistoryRouter>
-      </Provider>,
+      <Routes>
+        <Route path={AppRoute.Main} element={mockPublicRouteElement}>
+          <Route
+            path={MOCK_PRIVATE_ROUTE}
+            element={
+              <PrivateRoute>
+                {mockPrivateRouteElement}
+              </PrivateRoute>
+            }
+          />
+        </Route>
+      </Routes>,
+      {wrapper: noAuthWrapper}
     );
 
     expect(screen.getByText(PUBLIC_ROUTE_MOCK_TEXT)).toBeInTheDocument();
     expect(screen.queryByText(PRIVATE_ROUTE_MOCK_TEXT)).not.toBeInTheDocument();
   });
 
-  it('should render component for private route, when user authorized', () => {
-    const store = createMockStore({authStatus: AuthStatus.Auth});
-
+  it('should render component for private route, when user authorized', async () => {
     render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <Routes>
-            <Route
-              path={AppRoute.Login}
-              element={mockPublicRouteElement}
-            />
-            <Route
-              path={MOCK_PRIVATE_ROUTE}
-              element={
-                <PrivateRoute>
-                  {mockPrivateRouteElement}
-                </PrivateRoute>
-              }
-            />
-          </Routes>
-        </HistoryRouter>
-      </Provider>,
+      <Routes>
+        <Route path={AppRoute.Main}>
+          <Route
+            path={AppRoute.Login}
+            element={mockPublicRouteElement}
+          />
+          <Route
+            path={MOCK_PRIVATE_ROUTE}
+            element={
+              <PrivateRoute>
+                {mockPrivateRouteElement}
+              </PrivateRoute>
+            }
+          />
+        </Route>
+      </Routes>,
+      {wrapper}
     );
 
     expect(screen.getByText(PRIVATE_ROUTE_MOCK_TEXT)).toBeInTheDocument();

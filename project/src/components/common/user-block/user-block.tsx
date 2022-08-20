@@ -14,10 +14,7 @@ const UserBlock = () => {
 
   const dispatch = useAppDispatch();
 
-  const onLogoutClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    dispatch(logoutAction());
-  };
+  const handleLogoutClick = () => dispatch(logoutAction());
 
   useEffect(() => {
     if (!userInfo && isAuth) {
@@ -26,7 +23,7 @@ const UserBlock = () => {
   }, [dispatch, isAuth, userInfo]);
 
   return isAuth && userInfo
-    ? <UserBlockAuth avatarUrl={userInfo.avatarUrl} onLogoutClick={onLogoutClick}/>
+    ? <UserBlockAuth avatarUrl={userInfo.avatarUrl} handleLogoutClick={handleLogoutClick}/>
     : <UserBlockNoAuth />;
 };
 

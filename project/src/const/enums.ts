@@ -7,7 +7,8 @@ export enum AppRoute {
   Player = '/player/',
   MoviePlayer = '/player/:id',
   MyList = '/mylist',
-  NotFound = '*'
+  NotFound = '*',
+  NonExistent = '/non-existent-route'
 }
 
 export enum MovieList {
@@ -103,22 +104,6 @@ export enum Genre {
   Fantasy = 'Fantasy'
 }
 
-export enum GenreName {
-  AllGenres = 'All Genres',
-  Adventure = 'Adventure',
-  Action = 'Action',
-  Comedy = 'Comedies',
-  Crime = 'Crime',
-  Documentary = 'Documentary',
-  Drama = 'Dramas',
-  Horror = 'Horror',
-  Family = 'Kids & Family',
-  Romance = 'Romance',
-  SciFi = 'Sci-Fi',
-  Thriller = 'Thrillers',
-  Fantasy = 'Fantasy'
-}
-
 export enum APIRoute {
   Promo = '/promo',
   Movies = '/films',
@@ -150,6 +135,7 @@ export enum PageTestID {
 export enum ComponentTestID {
   AddReviewHeader = 'test-add-review-header',
   AddReviewForm = 'test-add-review-form',
+  Breadcrumbs = 'test-breadcrumbs',
   PromoCard = 'test-promo-card',
   MovieCard = 'test-movie-card',
   MoviePageCard = 'test-movie-page-card',
@@ -168,13 +154,17 @@ export enum ComponentTestID {
 export enum ElementTestID {
   Avatar = 'test-avatar',
   GenreElement = 'test-genre-element',
+  GenreLink = 'test-genre-link',
   Header = 'test-header',
   IconAdded = 'test-icon-added',
   IconPlay = 'test-icon-play',
   MovieTab = 'test-movie-tab',
+  MovieLink = 'test-movie-link',
+  MyListButton = 'test-my-list-button',
   Poster = 'test-poster',
   Login = 'test-login',
   Passsword = 'test-password',
+  ReviewTextArea = 'test-review-text',
   Video = 'test-video',
   UserBlockAuth = 'test-user-block-auth',
   UserBlockNoAuth = 'test-user-block-no-auth'
@@ -203,7 +193,8 @@ export enum ComponentText {
   Post = 'Post',
   WTW = 'WTW',
   Footer = '© 2019 What to watch Ltd.',
-  Exit = 'Exit'
+  Exit = 'Exit',
+  ReviewPlaceholder = 'Review text'
 }
 
 export enum Reducer {

@@ -1,7 +1,4 @@
-import { MockStore } from '@jedmao/redux-mock-store';
 import dayjs from 'dayjs';
-import React, { PropsWithChildren } from 'react';
-import { Provider } from 'react-redux';
 import { RatingName, RatingMinNumber, AuthStatus, Genre } from '../const/enums';
 import TMovie from '../types/movie';
 
@@ -42,7 +39,4 @@ export const checkAuth = (status: AuthStatus, reference: AuthStatus): boolean =>
 
 export const checkId = (movies: TMovie[], id: number) => movies.some((movie) => movie.id === id);
 
-export const getWrapper = (store: MockStore) => {
-  const createWrapper = ({children}: PropsWithChildren) => <Provider store={store}>{children}</Provider>;
-  return createWrapper;
-};
+export const humanizeGenreName = (genre: Genre) => genre.replace(/([A-Z])/g, ' $1').trim();

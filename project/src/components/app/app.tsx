@@ -52,7 +52,13 @@ const App = () => {
 
         <Route path={AppRoute.Movie} element={<MoviePage />} />
 
-        <Route path={AppRoute.AddReview} element={<AddReviewPage />} />
+        <Route
+          path={AppRoute.AddReview} element={
+            <PrivateRoute>
+              <AddReviewPage />
+            </PrivateRoute>
+          }
+        />
 
         <Route
           path={AppRoute.MyList}

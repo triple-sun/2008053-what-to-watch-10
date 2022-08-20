@@ -38,3 +38,10 @@ export const playerInitialState = {
   isMuted: false,
   isFullscreen: false
 };
+
+export const reviewInitialState = {
+  rating: 0,
+  comment: null
+};
+
+export const selectedGenreInitialState = Genre.AllGenres;
