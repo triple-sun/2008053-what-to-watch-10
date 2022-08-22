@@ -1,15 +1,15 @@
 import {render, screen} from '@testing-library/react';
 import App from './app';
 import { AppRoute, PageTestID } from '../../const/enums';
-import { testUtils, mockVideoAPI } from '../../utils/mocks';
+import { testUtils } from '../../utils/mocks/test-utils';
 
-const {currentMovie, history, wrapper} = testUtils();
+const {mockCurrentMovie, mockHistory, wrapper, mockVideoAPI} = testUtils();
 
 beforeAll(mockVideoAPI);
 
 describe('Application Routing', () => {
   it('should render "AddReviewPage" when user navigate to "/movies/:id/review"', () => {
-    history.push(`${AppRoute.Movies}${currentMovie.id}/review`);
+    mockHistory.push(`${AppRoute.Movies}${mockCurrentMovie.id}/review`);
 
     render(<App />, {wrapper});
 
@@ -17,7 +17,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "LoginPage" when user navigates to "/login"', () => {
-    history.push(AppRoute.Login);
+    mockHistory.push(AppRoute.Login);
 
     render(<App />, {wrapper});
 
@@ -25,7 +25,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "MainPage" when user navigates to "/"', () => {
-    history.push(AppRoute.Main);
+    mockHistory.push(AppRoute.Main);
 
     render(<App />, {wrapper});
 
@@ -34,7 +34,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "MoviePage" when user navigates to "/movie/:id"', () => {
-    history.push(`${AppRoute.Movies}${currentMovie.id}`);
+    mockHistory.push(`${AppRoute.Movies}${mockCurrentMovie.id}`);
 
     render(<App />, {wrapper});
 
@@ -42,7 +42,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "MoviePlayerPage" when user navigate to "/player/:id"', () => {
-    history.push(`${AppRoute.Player}${currentMovie.id}`);
+    mockHistory.push(`${AppRoute.Player}${mockCurrentMovie.id}`);
 
     render(<App />, {wrapper});
 
@@ -50,7 +50,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "MyListPage" when user navigate to "/my-list"', () => {
-    history.push(AppRoute.MyList);
+    mockHistory.push(AppRoute.MyList);
 
     render(<App />, {wrapper});
 
@@ -58,7 +58,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
-    history.push(AppRoute.NonExistent);
+    mockHistory.push(AppRoute.NonExistent);
 
     render(<App />, {wrapper});
 

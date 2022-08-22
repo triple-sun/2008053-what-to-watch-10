@@ -1,16 +1,17 @@
 import { render, screen } from '@testing-library/react';
-import { makeFakeMovie } from '../../../../utils/mocks';
+import { testUtils } from '../../../../utils/mocks/test-utils';
 import MovieTabOverview from './movie-tab-overview';
 
-const mockMovie = makeFakeMovie();
+const {mockCurrentMovie, wrapper} = testUtils();
 
 describe('Component: MovieTabOverview', () => {
   it('should render correctly', () => {
     render(
-      <MovieTabOverview {...mockMovie} />
+      <MovieTabOverview {...mockCurrentMovie} />,
+      {wrapper}
     );
 
-    expect(screen.getByText(mockMovie.rating)).toBeInTheDocument();
-    expect(screen.getByText(mockMovie.description)).toBeInTheDocument();
+    expect(screen.getByText(mockCurrentMovie.rating)).toBeInTheDocument();
+    expect(screen.getByText(mockCurrentMovie.description)).toBeInTheDocument();
   });
 });

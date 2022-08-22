@@ -1,15 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import { ComponentTestID } from '../../../const/enums';
-import { makeFakeMovie, testUtils } from '../../../utils/mocks';
+import { testUtils } from '../../../utils/mocks/test-utils';
 import MovieButtons from './movie-buttons';
 
-const mockMovie = makeFakeMovie();
-const {wrapper} = testUtils();
+const {wrapper, mockCurrentMovie} = testUtils();
 
 describe('Component: MovieButtons', () => {
   it('should render correctly', () => {
     render(
-      <MovieButtons movie={mockMovie}/>,
+      <MovieButtons movie={mockCurrentMovie}/>,
       {wrapper}
     );
 

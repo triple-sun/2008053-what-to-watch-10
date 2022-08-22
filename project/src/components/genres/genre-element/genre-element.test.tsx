@@ -1,17 +1,16 @@
 import { fireEvent, render, screen} from '@testing-library/react';
 import { GENRE_ELEMENT_ACTIVE_CLASS } from '../../../const/const';
-import { ElementTestID, Genre } from '../../../const/enums';
-import { makeFakeGenre, testUtils } from '../../../utils/mocks';
+import { ElementTestID } from '../../../const/enums';
+import { makeFakeGenre } from '../../../utils/mocks/mocks';
+import { testUtils } from '../../../utils/mocks/test-utils';
 import { humanizeGenreName } from '../../../utils/utils';
 import GenreElement from './genre-element';
 
-const {wrapper, selectedGenre} = testUtils();
-
-const mockHandleGenreChange = jest.fn();
+const {wrapper, mockSelectedGenre} = testUtils();
 
 const mockGenre = makeFakeGenre();
 
-const mockSelectedGenre = Genre.AllGenres;
+const mockHandleGenreChange = jest.fn();
 
 describe('Component: GenreElement', () => {
   it('should render correctly', () => {
@@ -40,7 +39,7 @@ describe('Component: GenreElement', () => {
 
     expect(screen.getByTestId(ElementTestID.GenreElement)).not.toHaveClass(GENRE_ELEMENT_ACTIVE_CLASS);
 
-    rerender(<GenreElement genre={selectedGenre} handleGenreChange={mockHandleGenreChange}/>);
+    rerender(<GenreElement genre={mockSelectedGenre} handleGenreChange={mockHandleGenreChange}/>);
 
     expect(screen.getByTestId(ElementTestID.GenreElement)).toHaveClass(GENRE_ELEMENT_ACTIVE_CLASS);
   });

@@ -78,5 +78,6 @@ export const toggleFavoriteAction = createAsyncThunk<void, {id: number, status: 
   ChangeAction.ToggleFavorite,
   async ({id, status}, {dispatch, extra: api}) => {
     await api.post<TMovie>(`${APIRoute.Favorites}/${id}/${status}`);
+    dispatch(fetchFavoritesAction());
   },
 );

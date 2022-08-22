@@ -1,6 +1,6 @@
 import { fireEvent, render, screen} from '@testing-library/react';
 import { ComponentText } from '../../../const/enums';
-import { testUtils } from '../../../utils/mocks';
+import { testUtils } from '../../../utils/mocks/test-utils';
 import ReviewSubmitButton from './review-submit-button';
 
 const {wrapper} = testUtils();

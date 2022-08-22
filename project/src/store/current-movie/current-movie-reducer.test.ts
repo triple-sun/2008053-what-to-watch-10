@@ -1,12 +1,10 @@
 import { UNKNOWN_ACTION } from '../../const/const';
 import { currentMovieInitialState } from '../../const/initial-states';
-import { makeFakeMovie, makeFakeMovies, makeFakeReviews } from '../../utils/mocks';
+import { testUtils } from '../../utils/mocks/test-utils';
 import { fetchCurrentMovieAction, fetchReviewsAction, fetchSimilarMoviesAction } from './current-movie-api-actions';
 import currentMovieReducer from './current-movie-reducer';
 
-const currentMovie = makeFakeMovie();
-const similarMovies = makeFakeMovies();
-const reviews = makeFakeReviews();
+const {mockCurrentMovie, mockReviews, mockSimilarMovies} = testUtils();
 
 describe('Reducer: currentMovie', () => {
   const state = currentMovieInitialState;
@@ -18,22 +16,22 @@ describe('Reducer: currentMovie', () => {
 
   describe('fetchCurrentMovieAction test', () => {
     it('should load current movie and set isLoading to false if fetchCurrentMovieAction was fulfilled', () => {
-      expect(currentMovieReducer(state, { type: fetchCurrentMovieAction.fulfilled.type, payload: currentMovie }))
-        .toEqual({...state, data: {...state.data, movie: currentMovie }, isLoading: false});
+      expect(currentMovieReducer(state, { type: fetchCurrentMovieAction.fulfilled.type, payload: mockCurrentMovie }))
+        .toEqual({...state, movie: mockCurrentMovie});
     });
   });
 
   describe('fetchReviewsAction test', () => {
     it('should load reviews if fetchReviewsAction was fulfilled', () => {
-      expect(currentMovieReducer(state, { type: fetchReviewsAction.fulfilled.type, payload: reviews }))
-        .toEqual({...state, data: {...state.data, reviews: reviews }});
+      expect(currentMovieReducer(state, { type: fetchReviewsAction.fulfilled.type, payload: mockReviews }))
+        .toEqual({...state, reviews: {...state.reviews, data: mockReviews, isLoaded: true}});
     });
   });
 
   describe('fetchSimilarMoviesAction test', () => {
     it('should load similar movies if fetchSimilarMovies was fulfilled', () => {
-      expect(currentMovieReducer(state, {type: fetchSimilarMoviesAction.fulfilled.type, payload: similarMovies}))
-        .toEqual({...state, data: {...state.data, similar: similarMovies}});
+      expect(currentMovieReducer(state, {type: fetchSimilarMoviesAction.fulfilled.type, payload: mockSimilarMovies}))
+        .toEqual({...state, similar: {...state.reviews, data: mockSimilarMovies, isLoaded: true}});
     });
   });
 });

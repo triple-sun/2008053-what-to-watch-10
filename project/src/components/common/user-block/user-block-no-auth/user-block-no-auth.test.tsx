@@ -3,10 +3,10 @@ import { Route, Routes } from 'react-router-dom';
 import { MOCK_PAGE_LINK } from '../../../../const/const';
 import { AppRoute, ComponentText, PageTestID } from '../../../../const/enums';
 import LoginPage from '../../../../pages/login-page/login-page';
-import { testUtils } from '../../../../utils/mocks';
+import { testUtils } from '../../../../utils/mocks/test-utils';
 import UserBlockNoAuth from './user-block-no-auth';
 
-const {wrapper, history} = testUtils();
+const {wrapper, mockHistory} = testUtils();
 
 describe('Component: UserBlockNoAuth', () => {
   it('should render correctly', () => {
@@ -19,7 +19,7 @@ describe('Component: UserBlockNoAuth', () => {
   });
 
   it('should redirect to /login when user clicks on SignIn', async () => {
-    history.push(MOCK_PAGE_LINK);
+    mockHistory.push(MOCK_PAGE_LINK);
 
     render(
       <Routes>

@@ -1,36 +1,21 @@
-import MockAdapter from 'axios-mock-adapter';
-import {configureMockStore} from '@jedmao/redux-mock-store';
-import { createAPI } from '../../services/api/api';
-import thunk, { ThunkDispatch } from 'redux-thunk';
-import { Action } from '@reduxjs/toolkit';
 import { APIRoute } from '../../const/enums';
-import { State } from '../../types/state';
-import { makeFakeMovies } from '../../utils/mocks';
-import { random } from 'faker';
 import { fetchAllMoviesAction, fetchPromoAction } from './main-page-api-actions';
+import { APITestUtils, testUtils } from '../../utils/mocks/test-utils';
+import { cleanup } from '@testing-library/react';
 
-const mockMovies = makeFakeMovies();
-const mockPromo = random.arrayElement(mockMovies);
+const {mockPromo, mockMovies} = testUtils();
+
+const {mockAPI, mockStore} = APITestUtils();
 
 describe('MainPage async actions', () => {
-  const api = createAPI();
-
-  const mockAPI = new MockAdapter(api);
-
-  const middlewares = [thunk.withExtraArgument(api)];
-
-  const mockStore = configureMockStore<
-      State,
-      Action,
-      ThunkDispatch<State, typeof api, Action>
-    >(middlewares);
+  beforeEach(cleanup);
 
   it('should dispatch Load_Promo when GET /promo', async () => {
+    const store = mockStore();
+
     mockAPI
       .onGet(APIRoute.Promo)
       .reply(200, mockPromo);
-
-    const store = mockStore();
 
     await store.dispatch(fetchPromoAction());
 
@@ -43,11 +28,11 @@ describe('MainPage async actions', () => {
   });
 
   it('should dispatch Load_AllMovies when GET /movies', async () => {
+    const store = mockStore();
+
     mockAPI
       .onGet(APIRoute.Movies)
       .reply(200, mockMovies);
-
-    const store = mockStore();
 
     await store.dispatch(fetchAllMoviesAction());
 

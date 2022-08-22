@@ -1,18 +1,24 @@
-import { useState, useEffect, RefObject, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { playerInitialState } from '../../const/initial-states';
 
-const useVideoPlayer = (videoRef: RefObject<HTMLVideoElement>) => {
-  const [playerState, setPlayerState] = useState(playerInitialState);
+const VIDEO_LOADED_DATA = 'loadeddata';
+
+const useVideoPlayer = (isPreview = false, isPreviewPlaying = false) => {
+  const [playerState, setPlayerState] = useState({...playerInitialState, isPlaying: isPreviewPlaying});
+  const [isLoading, setIsLoading] = useState(true);
 
   const {isPlaying, isMuted, isFullscreen} = playerState;
 
-  const handlePlayButtonToggle =
+  const videoRef = React.createRef<HTMLVideoElement>();
+
+  const handlePlayButtonToggle = useCallback(
     () => {
       setPlayerState({
         ...playerState,
         isPlaying: !isPlaying,
       });
-    };
+    }, [isPlaying, playerState]
+  );
 
   const handleProgressUpdate = useCallback(
     () => {
@@ -24,7 +30,6 @@ const useVideoPlayer = (videoRef: RefObject<HTMLVideoElement>) => {
         });
       }
     }, [playerState, videoRef]);
-
 
   const handleProgressChange = useCallback(
     (value: number) => {
@@ -41,23 +46,45 @@ const useVideoPlayer = (videoRef: RefObject<HTMLVideoElement>) => {
     () => {
       setPlayerState({
         ...playerState,
-        isFullscreen: !isFullscreen ,
+        isFullscreen: !isFullscreen,
       });
     }, [isFullscreen, playerState]);
 
-  useEffect(() => {
+  const playVideo = useCallback(
+    () => isPreview
+      ? setTimeout(() => videoRef.current?.play(), 1000)
+      : videoRef.current?.play(), [isPreview, videoRef]);
+
+  const handleVideoLoadedData = useCallback(() => {
     if (videoRef.current) {
-      videoRef.current.muted = isMuted;
-      if (isFullscreen) {
-        videoRef.current.requestFullscreen();
-      }
-      isPlaying
-        ? videoRef.current.play()
-        : videoRef.current.pause();
+      setIsLoading(!isLoading);
+      setPlayerState({
+        ...playerState,
+        progress: videoRef.current.duration
+      });
     }
-  }, [isFullscreen, isMuted, isPlaying, videoRef]);
+  }, [isLoading, playerState, videoRef]);
+
+  useEffect(() => {
+    if (!videoRef.current) {
+      return;
+    }
+
+    videoRef.current.addEventListener(VIDEO_LOADED_DATA, handleVideoLoadedData);
+    videoRef.current.muted = isPreview ? true : isMuted;
+
+    if (isFullscreen) {
+      videoRef.current.requestFullscreen();
+    }
+
+    isPlaying && !isLoading
+      ? playVideo()
+      : videoRef.current.pause();
+
+  }, [handleVideoLoadedData, isFullscreen, isLoading, isMuted, isPlaying, isPreview, playVideo, videoRef]);
 
   return {
+    videoRef,
     playerState,
     handlePlayButtonToggle,
     handleProgressUpdate,

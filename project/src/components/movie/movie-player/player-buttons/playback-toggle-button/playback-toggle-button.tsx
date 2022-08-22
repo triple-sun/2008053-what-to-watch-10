@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentTestID, ComponentText } from '../../../../../const/enums';
 
-const PlaybackToggleButton = ({handlePlayButtonToggle, isPlaying}: {handlePlayButtonToggle: () => void, isPlaying?: boolean}) => (
+const PlaybackToggleButton = ({handlePlayButtonToggle, isPlaying = false}: {handlePlayButtonToggle: () => void, isPlaying?: boolean}) => (
   <button type="button" className="player__play" onClick={handlePlayButtonToggle} data-testid={ComponentTestID.PlaybackToggleButton}>
     {isPlaying
       ? (

@@ -3,7 +3,7 @@ import { State } from '../../types/state';
 
 export const getMainPageState = (state: State) => state.MAIN;
 
-export const getIsMainDataLoading = createSelector(getMainPageState, (state) => state.isLoading);
+export const getIsMainDataLoaded = createSelector(getMainPageState, (state) => state.isLoaded);
 
 export const getMovies = createSelector(getMainPageState, (state) => state.data.movies);
 

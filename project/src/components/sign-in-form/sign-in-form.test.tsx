@@ -1,26 +1,31 @@
-import { render, screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
-import { Provider } from 'react-redux';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { ComponentText } from '../../const/enums';
-import { createMockStore } from '../../utils/mocks';
-import HistoryRouter from '../history-route/history-route';
+import { testUtils } from '../../utils/mocks/test-utils';
 import SignInForm from './sign-in-form';
 
-const store = createMockStore();
-const history = createMemoryHistory();
+const {wrapper} = testUtils();
+
+const mockHandleLoginClick = jest.fn();
 
 describe('Component: SignInForm', () => {
   it('should render correctly', () => {
     render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <SignInForm />
-        </HistoryRouter>
-      </Provider>
+      <SignInForm handleLoginSubmit={mockHandleLoginClick}/>,
+      {wrapper}
     );
 
     expect(screen.getByLabelText(ComponentText.Email)).toBeInTheDocument();
     expect(screen.getByLabelText(ComponentText.Password)).toBeInTheDocument();
     expect(screen.getByText(ComponentText.SignIn)).toBeInTheDocument();
+  });
+
+  it('should call handleLoginClick when user clicks signIn', () => {
+    render(
+      <SignInForm handleLoginSubmit={mockHandleLoginClick}/>,
+      {wrapper}
+    );
+
+    fireEvent.click(screen.getByText(ComponentText.SignIn));
+    expect(mockHandleLoginClick).toBeCalled();
   });
 });

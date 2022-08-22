@@ -1,23 +1,17 @@
 import React from 'react';
 import { FormEvent, useRef } from 'react';
 import { ComponentTestID, ComponentText, ElementTestID } from '../../const/enums';
-import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
-import { loginAction } from '../../store/user/user-api-actions';
 import { TAuthData } from '../../types/data';
 
-const SignInForm = () => {
+const SignInForm = ({handleLoginSubmit}: {handleLoginSubmit: (authData: TAuthData) => void}) => {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
-  const dispatch = useAppDispatch();
-
-  const handleSubmit = (authData: TAuthData) => dispatch(loginAction(authData));
 
   const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (loginRef.current && passwordRef.current) {
-      handleSubmit({
+      handleLoginSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,
       });

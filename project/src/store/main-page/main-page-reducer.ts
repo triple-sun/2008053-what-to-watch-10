@@ -6,11 +6,11 @@ import { fetchAllMoviesAction, fetchPromoAction } from './main-page-api-actions'
 const mainPageReducer = createReducer(mainPageInitialState, (builder) => {
   builder
     .addCase(fetchAllMoviesAction.pending, (state) => {
-      state.isLoading = true;
+      state.isLoaded = false;
     })
     .addCase(fetchAllMoviesAction.fulfilled, (state, action) => {
       state.data.movies = action.payload;
-      state.isLoading = false;
+      state.isLoaded = true;
     })
     .addCase(fetchPromoAction.fulfilled, (state, action) => {
       state.data.promo = action.payload;

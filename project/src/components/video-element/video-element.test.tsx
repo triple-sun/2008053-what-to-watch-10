@@ -1,8 +1,7 @@
-
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { ElementTestID } from '../../const/enums';
-import { makeFakePlayerState } from '../../utils/mocks';
+import { makeFakePlayerState } from '../../utils/mocks/mocks';
 import VideoElement from './video-element';
 
 const mockVideoRef = React.createRef<HTMLVideoElement>();

@@ -1,6 +1,7 @@
 import {fireEvent, render, screen} from '@testing-library/react';
 import { ComponentText, ElementTestID } from '../../../../const/enums';
-import { makeFakeUserInfo, testUtils } from '../../../../utils/mocks';
+import { makeFakeUserInfo } from '../../../../utils/mocks/mocks';
+import { testUtils } from '../../../../utils/mocks/test-utils';
 import UserBlockAuth from './user-block-auth';
 
 const {wrapper} = testUtils();

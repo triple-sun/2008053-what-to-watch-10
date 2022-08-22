@@ -1,27 +1,12 @@
-import MockAdapter from 'axios-mock-adapter';
-import {configureMockStore} from '@jedmao/redux-mock-store';
-import { createAPI } from '../../services/api/api';
-import thunk, { ThunkDispatch } from 'redux-thunk';
-import { Action } from '@reduxjs/toolkit';
 import { APIRoute } from '../../const/enums';
 import { checkAuthAction, fetchUserInfoAction, fetchFavoritesAction, loginAction, logoutAction } from './user-api-actions';
-import { State } from '../../types/state';
 import { redirectToRoute } from '../common/common-actions';
-import { makeFakeAuthData, makeFakeMovies, makeFakeToken, makeFakeUserInfo } from '../../utils/mocks';
+import { makeFakeAuthData, makeFakeMovies, makeFakeToken, makeFakeUserInfo } from '../../utils/mocks/mocks';
 import { AUTH_TOKEN_KEY_NAME } from '../../services/token/token';
+import { APITestUtils } from '../../utils/mocks/test-utils';
 
 describe('User async actions', () => {
-  const api = createAPI();
-
-  const mockAPI = new MockAdapter(api);
-
-  const middlewares = [thunk.withExtraArgument(api)];
-
-  const mockStore = configureMockStore<
-      State,
-      Action,
-      ThunkDispatch<State, typeof api, Action>
-    >(middlewares);
+  const {mockAPI, mockStore} = APITestUtils();
 
   it('should authorization status is «auth» when server return 200', async () => {
     const store = mockStore();
@@ -29,6 +14,7 @@ describe('User async actions', () => {
     mockAPI
       .onGet(APIRoute.Login)
       .reply(200, []);
+
     expect(store.getActions()).toEqual([]);
 
     await store.dispatch(checkAuthAction());
@@ -48,7 +34,6 @@ describe('User async actions', () => {
     mockAPI
       .onPost(APIRoute.Login)
       .reply(200, {token: fakeToken});
-
 
     const store = mockStore();
 

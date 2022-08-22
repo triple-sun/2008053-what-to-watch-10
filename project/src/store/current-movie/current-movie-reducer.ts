@@ -4,18 +4,22 @@ import { fetchCurrentMovieAction, fetchReviewsAction, fetchSimilarMoviesAction }
 
 const currentMovieReducer = createReducer(currentMovieInitialState, (builder) => {
   builder
-    .addCase(fetchCurrentMovieAction.pending, (state) => {
-      state.isLoading = true;
-    })
     .addCase(fetchCurrentMovieAction.fulfilled, (state, action) => {
-      state.data.movie = action.payload;
-      state.isLoading = false;
+      state.movie = action.payload;
+    })
+    .addCase(fetchReviewsAction.pending, (state, action) =>{
+      state.reviews.isLoaded = false;
     })
     .addCase(fetchReviewsAction.fulfilled, (state, action) =>{
-      state.data.reviews = action.payload;
+      state.reviews.data = action.payload;
+      state.reviews.isLoaded = true;
+    })
+    .addCase(fetchSimilarMoviesAction.pending, (state) => {
+      state.similar.isLoaded = false;
     })
     .addCase(fetchSimilarMoviesAction.fulfilled, (state, action) => {
-      state.data.similar = action.payload;
+      state.similar.data = action.payload;
+      state.similar.isLoaded = true;
     });
 });
 

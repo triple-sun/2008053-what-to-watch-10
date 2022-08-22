@@ -15,13 +15,13 @@ import { useEffect } from 'react';
 import MainPage from '../../pages/main-page/main-page';
 import { getAuthStatus } from '../../store/user/user-selectors';
 import { fetchFavoritesAction } from '../../store/user/user-api-actions';
-import { getIsMainDataLoading } from '../../store/main-page/main-page-selectors';
+import { getIsMainDataLoaded } from '../../store/main-page/main-page-selectors';
 
 const goToMainPage = <Navigate to={AppRoute.Main} />;
 
 const App = () => {
   const authStatus = useAppSelector(getAuthStatus);
-  const isLoading = useAppSelector(getIsMainDataLoading);
+  const isLoaded = useAppSelector(getIsMainDataLoaded);
   const isAuth = checkAuth(authStatus, AuthStatus.Auth);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const App = () => {
   }, [isAuth]
   );
 
-  if (checkAuth(authStatus, AuthStatus.Unknown) || isLoading) {
+  if (checkAuth(authStatus, AuthStatus.Unknown) || !isLoaded) {
     return (
       <LoadingPage />
     );

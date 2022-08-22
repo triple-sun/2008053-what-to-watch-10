@@ -1,16 +1,9 @@
-import { Middleware } from '@reduxjs/toolkit';
 import { History } from 'history';
 import { AuthStatus, Genre } from '../const/enums';
 import TMovie from './movie';
 
 export type ReviewProps = {
   handleReviewChange: ({name, value}: {name: string, value: string}) => void;
-}
-
-export type MovieCardProps = {
-  movie: TMovie;
-  activeMovieId: number | null;
-  handleMouseEvent: (id: number | null) => void;
 }
 
 export type GenreProps = {
@@ -20,8 +13,8 @@ export type GenreProps = {
 
 export type mockStoreProps = {
   authStatus?: AuthStatus;
+  movies?: TMovie[];
   genre?: Genre;
-  middlewares?: Middleware[];
 };
 
 export type testUtilsProps = {

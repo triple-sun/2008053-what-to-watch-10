@@ -1,6 +1,6 @@
 import { UNKNOWN_ACTION } from '../../const/const';
 import { mainPageInitialState } from '../../const/initial-states';
-import { makeFakeGenre, makeFakeMovie, makeFakeMovies } from '../../utils/mocks';
+import { makeFakeGenre, makeFakeMovie, makeFakeMovies } from '../../utils/mocks/mocks';
 import { setGenre } from './main-page-actions';
 import { fetchAllMoviesAction, fetchPromoAction } from './main-page-api-actions';
 import mainPageReducer from './main-page-reducer';
@@ -20,7 +20,7 @@ describe('Reducer: mainPage', () => {
   describe('fetchAllMoviesAction test', () => {
     it('should load all movies and set isLoading to false if fetchAllMoviesAction was fulfilled', () => {
       expect(mainPageReducer(state, { type: fetchAllMoviesAction.fulfilled.type, payload: movies }))
-        .toEqual({...state, data: {...state.data, movies: movies }, isLoading: false});
+        .toEqual({...state, data: {...state.data, movies: movies }, isLoaded: true});
     });
   });
 

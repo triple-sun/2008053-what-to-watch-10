@@ -1,22 +1,59 @@
+import { useCallback, useState } from 'react';
+import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
 import { MovieList } from '../../const/enums';
-import { getSimilarMovies } from '../../store/current-movie/current-movie-selectors';
 import { getMainPageState } from '../../store/main-page/main-page-selectors';
-import { getFavorites } from '../../store/user/user-selectors';
-import { filterMoviesByGenre } from '../../utils/utils';
+import { filterMoviesByGenre, getMovieListLength, getMovieListTestId } from '../../utils/utils';
 import useAppSelector from '../use-app-selector/use-app-selector';
 
-const useMovies = (movieList: MovieList) => {
-  const {data: {movies}, selectedGenre} = useAppSelector(getMainPageState);
+import { getFavorites } from '../../store/user/user-selectors';
+import { getSimilarMovies } from '../../store/current-movie/current-movie-selectors';
 
-  const filteredMovies = filterMoviesByGenre(movies, selectedGenre);
+const useMovies = (movieList: MovieList) => {
+  const {data: {movies: allMovies, promo}, selectedGenre} = useAppSelector(getMainPageState);
+
+  const {data: favorites} = useAppSelector(getFavorites);
+  const {data: similarMovies} = useAppSelector(getSimilarMovies);
+
+  const [activeMovieId, setActiveMovieId] = useState<null | number>(null);
+  const [renderedMovieCount, setRenderedMovieCount] = useState(getMovieListLength(movieList, favorites));
 
   const movieListSelector = {
-    [MovieList.MainPage]: filteredMovies,
-    [MovieList.MoviePage]: useAppSelector(getSimilarMovies),
-    [MovieList.MyListPage]: useAppSelector(getFavorites),
+    [MovieList.MainPage]: filterMoviesByGenre(allMovies, selectedGenre),
+    [MovieList.MoviePage]: similarMovies,
+    [MovieList.MyListPage]: favorites,
   };
 
-  return movieListSelector[movieList] ?? [];
+  const movies = movieListSelector[movieList];
+  const testId = getMovieListTestId(movieList);
+
+  const moviesToRender = movies.slice(0, renderedMovieCount);
+  const hasShowMoreButton = movieList === MovieList.MainPage && movies.length > renderedMovieCount;
+  const moviesToLoadCount = Math.min((movies.length - renderedMovieCount), MOVIE_CARD_MAIN_COUNT);
+
+  const handleShowMoreButtonClick = useCallback(
+    (count: number) => {
+      setRenderedMovieCount(() => Math.min(renderedMovieCount + count, allMovies.length));
+    },
+    [allMovies, renderedMovieCount],
+  );
+
+  const handleMovieMouseOver = useCallback(
+    (movieId: number | null) => setActiveMovieId(movieId),
+    [],
+  );
+
+  return {
+    promo,
+    movies,
+    testId,
+    activeMovieId,
+    moviesToRender,
+    renderedMovieCount,
+    moviesToLoadCount,
+    hasShowMoreButton,
+    handleMovieMouseOver,
+    handleShowMoreButtonClick
+  };
 };
 
 export default useMovies;

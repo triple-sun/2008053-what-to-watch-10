@@ -1,9 +1,8 @@
 import TMovie from './movie';
-import TReview from './review';
 
 export type TData<T = null> = {
   data: T;
-  isLoading?: boolean;
+  isLoaded?: boolean;
 }
 
 export type TAuthData = {
@@ -11,19 +10,9 @@ export type TAuthData = {
   password: string;
 };
 
-export type TCurrentMovieData = {
-  movie: TMovie | null;
-  reviews: TReview[];
-  similar: TMovie[];
-}
-
 export type TMainPageData = {
   movies: TMovie[];
   promo: TMovie | null;
-}
-
-export type TMoviePageData = {
-  similarMovies: TMovie[];
 }
 
 export type TUserInfo = {
@@ -33,9 +22,3 @@ export type TUserInfo = {
   name: string
   token: string
   };
-
-export type TUserData = {
-    userInfo: TUserInfo | null;
-    favorites: TMovie[];
-  }
-

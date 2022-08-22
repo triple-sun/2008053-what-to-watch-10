@@ -1,4 +1,4 @@
-import { CurrentMovieState, MainPageState, SimilarMoviesState, UserState } from '../types/state';
+import { CurrentMovieState, MainPageState, UserState } from '../types/state';
 import { AuthStatus, Genre } from './enums';
 
 export const mainPageInitialState: MainPageState = {
@@ -7,27 +7,26 @@ export const mainPageInitialState: MainPageState = {
     promo: null,
   },
   selectedGenre: Genre.AllGenres,
-  isLoading: false
+  isLoaded: false
 };
 
 export const currentMovieInitialState: CurrentMovieState = {
-  data: {
-    movie: null,
-    reviews: [],
-    similar: []
+  movie: null,
+  reviews: {
+    data: [],
+    isLoaded: false
   },
-  isLoading: true
+  similar: {
+    data: [],
+    isLoaded: false
+  },
 };
-
-export const similarMoviesInitialState: SimilarMoviesState = {
-  data: [],
-};
-
 
 export const userInitialState: UserState = {
-  data: {
-    userInfo: null,
-    favorites: [],
+  userInfo: null,
+  favorites: {
+    data: [],
+    isLoaded: false
   },
   authStatus: AuthStatus.Unknown,
 };

@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { reviewInitialState } from '../../const/initial-states';
 import { addReviewAction } from '../../store/review/review-api-actions';
 import { TReviewState } from '../../types/state';
 import useAppDispatch from '../use-app-dispatch/use-app-dispatch';
 
-const useAddReview = (id: number) => {
+const useAddReview = () => {
+  const id = Number(useParams().id);
+
   const [review, setReview] = useState<TReviewState>(reviewInitialState);
   const {rating, comment} = review;
 

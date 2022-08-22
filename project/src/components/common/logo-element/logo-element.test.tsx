@@ -3,10 +3,10 @@ import { Route, Routes } from 'react-router-dom';
 import { LOGO_LINK_LIGHT_CLASS, MOCK_PAGE_LINK } from '../../../const/const';
 import { AppRoute, ComponentTestID, PageTestID, } from '../../../const/enums';
 import MainPage from '../../../pages/main-page/main-page';
-import { testUtils } from '../../../utils/mocks';
+import { testUtils } from '../../../utils/mocks/test-utils';
 import LogoElement from './logo-element';
 
-const {wrapper, history} = testUtils();
+const {wrapper, mockHistory} = testUtils();
 
 describe('Component: LogoElement', () => {
   it('should render correctly', () => {
@@ -29,7 +29,7 @@ describe('Component: LogoElement', () => {
   });
 
   it('should redirect to / when user clicks on logo', async () => {
-    history.push(MOCK_PAGE_LINK);
+    mockHistory.push(MOCK_PAGE_LINK);
 
     render(
       <Routes>

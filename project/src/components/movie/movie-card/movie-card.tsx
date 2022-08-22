@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../../const/enums';
-import { MovieCardProps } from '../../../types/props';
-import MovieCardPlayer from '../movie-player/movie-player-card/movie-player-card';
+import { AppRoute, ComponentTestID, ElementTestID } from '../../../const/enums';
+import TMovie from '../../../types/movie';
+import MovieCardPlayer from './movie-card-player/movie-card-player';
+
+type MovieCardProps = {
+  movie: TMovie;
+  activeMovieId: number | null;
+  handleMouseEvent: (id: number | null) => void;
+}
 
 const MovieCardComponent = ({movie, activeMovieId, handleMouseEvent}: MovieCardProps) => {
   const isPlaying = movie.id === activeMovieId;
@@ -11,12 +17,12 @@ const MovieCardComponent = ({movie, activeMovieId, handleMouseEvent}: MovieCardP
   const onMouseLeave = () => handleMouseEvent(null);
 
   return (
-    <article className="small-film-card catalog__films-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-      <Link to={`${AppRoute.Movies}${movie.id}`} className="small-film-card__link">
+    <article className="small-film-card catalog__films-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} data-testid={ComponentTestID.MovieCard}>
+      <Link to={`${AppRoute.Movies}${movie.id}`} className="small-film-card__link" data-testid={ElementTestID.MovieCardLink}>
         <div className="small-film-card__image">
           {!isPlaying
             ? <img src={movie.previewImage} alt={movie.name} width="280" height="175" />
-            : <MovieCardPlayer movie={movie} isPlaying isPreview />}
+            : <MovieCardPlayer movie={movie} isPlaying={isPlaying} isPreview />}
         </div>
         <h3 className="small-film-card__title">
           {movie.name}

@@ -1,6 +1,6 @@
 import {fireEvent, render, screen} from '@testing-library/react';
 import { ComponentText } from '../../../const/enums';
-import { makeFakeRating } from '../../../utils/mocks';
+import { makeFakeRating } from '../../../utils/mocks/mocks';
 import RatingElement from './rating-element';
 
 const mockRating = makeFakeRating();

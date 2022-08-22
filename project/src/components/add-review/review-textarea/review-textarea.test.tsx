@@ -1,10 +1,10 @@
 import {fireEvent, render, screen} from '@testing-library/react';
-import { datatype, lorem } from 'faker';
 import { ElementTestID } from '../../../const/enums';
-import { testUtils } from '../../../utils/mocks';
+import { makeFakeSentences } from '../../../utils/mocks/mocks';
+import { testUtils } from '../../../utils/mocks/test-utils';
 import ReviewTextarea from './review-textarea';
 
-const MOCK_COMMENT_TEXT = lorem.sentences(datatype.number(10));
+const MOCK_COMMENT_TEXT = makeFakeSentences();
 
 const {wrapper} = testUtils();
 

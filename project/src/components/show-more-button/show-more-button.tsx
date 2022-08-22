@@ -1,19 +1,11 @@
 import React from 'react';
-import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
-import { ComponentText } from '../../const/enums';
+import { ComponentText, MovieList } from '../../const/enums';
+import useMovies from '../../hooks/use-movies/use-movies';
 
-type ShowMoreButtonProps = {
-  totalMovieCount: number;
-  renderedMoviesCount: number;
-  handleShowMoreButtonClick: (count: number) => void
-};
+const ShowMoreButton = ({handleShowMoreButtonClick}: {handleShowMoreButtonClick: (count: number) => void}) => {
+  const {moviesToLoadCount} = useMovies(MovieList.MainPage);
 
-const ShowMoreButton = ({totalMovieCount, renderedMoviesCount, handleShowMoreButtonClick}: ShowMoreButtonProps) => {
-  const moviesToLoadCount = Math.min((totalMovieCount - renderedMoviesCount), MOVIE_CARD_MAIN_COUNT);
-
-  const onShowMoreButtonClick = () => {
-    handleShowMoreButtonClick(moviesToLoadCount);
-  };
+  const onShowMoreButtonClick = () => handleShowMoreButtonClick(moviesToLoadCount);
 
   return (
     <div className="catalog__more">

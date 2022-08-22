@@ -86,6 +86,7 @@ export enum UserAction {
   CheckAuth = 'user/checkAuthorizattion',
   Login = 'user/login',
   Logout = 'user/logout',
+  ResetUserData = 'user/resetUserData'
 }
 
 export enum Genre {
@@ -160,7 +161,9 @@ export enum ElementTestID {
   IconPlay = 'test-icon-play',
   MovieTab = 'test-movie-tab',
   MovieLink = 'test-movie-link',
+  MovieCardLink = 'test-movie-card-link',
   MyListButton = 'test-my-list-button',
+  Progress = 'test-progress',
   Poster = 'test-poster',
   Login = 'test-login',
   Passsword = 'test-password',

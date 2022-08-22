@@ -1,4 +1,5 @@
-import { ComponentText, ElementTestID } from '../../../../const/enums';
+import { Link } from 'react-router-dom';
+import { AppRoute, ComponentText, ElementTestID } from '../../../../const/enums';
 
 const UserBlockAuth = ({avatarUrl, handleLogoutClick}: {avatarUrl: string, handleLogoutClick: () => void}) => {
   const onLogoutClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -14,7 +15,7 @@ const UserBlockAuth = ({avatarUrl, handleLogoutClick}: {avatarUrl: string, handl
         </div>
       </li>
       <li className="user-block__item">
-        <a href="#signout" className="user-block__link" onClick={onLogoutClick}>{ComponentText.SignOut}</a>
+        <Link to={AppRoute.Main} className="user-block__link" onClick={onLogoutClick}>{ComponentText.SignOut}</Link>
       </li>
     </ul>
   );};

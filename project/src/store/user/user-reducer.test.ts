@@ -1,7 +1,7 @@
 import { UNKNOWN_ACTION } from '../../const/const';
 import { AuthStatus } from '../../const/enums';
 import { userInitialState } from '../../const/initial-states';
-import { makeFakeMovies, makeFakeUserInfo } from '../../utils/mocks';
+import { makeFakeMovies, makeFakeUserInfo } from '../../utils/mocks/mocks';
 import { checkAuthAction, fetchFavoritesAction, fetchUserInfoAction, loginAction, logoutAction } from './user-api-actions';
 import userReducer from './user-reducer';
 
@@ -20,14 +20,14 @@ describe('Reducer: user', () => {
   describe('fetchUserInfoAction test', () => {
     it('should load userInfo if fetchUserInfoAction was fulfilled', () => {
       expect(userReducer(state, { type: fetchUserInfoAction.fulfilled.type, payload: userInfo }))
-        .toEqual({...state, data: {...state.data, userInfo: userInfo}});
+        .toEqual({...state, userInfo});
     });
   });
 
   describe('fetchFavoritesAction test', () => {
     it('should load favorites if fetchFavoritesAction was fulfilled', () => {
       expect(userReducer(state, { type: fetchFavoritesAction.fulfilled.type, payload: favorites }))
-        .toEqual({...state, data: {...state.data, favorites: favorites}});
+        .toEqual({...state, favorites: {...state.favorites, data: favorites, isLoaded: true}});
     });
   });
 
@@ -56,7 +56,7 @@ describe('Reducer: user', () => {
   describe('logoutAction test', () => {
     it('should update AuthStatus to "NO_AUTH" and reset user data if logoutAction fulfilled', () => {
       expect(userReducer(state, { type: logoutAction.fulfilled.type }))
-        .toEqual({data: userInitialState.data, authStatus: AuthStatus.NoAuth});
+        .toEqual({...userInitialState, authStatus: AuthStatus.NoAuth});
     });
   });
 });

@@ -1,26 +1,14 @@
 import { nanoid } from '@reduxjs/toolkit';
-import React, { useCallback, useEffect } from 'react';
-import { ComponentTestID, Genre } from '../../../const/enums';
-import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
+import React from 'react';
+import { ComponentTestID } from '../../../const/enums';
 import useGenres from '../../../hooks/use-genres/use-genres';
-import { setGenre } from '../../../store/main-page/main-page-actions';
 import GenreElement from '../genre-element/genre-element';
 
 const GenresList = () => {
-  const {currentGenres} = useGenres();
-
-  const dispatch = useAppDispatch();
-
-  const handleGenreChange = useCallback(
-    (genre: Genre) => {
-      dispatch(setGenre(genre));
-    },
-    [dispatch]
-  );
-
-  useEffect(() => {
-    dispatch(setGenre(Genre.AllGenres));
-  });
+  const {
+    currentGenres,
+    handleGenreChange
+  } = useGenres();
 
   return (
     <ul className="catalog__genres-list" data-testid={ComponentTestID.GenresList}>

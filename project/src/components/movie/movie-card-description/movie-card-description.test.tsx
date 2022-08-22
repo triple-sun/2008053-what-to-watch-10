@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { makeFakeMovie } from '../../../utils/mocks';
+import { makeFakeMovie } from '../../../utils/mocks/mocks';
 import MovieCardDescription from './movie-card-description';
 
 const mockMovie = makeFakeMovie();

@@ -18,7 +18,7 @@ const VideoElement = React.forwardRef<HTMLVideoElement, VideoElementProps>(
         : props.movie.videoLink}
       ref={ref}
       className="player__video"
-      poster={props.movie.backgroundImage}
+      poster={props.movie.previewImage}
       onTimeUpdate={props.handleProgressUpdate}
       data-testid={ElementTestID.Video}
     />

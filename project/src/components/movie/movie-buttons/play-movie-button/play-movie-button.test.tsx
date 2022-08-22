@@ -1,22 +1,43 @@
-import { render, screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
-import { ComponentText } from '../../../../const/enums';
-import { makeFakeMovie } from '../../../../utils/mocks';
-import HistoryRouter from '../../../history-route/history-route';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { Route, Routes } from 'react-router-dom';
+import { MOCK_PAGE_LINK } from '../../../../const/const';
+import { AppRoute, ComponentText } from '../../../../const/enums';
+import { testUtils } from '../../../../utils/mocks/test-utils';
 import PlayMovieButton from './play-movie-button';
 
-const mockMovie = makeFakeMovie();
-
-const history = createMemoryHistory();
+const {wrapper, mockHistory, mockCurrentMovie, mockElementText, mockElement: mockMoviePlayerPage} = testUtils();
 
 describe('Component: PlayMovieButton', () => {
   it('should render correctly', () => {
     render(
-      <HistoryRouter history={history}>
-        <PlayMovieButton {...mockMovie}/>
-      </HistoryRouter>
+      <PlayMovieButton {...mockCurrentMovie}/>,
+      {wrapper}
     );
 
     expect(screen.getByText(ComponentText.Play)).toBeInTheDocument();
+  });
+
+  it('should redirect to add review page when user clicks on addReview', async () => {
+    mockHistory.push(MOCK_PAGE_LINK);
+
+    render(
+      <Routes>
+        <Route
+          path={`${AppRoute.Player}${mockCurrentMovie.id}`}
+          element={mockMoviePlayerPage}
+        />
+        <Route
+          path={MOCK_PAGE_LINK}
+          element={<PlayMovieButton {...mockCurrentMovie}/>}
+        />
+      </Routes>,
+      {wrapper}
+    );
+
+    expect(screen.queryByText(mockElementText)).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByText(ComponentText.Play));
+
+    expect(screen.getByText(mockElementText)).toBeInTheDocument();
   });
 });

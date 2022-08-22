@@ -1,16 +1,17 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { ComponentText, ElementTestID } from '../../../../const/enums';
-import { makeFakeMovie, testUtils } from '../../../../utils/mocks';
+import { Route, Routes } from 'react-router-dom';
+import { MOCK_PAGE_LINK } from '../../../../const/const';
+import { AppRoute, AuthStatus, ComponentText, ElementTestID, PageTestID } from '../../../../const/enums';
+import LoginPage from '../../../../pages/login-page/login-page';
+import { testUtils } from '../../../../utils/mocks/test-utils';
 import MyListButton from './my-list-button';
 
-const mockMovie = makeFakeMovie();
-
-const {wrapper, favorites} = testUtils();
+const {wrapper, mockFavorites, mockCurrentMovie} = testUtils();
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useParams: () => ({
-    id: mockMovie.id,
+    id: mockCurrentMovie.id,
   }),
 }));
 
@@ -19,7 +20,7 @@ describe('Component: MyListButton', () => {
 
   it('should render correctly', () => {
     render(
-      <MyListButton favoritesCount={favorites.length} onFavoriteButtonClick={onFavoriteButtonClick}/>,
+      <MyListButton isAuth favoritesCount={mockFavorites.length} handleFavoriteAction={onFavoriteButtonClick}/>,
       {wrapper}
     );
 
@@ -28,7 +29,7 @@ describe('Component: MyListButton', () => {
 
   it('should render MovieListAddIcon if not in favorites', () => {
     render(
-      <MyListButton favoritesCount={favorites.length} onFavoriteButtonClick={onFavoriteButtonClick}/>,
+      <MyListButton isAuth favoritesCount={mockFavorites.length} handleFavoriteAction={onFavoriteButtonClick}/>,
       {wrapper}
     );
 
@@ -37,7 +38,7 @@ describe('Component: MyListButton', () => {
 
   it('should render MovieListAddedIcon if not in favorites', () => {
     render(
-      <MyListButton favoritesCount={favorites.length} onFavoriteButtonClick={onFavoriteButtonClick} isFavorite/>,
+      <MyListButton isAuth favoritesCount={mockFavorites.length} handleFavoriteAction={onFavoriteButtonClick} isFavorite/>,
       {wrapper}
     );
 
@@ -46,11 +47,37 @@ describe('Component: MyListButton', () => {
 
   it('should call onFavoriteButtonClick when user clicks MyListAddButton', async () => {
     render(
-      <MyListButton favoritesCount={favorites.length} onFavoriteButtonClick={onFavoriteButtonClick} isFavorite/>,
+      <MyListButton isAuth favoritesCount={mockFavorites.length} handleFavoriteAction={onFavoriteButtonClick} isFavorite/>,
     );
 
     fireEvent.click(screen.getByTestId(ElementTestID.MyListButton));
 
     expect(onFavoriteButtonClick).toBeCalled();
+  });
+
+  it('should redirect to /login when user clicks MyListAddButton and is not authorized', async () => {
+    const {wrapper: noAuthWrapper, mockHistory} = testUtils({storeProps: {authStatus: AuthStatus.NoAuth}});
+
+    mockHistory.push(MOCK_PAGE_LINK);
+
+    render(
+      <Routes>
+        <Route
+          path={AppRoute.Login}
+          element={<LoginPage/>}
+        />
+        <Route
+          path={MOCK_PAGE_LINK}
+          element={<MyListButton isAuth={false} favoritesCount={mockFavorites.length} handleFavoriteAction={onFavoriteButtonClick}/>}
+        />
+      </Routes>,
+      {wrapper: noAuthWrapper}
+    );
+
+    expect(screen.queryByTestId(PageTestID.LoginPage)).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId(ElementTestID.MyListButton));
+
+    expect(screen.getByTestId(PageTestID.LoginPage)).toBeInTheDocument();
   });
 });

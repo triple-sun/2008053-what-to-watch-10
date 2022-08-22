@@ -2,7 +2,8 @@ import {Routes, Route} from 'react-router-dom';
 import {render, screen} from '@testing-library/react';
 import PrivateRoute from './private-route';
 import { AppRoute, AuthStatus } from '../../../const/enums';
-import { makeFakeElement, testUtils } from '../../../utils/mocks';
+import { testUtils } from '../../../utils/mocks/test-utils';
+import { makeFakeElement } from '../../../utils/mocks/mocks';
 
 const MOCK_PRIVATE_ROUTE = '/private';
 
@@ -12,11 +13,11 @@ const PRIVATE_ROUTE_MOCK_TEXT = 'Private Route';
 const mockPublicRouteElement = makeFakeElement(PUBLIC_ROUTE_MOCK_TEXT);
 const mockPrivateRouteElement = makeFakeElement(PRIVATE_ROUTE_MOCK_TEXT);
 
-const {wrapper, history} = testUtils();
+const {wrapper, mockHistory} = testUtils();
 
 describe('Component: PrivateRouter', () => {
   beforeEach(() => {
-    history.push(MOCK_PRIVATE_ROUTE);
+    mockHistory.push(MOCK_PRIVATE_ROUTE);
   });
 
   it('should render component for public route, when user not authorized', async () => {

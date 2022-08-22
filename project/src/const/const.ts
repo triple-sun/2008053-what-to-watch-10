@@ -21,4 +21,6 @@ export const MOVIE_TAB_ACTIVE_CLASS = `${MOVIE_TAB_CLASS} ${MOVIE_TAB_CLASS}--ac
 
 export const MOCK_PAGE_LINK = '/mock';
 
+export const FAVORITE_SINGLE_STEP = 1;
+
 export const RatingValues = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1] as const;

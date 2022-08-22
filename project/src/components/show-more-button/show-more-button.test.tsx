@@ -1,19 +1,30 @@
-import { render, screen } from '@testing-library/react';
-import { datatype } from 'faker';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { ComponentText } from '../../const/enums';
-import { makeFakeMovies } from '../../utils/mocks';
+import { testUtils } from '../../utils/mocks/test-utils';
 import ShowMoreButton from './show-more-button';
 
-const mockMoviesCount = makeFakeMovies().length;
+const {wrapper} = testUtils();
 
-const mockRenderedMoviesCount = datatype.number(mockMoviesCount);
+const mockHandleShowMoreButtonClick = jest.fn();
 
 describe('Component: ShowMoreButton', () => {
   it('should render correctly', () => {
     render(
-      <ShowMoreButton totalMovieCount={mockMoviesCount} renderedMoviesCount={mockRenderedMoviesCount} handleShowMoreButtonClick={() => jest.fn()}/>
+      <ShowMoreButton handleShowMoreButtonClick={mockHandleShowMoreButtonClick}/>,
+      {wrapper}
     );
 
     expect(screen.getByText(ComponentText.ShowMore)).toBeInTheDocument();
+  });
+
+  it('should call handleShowMoreButtonClick when clicked', () => {
+    render(
+      <ShowMoreButton handleShowMoreButtonClick={mockHandleShowMoreButtonClick}/>,
+      {wrapper}
+    );
+
+    fireEvent.click(screen.getByText(ComponentText.ShowMore));
+
+    expect(mockHandleShowMoreButtonClick).toBeCalledTimes(1);
   });
 });

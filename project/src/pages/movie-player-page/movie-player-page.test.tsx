@@ -1,13 +1,13 @@
 import {render, screen} from '@testing-library/react';
-import { testUtils, mockVideoAPI } from '../../utils/mocks';
+import { testUtils } from '../../utils/mocks/test-utils';
 import MoviePlayerPage from './movie-player-page';
 
-const {currentMovie: mockMovie, wrapper} = testUtils();
+const {mockCurrentMovie, mockVideoAPI, wrapper} = testUtils();
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useParams: () => ({
-    id: mockMovie.id,
+    id: mockCurrentMovie.id,
   }),
 }));
 
@@ -20,6 +20,6 @@ describe('Component: MoviePlayerPage', () => {
       {wrapper}
     );
 
-    expect(screen.getByText(mockMovie.name)).toBeInTheDocument();
+    expect(screen.getByText(mockCurrentMovie.name)).toBeInTheDocument();
   });
 });
