@@ -89,7 +89,6 @@ const useVideoPlayer = (isPreview = false, isPreviewPlaying = false) => {
   return {
     videoRef,
     playerState,
-    handlePreviewPlayback,
     handlePlayButtonToggle,
     handleProgressUpdate,
     handleProgressChange,
