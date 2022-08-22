@@ -1,18 +1,19 @@
-import { fireEvent, render, screen} from '@testing-library/react';
+import { cleanup, fireEvent, render, screen} from '@testing-library/react';
 import { GENRE_ELEMENT_ACTIVE_CLASS } from '../../../const/const';
-import { ElementTestID } from '../../../const/enums';
-import { makeFakeGenre } from '../../../utils/mocks/mocks';
+import { ElementTestID, Genre } from '../../../const/enums';
 import { testUtils } from '../../../utils/mocks/test-utils';
 import { humanizeGenreName } from '../../../utils/utils';
 import GenreElement from './genre-element';
 
 const {wrapper, mockSelectedGenre} = testUtils();
 
-const mockGenre = makeFakeGenre();
+const mockGenre = Genre.Comedy;
 
 const mockHandleGenreChange = jest.fn();
 
 describe('Component: GenreElement', () => {
+  afterEach(cleanup);
+
   it('should render correctly', () => {
     render(
       <GenreElement genre={mockGenre} handleGenreChange={mockHandleGenreChange}/>,
