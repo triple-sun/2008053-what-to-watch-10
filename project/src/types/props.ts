@@ -1,27 +1,24 @@
-import React from 'react';
-import { Genre } from '../const/enums';
+import { History } from 'history';
+import { AuthStatus, Genre } from '../const/enums';
 import TMovie from './movie';
 
-type ReviewProps = {
-  handleReviewChange: ({target, value}: {target: string, value: string | number}) => void;
-  onSubmitClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+export type ReviewProps = {
+  handleReviewChange: ({name, value}: {name: string, value: string}) => void;
 }
 
-type MovieCardProps = {
-  movie: TMovie;
-  activeMovieId: number | null;
-  handleMouseEvent: (id: number | null) => void;
-}
-
-type GenreProps = {
+export type GenreProps = {
   genre: Genre;
-  selectedGenre: Genre;
-  handleGenreClick: (genre: Genre) => void;
+  handleGenreChange: (genre: Genre) => void;
 }
 
-export type {
-  ReviewProps,
-  MovieCardProps,
-  GenreProps,
+export type mockStoreProps = {
+  authStatus?: AuthStatus;
+  movies?: TMovie[];
+  genre?: Genre;
 };
+
+export type testUtilsProps = {
+  storeProps?: mockStoreProps;
+  history?: History;
+}
 

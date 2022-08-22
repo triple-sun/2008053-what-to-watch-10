@@ -1,15 +1,16 @@
 import { AuthStatus, Genre } from '../const/enums';
 import {store} from '../store/store';
-import { TCurrentMovieData, TData, TMainPageData, TUserData } from './data';
+import { TData, TMainPageData, TUserInfo } from './data';
 import TMovie from './movie';
+import TReview from './review';
 
 export type State = ReturnType<typeof store.getState>;
 
 export type TPlayerState = {
-  movie: TMovie,
   isPlaying: boolean,
-  progress?: number,
+  progress: number,
   isMuted: boolean;
+  isFullscreen?: boolean;
 }
 
 export type TReviewState = {
@@ -17,16 +18,21 @@ export type TReviewState = {
   comment: string | null;
 }
 
-export type CurrentMovieInitialState = TData<TCurrentMovieData>;
+export type CurrentMovieState = {
+  movie: TMovie | null;
+  reviews: TData<TReview[]>;
+  similar: TData<TMovie[]>;
+};
 
-export type SimilarMoviesInitialState = TData<TMovie[]>;
-
-export type UserDataInitialState = TData<TUserData> & {
+export type UserState = {
+  userInfo: TUserInfo | null;
+  favorites: TData<TMovie[]>;
   authStatus: AuthStatus;
 };
 
-export type AddReviewPageInitialState = {
+export type AddReviewPageState = {
   review: TReviewState | null;
 };
 
-export type MainPageInitialState = TData<TMainPageData> & {selectedGenre: Genre}
+export type MainPageState = TData<TMainPageData> & {selectedGenre: Genre}
+

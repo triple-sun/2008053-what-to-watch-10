@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../../const/enums';
+import { LOGO_LINK_CLASS, LOGO_LINK_LIGHT_CLASS } from '../../../const/const';
+import { AppRoute, ComponentTestID } from '../../../const/enums';
 
 const LogoElement = ({isLight = false}: {isLight?: boolean}) => (
   <div className="logo">
-    <Link className={isLight ? 'logo__link logo__link--light' : 'logo__link'} to={AppRoute.Main}>
+    <Link className={isLight ? LOGO_LINK_LIGHT_CLASS : LOGO_LINK_CLASS} to={AppRoute.Main} data-testid={ComponentTestID.Logo}>
       <span className="logo__letter logo__letter--1">W</span>
       <span className="logo__letter logo__letter--2">T</span>
       <span className="logo__letter logo__letter--3">W</span>

@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { toast } from 'react-toastify';
-import { APIRoute, AppRoute, ChangeAction, ErrorMessage, FetchAction, UserAction } from '../../const/enums';
+import { APIRoute, AppRoute, ChangeAction, FetchAction, UserAction } from '../../const/enums';
 import { dropToken, saveToken } from '../../services/token/token';
 import AppDispatch from '../../types/app-dispatch';
 import { TAuthData, TUserInfo } from '../../types/data';
@@ -78,10 +77,7 @@ export const toggleFavoriteAction = createAsyncThunk<void, {id: number, status: 
 }>(
   ChangeAction.ToggleFavorite,
   async ({id, status}, {dispatch, extra: api}) => {
-    try {
-      await api.post<TMovie>(`${APIRoute.Favorites}/${id}/${status}`);
-    } catch {
-      toast.warn(ErrorMessage.AddFavoriteError);
-    }
+    await api.post<TMovie>(`${APIRoute.Favorites}/${id}/${status}`);
+    dispatch(fetchFavoritesAction());
   },
 );
