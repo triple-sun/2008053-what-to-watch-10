@@ -10,7 +10,7 @@ type MovieCardProps = {
   handleMouseEvent: (id: number | null) => void;
 }
 
-const MovieCardComponent = ({movie, activeMovieId, handleMouseEvent}: MovieCardProps) => {
+const MovieCard = ({movie, activeMovieId, handleMouseEvent}: MovieCardProps) => {
   const isPlaying = movie.id === activeMovieId;
 
   const onMouseEnter = () => handleMouseEvent(movie.id);
@@ -31,4 +31,4 @@ const MovieCardComponent = ({movie, activeMovieId, handleMouseEvent}: MovieCardP
     </article>
   );};
 
-export default React.memo(MovieCardComponent);
+export default React.memo(MovieCard);

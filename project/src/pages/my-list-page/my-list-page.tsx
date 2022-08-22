@@ -4,7 +4,6 @@ import PageFooter from '../../components/common/page-footer/page-footer';
 import UserBlock from '../../components/common/user-block/user-block';
 import HeaderElement from '../../components/common/header-element/header-element';
 import { ComponentText, HeaderStyle, MovieList, PageTestID } from '../../const/enums';
-import MyListTitle from '../../components/my-list-title/my-list-title';
 import LoadingPage from '../loading-page/loading-page';
 import useUserData from '../../hooks/use-user-data/use-user-data';
 
@@ -17,7 +16,12 @@ const MyListPage = () => {
       <div className="user-page" data-testid={PageTestID.MyListPage}>
         <HeaderElement style={HeaderStyle.UserPage}>
           <LogoElement />
-          <MyListTitle count={favorites.length}/>
+          <h1 className="page-title user-page__title">
+            {ComponentText.MyList}
+            <span className="user-page__film-count">
+              {favorites.length}
+            </span>
+          </h1>
           <UserBlock />
         </HeaderElement>
         <section className="catalog">

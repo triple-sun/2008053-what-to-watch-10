@@ -1,3 +1,4 @@
+import React from 'react';
 import useVideoPlayer from '../../../../hooks/use-video-player/use-video-player';
 import TMovie from '../../../../types/movie';
 import VideoElement from '../../../video-element/video-element';
@@ -8,4 +9,4 @@ const MovieCardPlayer = ({movie, isPlaying = false, isPreview = true}: {movie: T
   return <VideoElement ref={videoRef} {...{movie, isPlaying, isPreview}}/>;
 };
 
-export default MovieCardPlayer;
+export default React.memo(MovieCardPlayer);

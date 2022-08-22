@@ -3,7 +3,7 @@ import { MovieList } from '../../../const/enums';
 import useMovies from '../../../hooks/use-movies/use-movies';
 import TMovie from '../../../types/movie';
 import ShowMoreButton from '../../show-more-button/show-more-button';
-import MovieCardComponent from '../movie-card/movie-card';
+import MovieCard from '../movie-card/movie-card';
 
 const MovieCardsList = ({movieList}: {movieList: MovieList}) => {
   const {
@@ -19,7 +19,7 @@ const MovieCardsList = ({movieList}: {movieList: MovieList}) => {
     <>
       <div className="catalog__films-list" data-testid={testId}>
         {moviesToRender.map(
-          (movie: TMovie) => <MovieCardComponent key={`${movie.id}-${movie.name}`} movie={movie} activeMovieId={activeMovieId} handleMouseEvent={handleMovieMouseOver} />
+          (movie: TMovie) => <MovieCard key={`${movie.id}-${movie.name}`} movie={movie} activeMovieId={activeMovieId} handleMouseEvent={handleMovieMouseOver} />
         )}
       </div>
       {hasShowMoreButton

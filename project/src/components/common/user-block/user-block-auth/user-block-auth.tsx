@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, ComponentText, ElementTestID } from '../../../../const/enums';
 
@@ -17,4 +18,4 @@ const UserBlockAuth = ({avatarUrl, handleLogoutClick}: {avatarUrl: string, handl
     </ul>
   );};
 
-export default UserBlockAuth;
+export default React.memo(UserBlockAuth);

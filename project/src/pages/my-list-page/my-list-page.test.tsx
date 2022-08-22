@@ -13,6 +13,7 @@ describe('Component: MyListPage', () => {
     );
 
     expect(screen.getByText(ComponentText.Catalog)).toBeInTheDocument();
+    expect(screen.getByText(ComponentText.MyList)).toBeInTheDocument();
     expect(screen.getByTestId(ComponentTestID.FavoriteMovies)).toBeInTheDocument();
   });
 });
