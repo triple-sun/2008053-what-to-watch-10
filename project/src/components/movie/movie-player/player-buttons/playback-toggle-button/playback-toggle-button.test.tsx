@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { ComponentTestID, ComponentText } from '../../../../../const/enums';
 import PlaybackToggleButton from './playback-toggle-button';
 
@@ -28,4 +28,15 @@ describe('Component: PlaybackToggleButton', () => {
 
     expect(screen.getByText(ComponentText.Pause)).toBeInTheDocument();
   });
+
+  it('should call handlePlayButtonToggle when clicked', () => {
+    render(
+      <PlaybackToggleButton handlePlayButtonToggle={mockHandlePlayButtonToggle} isPlaying/>
+    );
+
+    fireEvent.click(screen.getByTestId(ComponentTestID.PlaybackToggleButton));
+
+    expect(mockHandlePlayButtonToggle).toBeCalledTimes(1);
+  });
+
 });

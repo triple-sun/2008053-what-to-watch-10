@@ -2,10 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute, ComponentText, ElementTestID } from '../../../../const/enums';
 
 const UserBlockAuth = ({avatarUrl, handleLogoutClick}: {avatarUrl: string, handleLogoutClick: () => void}) => {
-  const onLogoutClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    handleLogoutClick();
-  };
+  const onLogoutClick = (e: React.MouseEvent<HTMLAnchorElement>) => handleLogoutClick();
 
   return (
     <ul className="user-block" data-testid={ElementTestID.UserBlockAuth}>

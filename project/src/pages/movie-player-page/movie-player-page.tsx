@@ -1,6 +1,6 @@
 import MoviePlayerProgress from '../../components/movie/movie-player/movie-player-progress/movie-player-progress';
 import MoviePlayerTimeValue from '../../components/movie/movie-player/movie-player-time-value/movie-player-time-value';
-import MoviePlayerToggler from '../../components/movie/movie-player/movie-player-toggler';
+import MoviePlayerToggler from '../../components/movie/movie-player/movie-player-toggler/movie-player-toggler';
 import ExitPlayerButton from '../../components/movie/movie-player/player-buttons/exit-player-button/exit-player-button';
 import FullScreenButton from '../../components/movie/movie-player/player-buttons/full-screen-button/full-screen-button';
 import PlaybackToggleButton from '../../components/movie/movie-player/player-buttons/playback-toggle-button/playback-toggle-button';

@@ -1,10 +1,13 @@
 import {fireEvent, render, screen} from '@testing-library/react';
-import { ComponentText, ElementTestID } from '../../../../const/enums';
+import { Route, Routes } from 'react-router-dom';
+import { MOCK_PAGE_LINK } from '../../../../const/const';
+import { AppRoute, ComponentText, ElementTestID, PageTestID } from '../../../../const/enums';
+import MainPage from '../../../../pages/main-page/main-page';
 import { makeFakeUserInfo } from '../../../../utils/mocks/mocks';
 import { testUtils } from '../../../../utils/mocks/test-utils';
 import UserBlockAuth from './user-block-auth';
 
-const {wrapper} = testUtils();
+const {wrapper, mockHistory} = testUtils();
 
 const handleLogoutClick = jest.fn();
 
@@ -22,7 +25,7 @@ describe('Component: UserBlockAuth', () => {
     expect(screen.getByText(ComponentText.SignOut).onclick).toBeInstanceOf(Function);
   });
 
-  it('should call onLogoutClick when user clicks SignOut', () => {
+  it('should call handleLogoutClick when user clicks SignOut', () => {
     render(
       <UserBlockAuth avatarUrl={userInfo.avatarUrl} handleLogoutClick={handleLogoutClick}/>,
       {wrapper}
@@ -34,5 +37,29 @@ describe('Component: UserBlockAuth', () => {
 
     expect(handleLogoutClick).toBeCalled();
     expect(handleLogoutClick).toBeCalledWith();
+  });
+
+  it('should redirect to / when user clicks on signOut', async () => {
+    mockHistory.push(MOCK_PAGE_LINK);
+
+    render(
+      <Routes>
+        <Route
+          path={AppRoute.Main}
+          element={<MainPage/>}
+        />
+        <Route
+          path={MOCK_PAGE_LINK}
+          element={<UserBlockAuth avatarUrl={userInfo.avatarUrl} handleLogoutClick={handleLogoutClick}/>}
+        />
+      </Routes>,
+      {wrapper}
+    );
+
+    expect(screen.queryByTestId(PageTestID.MainPage)).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByText<HTMLAnchorElement>(ComponentText.SignOut));
+
+    expect(screen.getByTestId(PageTestID.MainPage)).toBeInTheDocument();
   });
 });

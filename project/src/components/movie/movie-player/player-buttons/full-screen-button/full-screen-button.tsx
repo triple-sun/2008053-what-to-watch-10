@@ -6,9 +6,9 @@ const FullScreenButton = ({handleFullScreenClick}: {handleFullScreenClick: Mouse
   const handleButtonClick = (e: React.MouseEvent) => handleFullScreenClick(e);
 
   return (
-    <button type="button" className="player__full-screen">
+    <button type="button" className="player__full-screen" onClick={handleButtonClick}>
       <svg viewBox="0 0 27 27" width="27" height="27">
-        <use xlinkHref="#full-screen" onClick={handleButtonClick}/>
+        <use xlinkHref="#full-screen"/>
       </svg>
       <span>{ComponentText.FullScreen}</span>
     </button>
