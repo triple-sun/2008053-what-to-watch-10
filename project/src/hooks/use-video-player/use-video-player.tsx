@@ -50,9 +50,12 @@ const useVideoPlayer = (isPreview = false, isPreviewPlaying = false) => {
       });
     }, [isFullscreen, playerState]);
 
-  const handlePreviewPlayback = useCallback(
-    () => setTimeout(() => videoRef.current?.play(), 1000),
-    [videoRef]
+  const handlePlayback = useCallback(
+    () => {isPreview
+      ? setTimeout(() => videoRef.current?.play(), 1000)
+      : videoRef.current?.play();
+    },
+    [isPreview, videoRef]
   );
 
   const handleVideoLoadedData = useCallback(() => {
@@ -77,14 +80,11 @@ const useVideoPlayer = (isPreview = false, isPreviewPlaying = false) => {
       videoRef.current.requestFullscreen();
     }
 
-    if (isPlaying && !isLoading) {
-      isPreview
-        ? handlePreviewPlayback()
-        : videoRef.current?.play();
-    } else {
-      videoRef.current.pause();
-    }
-  }, [handlePreviewPlayback, handleVideoLoadedData, isFullscreen, isLoading, isMuted, isPlaying, isPreview, videoRef]);
+    isPlaying && !isLoading
+      ? handlePlayback()
+      : videoRef.current.pause();
+
+  }, [handlePlayback, handleVideoLoadedData, isFullscreen, isLoading, isMuted, isPlaying, isPreview, videoRef]);
 
   return {
     videoRef,
