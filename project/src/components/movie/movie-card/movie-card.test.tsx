@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Route, Routes } from 'react-router-dom';
 import { MOCK_PAGE_LINK } from '../../../const/const';
-import { AppRoute, ElementTestID, PageTestID } from '../../../const/enums';
+import { AppRoute, ComponentTestID, ElementTestID, PageTestID } from '../../../const/enums';
 import MoviePage from '../../../pages/movie-page/movie-page';
 import { makeFakeMovie } from '../../../utils/mocks/mocks';
 import { testUtils } from '../../../utils/mocks/test-utils';
@@ -58,12 +58,33 @@ describe('Component: MovieCard', () => {
     expect(screen.getByTestId(PageTestID.MoviePage)).toBeInTheDocument();
   });
 
-  it('should play movie preview if movie is activeMovie', async () => {
-    render(
-      <MovieCard movie={mockActiveMovie} activeMovieId={mockActiveMovie.id} handleMouseEvent={mockHandleMouseEvent}/>,
+  it('should play movie preview when mouseOver and stop when mouseLeave', async () => {
+    const {rerender} = render(
+      <MovieCard movie={mockCurrentMovie} activeMovieId={null} handleMouseEvent={mockHandleMouseEvent}/>,
       {wrapper}
     );
 
+    expect(screen.queryByTestId(ElementTestID.Video)).not.toBeInTheDocument();
+
+    rerender(
+      <MovieCard movie={mockCurrentMovie} activeMovieId={mockCurrentMovie.id} handleMouseEvent={mockHandleMouseEvent}/>
+    );
+
+    fireEvent.mouseEnter(screen.getByTestId(ComponentTestID.MovieCard));
+
+    fireEvent(screen.getByTestId(ElementTestID.Video) as Element,
+      new Event('loadeddata'));
+
     expect(screen.getByTestId(ElementTestID.Video)).toBeInTheDocument();
+
+    fireEvent.mouseLeave(screen.getByTestId(ComponentTestID.MovieCard));
+
+    rerender(
+      <MovieCard movie={mockCurrentMovie} activeMovieId={null} handleMouseEvent={mockHandleMouseEvent}/>
+    );
+
+    expect(screen.queryByTestId(ElementTestID.Video)).not.toBeInTheDocument();
+
+    expect(mockHandleMouseEvent).toBeCalledTimes(2);
   });
 });

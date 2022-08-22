@@ -12,4 +12,5 @@ const MoviePlayerProgress = ({progress, isPlaying, handleProgressChange}: movieP
 
   return <progress className="player__progress" value={isPlaying ? progress : 0} max="100" onClick={onProgressClick} data-testid={ElementTestID.Progress}/>;
 };
+
 export default React.memo(MoviePlayerProgress);

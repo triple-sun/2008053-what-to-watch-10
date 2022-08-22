@@ -128,9 +128,8 @@ export const createMockStore = (props: {
 };
 
 export const makeFakePlayerState = (): TPlayerState => ({
-  movie: makeFakeMovie(),
-  isPlaying: datatype.boolean(),
   progress: datatype.number(),
+  isPlaying: datatype.boolean(),
   isMuted: datatype.boolean(),
   isFullscreen: false
 } as TPlayerState);

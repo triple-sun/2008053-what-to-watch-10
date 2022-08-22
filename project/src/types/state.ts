@@ -7,7 +7,6 @@ import TReview from './review';
 export type State = ReturnType<typeof store.getState>;
 
 export type TPlayerState = {
-  movie: TMovie,
   isPlaying: boolean,
   progress: number,
   isMuted: boolean;

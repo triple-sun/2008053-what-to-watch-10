@@ -10,6 +10,9 @@ const {wrapper, mockVideoAPI} = testUtils();
 beforeAll(mockVideoAPI);
 
 describe('Hook: useVideoPlayer', () => {
+  const mockIsPreview = true;
+  const mockIsPreviewPlaying = true;
+
   it('should return playerState', () => {
     const {result} = renderHook(
       () => useVideoPlayer(), {wrapper}
@@ -21,9 +24,6 @@ describe('Hook: useVideoPlayer', () => {
   });
 
   it('should return playerState for preview if isPreview', () => {
-    const mockIsPreview = true;
-    const mockIsPreviewPlaying = true;
-
     const {result} = renderHook(
       () => useVideoPlayer(mockIsPreview, mockIsPreviewPlaying), {wrapper}
     );
