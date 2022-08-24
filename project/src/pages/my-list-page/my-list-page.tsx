@@ -8,9 +8,11 @@ import LoadingPage from '../loading-page/loading-page';
 import useUserData from '../../hooks/use-user-data/use-user-data';
 
 const MyListPage = () => {
-  const {favorites} = useUserData();
+  const {favorites, isLoaded} = useUserData();
 
-  return !favorites
+  const hasFavorites = favorites.length > 0;
+
+  return !isLoaded
     ? <LoadingPage />
     : (
       <div className="user-page" data-testid={PageTestID.MyListPage}>
@@ -18,14 +20,16 @@ const MyListPage = () => {
           <LogoElement />
           <h1 className="page-title user-page__title">
             {ComponentText.MyList}
-            <span className="user-page__film-count">
-              {favorites.length}
-            </span>
+            {hasFavorites
+              ? <span className="user-page__film-count">{favorites.length}</span>
+              : null}
           </h1>
           <UserBlock />
         </HeaderElement>
         <section className="catalog">
-          <h2 className="catalog__title visually-hidden">{ComponentText.Catalog}</h2>
+          {hasFavorites
+            ? <h2 className="catalog__title visually-hidden">{ComponentText.Catalog}</h2>
+            : <h2 className="catalog__title">You have no movies in your list.</h2>}
           <MovieCardsList movieList={MovieList.MyListPage} />
         </section>
         <PageFooter />

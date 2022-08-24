@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import { currentMovieInitialState } from '../../const/initial-states';
-import { fetchCurrentMovieAction, fetchReviewsAction, fetchSimilarMoviesAction } from './current-movie-api-actions';
+import { addReviewAction, fetchCurrentMovieAction, fetchReviewsAction, fetchSimilarMoviesAction } from './current-movie-api-actions';
 
 const currentMovieReducer = createReducer(currentMovieInitialState, (builder) => {
   builder
@@ -20,6 +20,15 @@ const currentMovieReducer = createReducer(currentMovieInitialState, (builder) =>
     .addCase(fetchSimilarMoviesAction.fulfilled, (state, action) => {
       state.similar.data = action.payload;
       state.similar.isLoaded = true;
+    })
+    .addCase(addReviewAction.pending, (state) => {
+      state.isAddingReview = true;
+    })
+    .addCase(addReviewAction.fulfilled, (state) => {
+      state.isAddingReview = false;
+    })
+    .addCase(addReviewAction.rejected, (state) => {
+      state.isAddingReview = false;
     });
 });
 

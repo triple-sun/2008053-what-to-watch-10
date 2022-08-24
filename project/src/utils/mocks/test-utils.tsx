@@ -14,7 +14,7 @@ import TMovie from '../../types/movie';
 import { testUtilsProps } from '../../types/props';
 import TReview from '../../types/review';
 import { State } from '../../types/state';
-import { createMockStore, makeFakeAuthData, makeFakeElement, makeFakePlayerState, makeFakeSentences, mockMiddleware } from './mocks';
+import { createMockStore, makeFakeAuthData, makeFakeComment, makeFakeElement, makeFakePlayerState, makeFakeSentences, makeFakeToken, mockMiddleware } from './mocks';
 
 export const APITestUtils = () => {
   const api = createAPI();
@@ -36,7 +36,8 @@ export const APITestUtils = () => {
 };
 
 export const testUtils = ({storeProps}: testUtilsProps = {}) => {
-  const mockStore = createMockStore(storeProps);
+  const mockStore = createMockStore(storeProps).store;
+  const mockStoreData = createMockStore(storeProps).mockStoreData;
   const mockHistory = createMemoryHistory();
 
   const mockUserReducer = mockStore.getState()[Reducer.User];
@@ -59,9 +60,12 @@ export const testUtils = ({storeProps}: testUtilsProps = {}) => {
   const mockElementText = makeFakeSentences();
   const mockElement = makeFakeElement(mockElementText);
 
+  const mockReview = makeFakeComment();
+
   const mockMovieList = random.objectElement(MovieList) as MovieList;
 
   const mockAuthData = makeFakeAuthData();
+  const mockToken = makeFakeToken();
 
   const {mockAPI} = mockMiddleware();
 
@@ -80,12 +84,14 @@ export const testUtils = ({storeProps}: testUtilsProps = {}) => {
 
   return {
     mockStore,
+    mockStoreData,
     mockHistory,
     mockUserInfo,
     mockFavorites,
     mockCurrentMovie,
     mockSimilarMovies,
     mockReviews,
+    mockReview,
     mockMovies,
     mockPromo,
     mockSelectedGenre,
@@ -94,6 +100,7 @@ export const testUtils = ({storeProps}: testUtilsProps = {}) => {
     mockElementText,
     mockMovieList,
     mockAuthData,
+    mockToken,
     mockAPI,
     mockVideoAPI,
     wrapper

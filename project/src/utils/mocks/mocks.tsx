@@ -7,13 +7,13 @@ import { createAPI } from '../../services/api/api';
 import { TAuthData, TUserInfo } from '../../types/data';
 import TMovie from '../../types/movie';
 import TReview from '../../types/review';
-import { State, TPlayerState } from '../../types/state';
+import { CurrentMovieState, MainPageState, State, TPlayerState, UserState } from '../../types/state';
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 
 export const makeFakeToken = () => datatype.string(16);
 
-export const makeFakeRating = () => datatype.number(10);
+export const makeFakeRating = () => datatype.number({min: 1, max: 10});
 
 export const makeFakeName = () => internet.userName(name.firstName(), name.lastName());
 
@@ -22,6 +22,8 @@ export const makeFakeGenre = () => random.objectElement(Genre) as Genre;
 export const makeFakeSentences = () => lorem.sentences(datatype.number({min: 1, max: 10}));
 
 export const makeFakeElement = (text = makeFakeSentences()) => <p>{text}</p>;
+
+export const makeFakeComment = () => ({comment: datatype.string(55), rating: makeFakeRating()});
 
 export const makeFakeMovie = (): TMovie => ({
   name: lorem.sentence(2, 5),
@@ -111,9 +113,9 @@ export const createMockStore = (props: {
   const reviews = makeFakeReviews();
 
   const mockStoreData = {
-    [Reducer.User]: {...userInitialState, userInfo, favorites: {data: favorites, isLoaded: true}, authStatus},
-    [Reducer.MainPage]: {...mainPageInitialState, data: {movies: propMovies, promo: promo}, isLoaded: true, selectedGenre},
-    [Reducer.CurrentMovie]: {...currentMovieInitialState, movie: currentMovie, reviews: {data: reviews, isLoaded: true}, similar: {data: similarMovies, isLoaded: true}},
+    [Reducer.User]: {...userInitialState, userInfo, favorites: {data: favorites, isLoaded: true}, authStatus} as UserState,
+    [Reducer.MainPage]: {...mainPageInitialState, data: {movies: propMovies, promo: promo}, isLoaded: true, selectedGenre} as MainPageState,
+    [Reducer.CurrentMovie]: {...currentMovieInitialState, movie: currentMovie, reviews: {data: reviews, isLoaded: true}, similar: {data: similarMovies, isLoaded: true}} as CurrentMovieState,
   };
 
   const mockStore = configureMockStore<
@@ -124,14 +126,17 @@ export const createMockStore = (props: {
 
   const store = mockStore(mockStoreData);
 
-  return store;
+  return {
+    store,
+    mockStoreData
+  };
 };
 
 export const makeFakePlayerState = (): TPlayerState => ({
   progress: datatype.number(),
+  time: datatype.number(),
   isPlaying: datatype.boolean(),
   isMuted: datatype.boolean(),
-  isFullscreen: false
 } as TPlayerState);
 
 export const getMockMovieId = (movies: TMovie[]) => {

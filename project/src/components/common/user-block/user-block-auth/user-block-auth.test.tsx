@@ -3,9 +3,12 @@ import { Route, Routes } from 'react-router-dom';
 import { MOCK_PAGE_LINK } from '../../../../const/const';
 import { AppRoute, ComponentText, ElementTestID, PageTestID } from '../../../../const/enums';
 import MainPage from '../../../../pages/main-page/main-page';
+import MyListPage from '../../../../pages/my-list-page/my-list-page';
 import { makeFakeUserInfo } from '../../../../utils/mocks/mocks';
 import { testUtils } from '../../../../utils/mocks/test-utils';
 import UserBlockAuth from './user-block-auth';
+
+const USER_AVATAR_ALT_TEXT = 'User avatar';
 
 const {wrapper, mockHistory} = testUtils();
 
@@ -61,5 +64,29 @@ describe('Component: UserBlockAuth', () => {
     fireEvent.click(screen.getByText<HTMLAnchorElement>(ComponentText.SignOut));
 
     expect(screen.getByTestId(PageTestID.MainPage)).toBeInTheDocument();
+  });
+
+  it('should redirect to /my-list when user clicks on user avatar', async () => {
+    mockHistory.push(MOCK_PAGE_LINK);
+
+    render(
+      <Routes>
+        <Route
+          path={AppRoute.MyList}
+          element={<MyListPage />}
+        />
+        <Route
+          path={MOCK_PAGE_LINK}
+          element={<UserBlockAuth avatarUrl={userInfo.avatarUrl} handleLogoutClick={handleLogoutClick}/>}
+        />
+      </Routes>,
+      {wrapper}
+    );
+
+    expect(screen.queryByTestId(PageTestID.MyListPage)).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByAltText(USER_AVATAR_ALT_TEXT));
+
+    expect(screen.getByTestId(PageTestID.MyListPage)).toBeInTheDocument();
   });
 });

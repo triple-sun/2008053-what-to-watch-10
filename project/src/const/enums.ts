@@ -29,6 +29,7 @@ export enum PosterSize {
 }
 
 export enum RatingName {
+  NoReviews = '',
   Bad = 'Bad',
   Normal = 'Normal',
   Good = 'Good',
@@ -37,6 +38,7 @@ export enum RatingName {
 }
 
 export enum RatingMinNumber {
+  NoReviews = 0,
   Normal = 3,
   Good = 5,
   VeryGood = 8,
@@ -197,7 +199,7 @@ export enum ComponentText {
   WTW = 'WTW',
   Footer = '© 2019 What to watch Ltd.',
   Exit = 'Exit',
-  ReviewPlaceholder = 'Review text'
+  ReviewPlaceholder = '50 to 400 symbols'
 }
 
 export enum Reducer {

@@ -16,7 +16,7 @@ import LoadingPage from '../loading-page/loading-page';
 
 const AddReviewPage = () => {
   const {movie} = useCurrentMovie();
-  const {handleReviewChange, handleReviewSubmit} = useAddReview();
+  const {isDisabled, handleReviewChange, handleReviewSubmit} = useAddReview();
 
   return !movie
     ? <LoadingPage />
@@ -36,13 +36,13 @@ const AddReviewPage = () => {
           <form action="" className="add-review__form">
             <div className="rating">
               <div className="rating__stars">
-                {RatingValues.map((value) => <RatingElement key={value} rating={value} handleReviewChange={handleReviewChange} />)}
+                {RatingValues.map((value) => <RatingElement key={value} rating={value} handleReviewChange={handleReviewChange} isDisabled={isDisabled.form}/>)}
               </div>
             </div>
             <div className="add-review__text">
-              <ReviewTextarea handleReviewChange={handleReviewChange}/>
+              <ReviewTextarea handleReviewChange={handleReviewChange} isDisabled={isDisabled.form}/>
               <div className="add-review__submit">
-                <ReviewSubmitButton handleReviewSubmit={handleReviewSubmit} />
+                <ReviewSubmitButton handleReviewSubmit={handleReviewSubmit} isDisabled={isDisabled.button}/>
               </div>
             </div>
           </form>

@@ -36,6 +36,10 @@ describe('Component: MoviePage', () => {
     render(
       <Routes>
         <Route
+          path={AppRoute.Movies}
+          element={<MoviePage />}
+        />
+        <Route
           path={AppRoute.NotFound}
           element={<NotFoundPage />}
         />

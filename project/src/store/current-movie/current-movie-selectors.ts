@@ -8,3 +8,5 @@ export const getCurrentMovie = createSelector(getCurrentMovieState, (state) => s
 export const getReviews = createSelector(getCurrentMovieState, (state) => state.reviews);
 
 export const getSimilarMovies = createSelector(getCurrentMovieState, (state) => state.similar);
+
+export const getAddReviewState = createSelector(getCurrentMovieState, (state) => state.isAddingReview);

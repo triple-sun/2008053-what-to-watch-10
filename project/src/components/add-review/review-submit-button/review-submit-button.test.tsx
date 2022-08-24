@@ -18,7 +18,7 @@ describe('Component: ReviewSubmitButton', () => {
 
   it('should call handleReviewSubmit when user clicks ReviewSubmitButton', async () => {
     render(
-      <ReviewSubmitButton handleReviewSubmit={handleReviewSubmit}/>,
+      <ReviewSubmitButton handleReviewSubmit={handleReviewSubmit} isDisabled={false}/>,
       {wrapper}
     );
 

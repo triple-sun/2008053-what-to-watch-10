@@ -1,8 +1,8 @@
 import React from 'react';
-import { minutesToHoursAndMinutes } from '../../../../utils/utils';
+import { humanizeTime } from '../../../../utils/utils';
 
-const MoviePlayerTimeValue = ({progress}: {progress: number}) => {
-  const movieTime = minutesToHoursAndMinutes(Number(progress.toFixed()));
+const MoviePlayerTimeValue = ({time}: {time: number}) => {
+  const movieTime = humanizeTime(Number(time.toFixed()));
 
   return <div className="player__time-value">{movieTime}</div>;
 };

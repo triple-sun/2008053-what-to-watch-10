@@ -9,7 +9,9 @@ const UserBlockAuth = ({avatarUrl, handleLogoutClick}: {avatarUrl: string, handl
     <ul className="user-block" data-testid={ElementTestID.UserBlockAuth}>
       <li className="user-block__item">
         <div className="user-block__avatar">
-          <img src={avatarUrl} alt="User avatar" width="63" height="63" data-testid={ElementTestID.Avatar}/>
+          <Link to={AppRoute.MyList} className="user-block__link">
+            <img src={avatarUrl} alt="User avatar" width="63" height="63" data-testid={ElementTestID.Avatar}/>
+          </Link>
         </div>
       </li>
       <li className="user-block__item">

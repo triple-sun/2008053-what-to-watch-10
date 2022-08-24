@@ -68,6 +68,7 @@ const useUserData = (id?: number) => {
     favorites,
     isFavorite,
     favoritesCount,
+    isLoaded,
     handleLoginSubmit,
     handleLogoutClick,
     handleFavoriteAction,

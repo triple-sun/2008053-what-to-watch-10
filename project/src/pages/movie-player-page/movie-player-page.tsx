@@ -2,36 +2,38 @@ import MoviePlayerProgress from '../../components/movie/movie-player/movie-playe
 import MoviePlayerTimeValue from '../../components/movie/movie-player/movie-player-time-value/movie-player-time-value';
 import MoviePlayerToggler from '../../components/movie/movie-player/movie-player-toggler/movie-player-toggler';
 import ExitPlayerButton from '../../components/movie/movie-player/player-buttons/exit-player-button/exit-player-button';
-import FullScreenButton from '../../components/movie/movie-player/player-buttons/full-screen-button/full-screen-button';
 import PlaybackToggleButton from '../../components/movie/movie-player/player-buttons/playback-toggle-button/playback-toggle-button';
 import VideoElement from '../../components/video-element/video-element';
-import { PageTestID } from '../../const/enums';
+import { ComponentText, PageTestID } from '../../const/enums';
 import useCurrentMovie from '../../hooks/use-current-movie/use-current-movie';
 import useVideoPlayer from '../../hooks/use-video-player/use-video-player';
 import LoadingPage from '../loading-page/loading-page';
+import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 
 const MoviePlayerPage = () => {
   const {movie} = useCurrentMovie();
+
+  const handleFullScreenAction = useFullScreenHandle();
 
   const {
     videoRef,
     playerState,
     handlePlayButtonToggle,
     handleProgressUpdate,
-    handleProgressChange,
-    handleFullScreenClick
   } = useVideoPlayer();
 
   return !movie
     ? <LoadingPage />
     : (
       <div className="player" data-testid={PageTestID.MoviePlayerPage}>
-        <VideoElement ref={videoRef} {...{movie, handleProgressUpdate}} />
+        <FullScreen handle={handleFullScreenAction}>
+          <VideoElement ref={videoRef} {...{movie, handleProgressUpdate}} />
+        </FullScreen>
         <ExitPlayerButton id={movie.id}/>
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">
-              <MoviePlayerProgress {...playerState} handleProgressChange={handleProgressChange}/>
+              <MoviePlayerProgress {...playerState} />
               <MoviePlayerToggler {...playerState} />
             </div>
             <MoviePlayerTimeValue {...playerState} />
@@ -39,7 +41,12 @@ const MoviePlayerPage = () => {
           <div className="player__controls-row">
             <PlaybackToggleButton {...playerState} handlePlayButtonToggle={handlePlayButtonToggle} />
             <div className="player__name">{movie.name}</div>
-            <FullScreenButton handleFullScreenClick={handleFullScreenClick}/>
+            <button type="button" className="player__full-screen" onClick={handleFullScreenAction.enter}>
+              <svg viewBox="0 0 27 27" width="27" height="27">
+                <use xlinkHref="#full-screen"/>
+              </svg>
+              <span>{ComponentText.FullScreen}</span>
+            </button>
           </div>
         </div>
       </div>
