@@ -92,7 +92,7 @@ describe('User async actions', () => {
     ]);
   });
 
-  it('should dispatch fetchFavorites when POST /favorite/:id/', async () => {
+  it('should dispatch toggleFavorite and fetchFavorites when POST /favorite/:id/', async () => {
     const mockFavorite = makeFakeMovie();
     const mockFavoriteStatus = Number(!mockFavorite.isFavorite);
 
@@ -116,7 +116,7 @@ describe('User async actions', () => {
   it('should dispatch Logout and RedirectToRoute when Delete /logout', async () => {
     mockAPI
       .onDelete(APIRoute.Logout)
-      .reply(200, );
+      .reply(200);
 
     const store = mockStore();
 
@@ -136,7 +136,7 @@ describe('User async actions', () => {
     expect(Storage.prototype.removeItem).toBeCalledWith(AUTH_TOKEN_KEY_NAME);
   });
 
-  it('should dispatch addReviewAction, fetchReviewsAction, fetchCurrentMovieAction and RedirectToRoute when POST /comment/:id', async () => {
+  it('should dispatch addReview, fetchReviews, fetchCurrentMovie and RedirectToRoute when POST /comment/:id', async () => {
     const mockReviews = makeFakeReviews();
     const mockMovie = makeFakeMovie();
     const mockReview = makeFakeComment();
