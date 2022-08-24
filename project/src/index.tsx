@@ -18,6 +18,10 @@ store.dispatch(checkAuthAction());
 store.dispatch(fetchAllMoviesAction());
 store.dispatch(fetchPromoAction());
 
+browserHistory.listen(() => {
+  window.scrollTo(0, 0);
+});
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
