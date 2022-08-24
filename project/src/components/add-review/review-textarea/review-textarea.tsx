@@ -3,7 +3,7 @@ import { MAX_COMMENT_LENTGTH, MIN_COMMENT_LENGTH } from '../../../const/const';
 import { ComponentText, ElementTestID } from '../../../const/enums';
 import { ReviewProps } from '../../../types/props';
 
-const ReviewTextarea = ({handleReviewChange}: ReviewProps) => {
+const ReviewTextarea = ({handleReviewChange, isDisabled}: ReviewProps & {isDisabled?: boolean}) => {
   const onCommentChange = ({target: {name, value}}: ChangeEvent<HTMLTextAreaElement>) => handleReviewChange({name, value});
 
   return (
@@ -16,6 +16,7 @@ const ReviewTextarea = ({handleReviewChange}: ReviewProps) => {
       placeholder={ComponentText.ReviewPlaceholder}
       onChangeCapture={onCommentChange}
       data-testid={ElementTestID.ReviewTextArea}
+      disabled={isDisabled}
     >
     </textarea>
   );};

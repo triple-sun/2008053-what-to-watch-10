@@ -13,6 +13,7 @@ const useAddReview = () => {
 
   const [review, setReview] = useState<TReviewState>(reviewInitialState);
   const [isDisabled, setIsDisabled] = useState(isDisabledInitialState);
+
   const {rating, comment} = review;
 
   const isAddingReview = useAppSelector(getAddReviewState);
@@ -31,22 +32,19 @@ const useAddReview = () => {
 
   useEffect(
     () => {
+      if (comment && comment.length >= MIN_COMMENT_LENGTH && comment.length <= MAX_COMMENT_LENTGTH && rating > 0 && isDisabled.button) {
+        setIsDisabled({...isDisabled, button: false});
+      }
       if (isAddingReview) {
         setIsDisabled({form: isAddingReview, button: isAddingReview});
       }
-    }, [isAddingReview]
+    }, [comment, isAddingReview, isDisabled, rating]
   );
-
-  useEffect(
-    () => {
-      if (comment && comment.length >= MIN_COMMENT_LENGTH && comment.length <= MAX_COMMENT_LENTGTH && rating > 0) {
-        setIsDisabled({...isDisabled, button: false});
-      }
-    }, [comment, isDisabled, rating]);
 
   return {
     review,
-    isDisabled,
+    isDisabled: isDisabled,
+    setFormState: setIsDisabled,
     handleReviewChange,
     handleReviewSubmit
   };
