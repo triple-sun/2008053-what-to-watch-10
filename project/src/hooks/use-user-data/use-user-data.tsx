@@ -20,8 +20,6 @@ const useUserData = (id?: number) => {
 
   const isInFavorites = favorites ? favorites.some((fav) => fav.id === id) : false;
 
-  const loadFavorites = () => dispatch(fetchFavoritesAction());
-
   const handleLoginSubmit = useCallback(
     (authData: TAuthData) => {
       dispatch(loginAction(authData));
@@ -71,7 +69,6 @@ const useUserData = (id?: number) => {
     isFavorite,
     favoritesCount,
     isLoaded,
-    loadFavorites,
     handleLoginSubmit,
     handleLogoutClick,
     handleFavoriteAction,
