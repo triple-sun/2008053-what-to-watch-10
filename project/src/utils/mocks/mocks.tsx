@@ -13,7 +13,7 @@ import MockAdapter from 'axios-mock-adapter';
 
 export const makeFakeToken = () => datatype.string(16);
 
-export const makeFakeRating = () => datatype.number(10);
+export const makeFakeRating = () => datatype.number({min: 1, max: 10});
 
 export const makeFakeName = () => internet.userName(name.firstName(), name.lastName());
 
