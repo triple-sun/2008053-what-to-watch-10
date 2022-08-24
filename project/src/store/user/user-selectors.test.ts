@@ -1,5 +1,5 @@
 import { testUtils } from '../../utils/mocks/test-utils';
-import { getUserState, getAddReviewState, getAuthStatus, getFavorites, getUserInfo } from './user-selectors';
+import { getUserState, getAuthStatus, getFavorites, getUserInfo } from './user-selectors';
 
 const {mockStoreData} = testUtils();
 
@@ -14,16 +14,6 @@ describe('Selectors: user', () => {
         .toEqual(state.USER);
     });
   });
-
-  describe('getAddReviewState test', () => {
-    it('should return review adding status', () => {
-      const selected = getAddReviewState(state);
-
-      expect(selected)
-        .toEqual(state.USER.isAddingReview);
-    });
-  });
-
 
   describe('getAuthStatus test', () => {
     it('should return auth status', () => {

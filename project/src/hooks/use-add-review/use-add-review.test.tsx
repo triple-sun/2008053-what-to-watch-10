@@ -1,6 +1,7 @@
 import {renderHook, act} from '@testing-library/react';
 import { lorem } from 'faker';
 import { datatype } from 'faker/locale/zh_TW';
+import { isDisabledInitialState } from '../../const/initial-states';
 import { testUtils } from '../../utils/mocks/test-utils';
 import useAddReview from './use-add-review';
 
@@ -11,6 +12,15 @@ const FAKE_COMMENT = lorem.sentences(datatype.number(10));
 const {wrapper} = testUtils();
 
 describe('Hook: useAddReview', () => {
+  it('should return isDisabled', () => {
+    const mockIsDisabled = isDisabledInitialState;
+    const {result} = renderHook(() => useAddReview(), {wrapper});
+
+    const {isDisabled} = result.current;
+
+    expect(isDisabled).toBe(mockIsDisabled);
+  });
+
   it('should return handlers', () => {
     const {result} = renderHook(() => useAddReview(), {wrapper});
 

@@ -22,12 +22,12 @@ export type CurrentMovieState = {
   movie: TMovie | null;
   reviews: TData<TReview[]>;
   similar: TData<TMovie[]>;
+  isAddingReview: boolean;
 };
 
 export type UserState = {
   userInfo: TUserInfo | null;
   favorites: TData<TMovie[]>;
-  isAddingReview: boolean;
   authStatus: AuthStatus;
 };
 

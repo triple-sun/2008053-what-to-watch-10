@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import { AuthStatus } from '../../const/enums';
 import { userInitialState } from '../../const/initial-states';
-import { addReviewAction, checkAuthAction, fetchFavoritesAction, fetchUserInfoAction, loginAction, logoutAction } from './user-api-actions';
+import { checkAuthAction, fetchFavoritesAction, fetchUserInfoAction, loginAction, logoutAction } from './user-api-actions';
 
 const userReducer = createReducer(userInitialState, (builder) => {
   builder
@@ -32,15 +32,6 @@ const userReducer = createReducer(userInitialState, (builder) => {
       state.favorites.data = userInitialState.favorites.data;
       state.favorites.isLoaded = userInitialState.favorites.isLoaded;
       state.authStatus = AuthStatus.NoAuth;
-    })
-    .addCase(addReviewAction.pending, (state) => {
-      state.isAddingReview = true;
-    })
-    .addCase(addReviewAction.fulfilled, (state) => {
-      state.isAddingReview = false;
-    })
-    .addCase(addReviewAction.rejected, (state) => {
-      state.isAddingReview = false;
     });
 });
 

@@ -1,13 +1,11 @@
 import { UNKNOWN_ACTION } from '../../const/const';
 import { mainPageInitialState } from '../../const/initial-states';
-import { makeFakeGenre, makeFakeMovie, makeFakeMovies } from '../../utils/mocks/mocks';
+import { testUtils } from '../../utils/mocks/test-utils';
 import { setGenre } from './main-page-actions';
 import { fetchAllMoviesAction, fetchPromoAction } from './main-page-api-actions';
 import mainPageReducer from './main-page-reducer';
 
-const movies = makeFakeMovies();
-const promo = makeFakeMovie();
-const selectedGenre = makeFakeGenre();
+const {mockMovies, mockPromo, mockSelectedGenre} = testUtils();
 
 describe('Reducer: mainPage', () => {
   const state = mainPageInitialState;
@@ -19,22 +17,22 @@ describe('Reducer: mainPage', () => {
 
   describe('fetchAllMoviesAction test', () => {
     it('should load all movies and set isLoading to false if fetchAllMoviesAction was fulfilled', () => {
-      expect(mainPageReducer(state, { type: fetchAllMoviesAction.fulfilled.type, payload: movies }))
-        .toEqual({...state, data: {...state.data, movies: movies }, isLoaded: true});
+      expect(mainPageReducer(state, { type: fetchAllMoviesAction.fulfilled.type, payload: mockMovies }))
+        .toEqual({...state, data: {...state.data, movies: mockMovies }, isLoaded: true});
     });
   });
 
   describe('fetchPromoAction test', () => {
     it('should load promo if fetchPromoAction was fulfilled', () => {
-      expect(mainPageReducer(state, { type: fetchPromoAction.fulfilled.type, payload: promo }))
-        .toEqual({...state, data: {...state.data, promo: promo }});
+      expect(mainPageReducer(state, { type: fetchPromoAction.fulfilled.type, payload: mockPromo }))
+        .toEqual({...state, data: {...state.data, promo: mockPromo }});
     });
   });
 
   describe('setGenre test', () => {
     it('should set selectedGenre if setGenre was fulfilled', () => {
-      expect(mainPageReducer(state, { type: setGenre.type, payload: selectedGenre }))
-        .toEqual({...state, selectedGenre: selectedGenre});
+      expect(mainPageReducer(state, { type: setGenre.type, payload: mockSelectedGenre }))
+        .toEqual({...state, selectedGenre: mockSelectedGenre});
     });
   });
 });

@@ -1,14 +1,15 @@
 import { APIRoute } from '../../const/enums';
-import { checkAuthAction, fetchUserInfoAction, fetchFavoritesAction, loginAction, logoutAction, toggleFavoriteAction, addReviewAction } from './user-api-actions';
+import { checkAuthAction, fetchUserInfoAction, fetchFavoritesAction, loginAction, logoutAction, toggleFavoriteAction } from './user-api-actions';
 import { redirectToRoute } from '../common/common-actions';
-import { makeFakeAuthData, makeFakeComment, makeFakeMovie, makeFakeMovies, makeFakeReviews, makeFakeToken, makeFakeUserInfo } from '../../utils/mocks/mocks';
+import { makeFakeMovie } from '../../utils/mocks/mocks';
 import { AUTH_TOKEN_KEY_NAME } from '../../services/token/token';
-import { APITestUtils } from '../../utils/mocks/test-utils';
-import { fetchCurrentMovieAction, fetchReviewsAction } from '../current-movie/current-movie-api-actions';
+import { APITestUtils, testUtils } from '../../utils/mocks/test-utils';
+
+const {mockAPI, mockStore} = APITestUtils();
+
+const {mockAuthData, mockToken, mockFavorites, mockUserInfo} = testUtils();
 
 describe('User async actions', () => {
-  const {mockAPI, mockStore} = APITestUtils();
-
   it('should set authorization status to is «auth» when server returns 200', async () => {
     const store = mockStore();
 
@@ -29,18 +30,15 @@ describe('User async actions', () => {
   });
 
   it('should dispatch loginAction and RedirectToRoute when POST /login', async () => {
-    const fakeAuthData = makeFakeAuthData();
-    const fakeToken = makeFakeToken();
-
     mockAPI
       .onPost(APIRoute.Login)
-      .reply(200, {token: fakeToken});
+      .reply(200, {token: mockToken});
 
     const store = mockStore();
 
     Storage.prototype.setItem = jest.fn();
 
-    await store.dispatch(loginAction(fakeAuthData));
+    await store.dispatch(loginAction(mockAuthData));
 
     const actions = store.getActions().map(({type}) => type);
 
@@ -51,12 +49,10 @@ describe('User async actions', () => {
     ]);
 
     expect(Storage.prototype.setItem).toBeCalledTimes(1);
-    expect(Storage.prototype.setItem).toBeCalledWith(AUTH_TOKEN_KEY_NAME, fakeToken);
+    expect(Storage.prototype.setItem).toBeCalledWith(AUTH_TOKEN_KEY_NAME, mockToken);
   });
 
   it('should dispatch fetchUserInfo when GET /login', async () => {
-    const mockUserInfo = makeFakeUserInfo();
-
     mockAPI
       .onGet(APIRoute.Login)
       .reply(200, mockUserInfo);
@@ -74,8 +70,6 @@ describe('User async actions', () => {
   });
 
   it('should dispatch fetchFavorites when GET /favorite', async () => {
-    const mockFavorites = makeFakeMovies();
-
     mockAPI
       .onGet(APIRoute.Favorites)
       .reply(200, mockFavorites);
@@ -135,29 +129,4 @@ describe('User async actions', () => {
     expect(Storage.prototype.removeItem).toBeCalledTimes(1);
     expect(Storage.prototype.removeItem).toBeCalledWith(AUTH_TOKEN_KEY_NAME);
   });
-
-  it('should dispatch addReview, fetchReviews, fetchCurrentMovie and RedirectToRoute when POST /comment/:id', async () => {
-    const mockReviews = makeFakeReviews();
-    const mockMovie = makeFakeMovie();
-    const mockReview = makeFakeComment();
-
-    mockAPI
-      .onPost(`${APIRoute.Review}/${mockMovie.id}`)
-      .reply(200, mockReviews);
-
-    const store = mockStore();
-
-    await store.dispatch(addReviewAction({...mockReview, id: mockMovie.id}));
-
-    const actions = store.getActions().map(({type}) => type);
-
-    expect(actions).toEqual([
-      addReviewAction.pending.type,
-      fetchReviewsAction.pending.type,
-      fetchCurrentMovieAction.pending.type,
-      redirectToRoute.type,
-      addReviewAction.fulfilled.type
-    ]);
-  });
-
 });

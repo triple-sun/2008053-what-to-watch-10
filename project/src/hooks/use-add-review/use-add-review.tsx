@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { MAX_COMMENT_LENTGTH, MIN_COMMENT_LENGTH } from '../../const/const';
-import { reviewInitialState } from '../../const/initial-states';
-import { addReviewAction } from '../../store/user/user-api-actions';
-import { getAddReviewState } from '../../store/user/user-selectors';
+import { isDisabledInitialState, reviewInitialState } from '../../const/initial-states';
+import { addReviewAction } from '../../store/current-movie/current-movie-api-actions';
+import { getAddReviewState } from '../../store/current-movie/current-movie-selectors';
 import { TReviewState } from '../../types/state';
 import useAppDispatch from '../use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../use-app-selector/use-app-selector';
@@ -12,7 +12,7 @@ const useAddReview = () => {
   const id = Number(useParams().id);
 
   const [review, setReview] = useState<TReviewState>(reviewInitialState);
-  const [isDisabled, setIsDisabled] = useState({form: false, button: true});
+  const [isDisabled, setIsDisabled] = useState(isDisabledInitialState);
   const {rating, comment} = review;
 
   const isAddingReview = useAppSelector(getAddReviewState);

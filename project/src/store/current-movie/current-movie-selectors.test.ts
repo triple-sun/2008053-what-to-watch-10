@@ -1,5 +1,5 @@
 import { testUtils } from '../../utils/mocks/test-utils';
-import { getCurrentMovie, getCurrentMovieState, getReviews, getSimilarMovies } from './current-movie-selectors';
+import { getAddReviewState, getCurrentMovie, getCurrentMovieState, getReviews, getSimilarMovies } from './current-movie-selectors';
 
 const {mockStoreData} = testUtils();
 
@@ -12,6 +12,15 @@ describe('Selectors: currentMovie', () => {
 
       expect(selected)
         .toEqual(state.CURRENT);
+    });
+  });
+
+  describe('getAddReviewState test', () => {
+    it('should return review adding status', () => {
+      const selected = getAddReviewState(state);
+
+      expect(selected)
+        .toEqual(state.CURRENT.isAddingReview);
     });
   });
 

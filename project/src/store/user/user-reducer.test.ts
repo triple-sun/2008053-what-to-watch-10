@@ -1,14 +1,11 @@
 import { UNKNOWN_ACTION } from '../../const/const';
 import { AuthStatus } from '../../const/enums';
 import { userInitialState } from '../../const/initial-states';
-import { makeFakeComment } from '../../utils/mocks/mocks';
 import { testUtils } from '../../utils/mocks/test-utils';
-import { addReviewAction, checkAuthAction, fetchFavoritesAction, fetchUserInfoAction, loginAction, logoutAction } from './user-api-actions';
+import { checkAuthAction, fetchFavoritesAction, fetchUserInfoAction, loginAction, logoutAction } from './user-api-actions';
 import userReducer from './user-reducer';
 
-const {mockFavorites: favorites, mockUserInfo: userInfo} = testUtils();
-
-const mockReview = makeFakeComment();
+const {mockFavorites, mockUserInfo: userInfo} = testUtils();
 
 describe('Reducer: user', () => {
   const state = userInitialState;
@@ -27,8 +24,8 @@ describe('Reducer: user', () => {
 
   describe('fetchFavoritesAction test', () => {
     it('should load favorites if fetchFavoritesAction was fulfilled', () => {
-      expect(userReducer(state, { type: fetchFavoritesAction.fulfilled.type, payload: favorites }))
-        .toEqual({...state, favorites: {...state.favorites, data: favorites, isLoaded: true}});
+      expect(userReducer(state, { type: fetchFavoritesAction.fulfilled.type, payload: mockFavorites }))
+        .toEqual({...state, favorites: {...state.favorites, data: mockFavorites, isLoaded: true}});
     });
   });
 
@@ -58,23 +55,6 @@ describe('Reducer: user', () => {
     it('should update AuthStatus to "NO_AUTH" and reset user data if logoutAction fulfilled', () => {
       expect(userReducer(state, { type: logoutAction.fulfilled.type }))
         .toEqual({...state, authStatus: AuthStatus.NoAuth});
-    });
-  });
-
-  describe('addReviewAction test', () => {
-    it('should set isAddingReview to false if addReviewAction was fulfilled', () => {
-      expect(userReducer(state, { type: addReviewAction.fulfilled.type, payload: mockReview }))
-        .toEqual({...state, isAddingReview: false});
-    });
-
-    it('should set isAddingReview to false if addReviewAction was rejected', () => {
-      expect(userReducer(state, { type: addReviewAction.rejected.type, payload: mockReview }))
-        .toEqual({...state, isAddingReview: false});
-    });
-
-    it('should set isAddingReview to true if addReviewAction is pending', () => {
-      expect(userReducer(state, { type: addReviewAction.pending.type, payload: mockReview }))
-        .toEqual({...state, isAddingReview: true});
     });
   });
 });

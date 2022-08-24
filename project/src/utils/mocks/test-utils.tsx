@@ -14,7 +14,7 @@ import TMovie from '../../types/movie';
 import { testUtilsProps } from '../../types/props';
 import TReview from '../../types/review';
 import { State } from '../../types/state';
-import { createMockStore, makeFakeAuthData, makeFakeElement, makeFakePlayerState, makeFakeSentences, mockMiddleware } from './mocks';
+import { createMockStore, makeFakeAuthData, makeFakeComment, makeFakeElement, makeFakePlayerState, makeFakeSentences, makeFakeToken, mockMiddleware } from './mocks';
 
 export const APITestUtils = () => {
   const api = createAPI();
@@ -60,9 +60,12 @@ export const testUtils = ({storeProps}: testUtilsProps = {}) => {
   const mockElementText = makeFakeSentences();
   const mockElement = makeFakeElement(mockElementText);
 
+  const mockReview = makeFakeComment();
+
   const mockMovieList = random.objectElement(MovieList) as MovieList;
 
   const mockAuthData = makeFakeAuthData();
+  const mockToken = makeFakeToken();
 
   const {mockAPI} = mockMiddleware();
 
@@ -88,6 +91,7 @@ export const testUtils = ({storeProps}: testUtilsProps = {}) => {
     mockCurrentMovie,
     mockSimilarMovies,
     mockReviews,
+    mockReview,
     mockMovies,
     mockPromo,
     mockSelectedGenre,
@@ -96,6 +100,7 @@ export const testUtils = ({storeProps}: testUtilsProps = {}) => {
     mockElementText,
     mockMovieList,
     mockAuthData,
+    mockToken,
     mockAPI,
     mockVideoAPI,
     wrapper

@@ -20,6 +20,7 @@ export const currentMovieInitialState: CurrentMovieState = {
     data: [],
     isLoaded: false
   },
+  isAddingReview: false,
 };
 
 export const userInitialState: UserState = {
@@ -28,7 +29,6 @@ export const userInitialState: UserState = {
     data: [],
     isLoaded: false
   },
-  isAddingReview: false,
   authStatus: AuthStatus.Unknown,
 };
 
@@ -42,6 +42,11 @@ export const playerInitialState = {
 export const reviewInitialState = {
   rating: 0,
   comment: null
+};
+
+export const isDisabledInitialState = {
+  form: false,
+  button: true
 };
 
 export const selectedGenreInitialState = Genre.AllGenres;
