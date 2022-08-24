@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --passWithNoTests",
+    "test": "react-scripts test --passWithNoTests --detectOpenHandles",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .tsx --ext .ts src/"
   },

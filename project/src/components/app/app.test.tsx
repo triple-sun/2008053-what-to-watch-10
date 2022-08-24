@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import App from './app';
-import { AppRoute, PageTestID } from '../../const/enums';
+import { AppRoute, AuthStatus, PageTestID } from '../../const/enums';
 import { testUtils } from '../../utils/mocks/test-utils';
 
 const {mockCurrentMovie, mockHistory, wrapper, mockVideoAPI} = testUtils();
@@ -16,10 +16,12 @@ describe('Application Routing', () => {
     expect(screen.getByTestId(PageTestID.AddReviewPage)).toBeInTheDocument();
   });
 
-  it('should render "LoginPage" when user navigates to "/login"', () => {
-    mockHistory.push(AppRoute.Login);
+  it('should render "LoginPage" when user navigates to "/login" and is not auth', () => {
+    const {wrapper: noAuthWrapper, mockHistory: mockNoAuthHistory} = testUtils({storeProps: {authStatus: AuthStatus.NoAuth}});
 
-    render(<App />, {wrapper});
+    mockNoAuthHistory.push(AppRoute.Login);
+
+    render(<App />, {wrapper: noAuthWrapper});
 
     expect(screen.getByTestId(PageTestID.LoginPage)).toBeInTheDocument();
   });
