@@ -2,13 +2,14 @@ import { useCallback, useEffect } from 'react';
 import { Genre } from '../../const/enums';
 import { setGenre } from '../../store/main-page/main-page-actions';
 import { getMovies } from '../../store/main-page/main-page-selectors';
+import { getCurrentGenres } from '../../utils/utils';
 import useAppDispatch from '../use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../use-app-selector/use-app-selector';
 
 const useGenres = () => {
   const movies = useAppSelector(getMovies);
 
-  const currentGenres = [Genre.AllGenres, ...new Set(movies.map((movie) => movie.genre))];
+  const currentGenres = getCurrentGenres(movies);
 
   const dispatch = useAppDispatch();
 

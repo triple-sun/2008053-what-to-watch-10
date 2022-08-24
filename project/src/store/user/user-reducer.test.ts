@@ -1,13 +1,14 @@
 import { UNKNOWN_ACTION } from '../../const/const';
 import { AuthStatus } from '../../const/enums';
 import { userInitialState } from '../../const/initial-states';
-import { makeFakeMovies, makeFakeUserInfo } from '../../utils/mocks/mocks';
-import { checkAuthAction, fetchFavoritesAction, fetchUserInfoAction, loginAction, logoutAction } from './user-api-actions';
+import { makeFakeComment } from '../../utils/mocks/mocks';
+import { testUtils } from '../../utils/mocks/test-utils';
+import { addReviewAction, checkAuthAction, fetchFavoritesAction, fetchUserInfoAction, loginAction, logoutAction } from './user-api-actions';
 import userReducer from './user-reducer';
 
-const userInfo = makeFakeUserInfo();
+const {mockFavorites: favorites, mockUserInfo: userInfo} = testUtils();
 
-const favorites = makeFakeMovies();
+const mockReview = makeFakeComment();
 
 describe('Reducer: user', () => {
   const state = userInitialState;
@@ -56,7 +57,24 @@ describe('Reducer: user', () => {
   describe('logoutAction test', () => {
     it('should update AuthStatus to "NO_AUTH" and reset user data if logoutAction fulfilled', () => {
       expect(userReducer(state, { type: logoutAction.fulfilled.type }))
-        .toEqual({...userInitialState, authStatus: AuthStatus.NoAuth});
+        .toEqual({...state, authStatus: AuthStatus.NoAuth});
+    });
+  });
+
+  describe('addReviewAction test', () => {
+    it('should set isAddingReview to false if addReviewAction was fulfilled', () => {
+      expect(userReducer(state, { type: addReviewAction.fulfilled.type, payload: mockReview }))
+        .toEqual({...state, isAddingReview: false});
+    });
+
+    it('should set isAddingReview to false if addReviewAction was rejected', () => {
+      expect(userReducer(state, { type: addReviewAction.rejected.type, payload: mockReview }))
+        .toEqual({...state, isAddingReview: false});
+    });
+
+    it('should set isAddingReview to true if addReviewAction is pending', () => {
+      expect(userReducer(state, { type: addReviewAction.pending.type, payload: mockReview }))
+        .toEqual({...state, isAddingReview: true});
     });
   });
 });

@@ -16,7 +16,7 @@ import LoadingPage from '../loading-page/loading-page';
 
 const AddReviewPage = () => {
   const {movie} = useCurrentMovie();
-  const {handleReviewChange, handleReviewSubmit} = useAddReview();
+  const {isDisabled, handleReviewChange, handleReviewSubmit} = useAddReview();
 
   return !movie
     ? <LoadingPage />
@@ -42,7 +42,7 @@ const AddReviewPage = () => {
             <div className="add-review__text">
               <ReviewTextarea handleReviewChange={handleReviewChange}/>
               <div className="add-review__submit">
-                <ReviewSubmitButton handleReviewSubmit={handleReviewSubmit} />
+                <ReviewSubmitButton handleReviewSubmit={handleReviewSubmit} isDisabled={isDisabled.button}/>
               </div>
             </div>
           </form>

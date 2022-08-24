@@ -4,22 +4,20 @@ import { MovieList } from '../../const/enums';
 import { getMainPageState } from '../../store/main-page/main-page-selectors';
 import { filterMoviesByGenre, getMovieListLength, getMovieListTestId } from '../../utils/utils';
 import useAppSelector from '../use-app-selector/use-app-selector';
-
-import { getFavorites } from '../../store/user/user-selectors';
 import { getSimilarMovies } from '../../store/current-movie/current-movie-selectors';
+import { getFavorites } from '../../store/user/user-selectors';
 
 const useMovies = (movieList: MovieList) => {
   const {data: {movies: allMovies, promo}, selectedGenre} = useAppSelector(getMainPageState);
 
   const {data: favorites} = useAppSelector(getFavorites);
-  const {data: similarMovies} = useAppSelector(getSimilarMovies);
 
   const [activeMovieId, setActiveMovieId] = useState<null | number>(null);
   const [renderedMovieCount, setRenderedMovieCount] = useState(getMovieListLength(movieList, favorites));
 
   const movieListSelector = {
     [MovieList.MainPage]: filterMoviesByGenre(allMovies, selectedGenre),
-    [MovieList.MoviePage]: similarMovies,
+    [MovieList.MoviePage]: useAppSelector(getSimilarMovies).data,
     [MovieList.MyListPage]: favorites,
   };
 

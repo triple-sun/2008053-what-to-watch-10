@@ -1,14 +1,15 @@
 import { APIRoute } from '../../const/enums';
-import { checkAuthAction, fetchUserInfoAction, fetchFavoritesAction, loginAction, logoutAction } from './user-api-actions';
+import { checkAuthAction, fetchUserInfoAction, fetchFavoritesAction, loginAction, logoutAction, toggleFavoriteAction, addReviewAction } from './user-api-actions';
 import { redirectToRoute } from '../common/common-actions';
-import { makeFakeAuthData, makeFakeMovies, makeFakeToken, makeFakeUserInfo } from '../../utils/mocks/mocks';
+import { makeFakeAuthData, makeFakeComment, makeFakeMovie, makeFakeMovies, makeFakeReviews, makeFakeToken, makeFakeUserInfo } from '../../utils/mocks/mocks';
 import { AUTH_TOKEN_KEY_NAME } from '../../services/token/token';
 import { APITestUtils } from '../../utils/mocks/test-utils';
+import { fetchCurrentMovieAction, fetchReviewsAction } from '../current-movie/current-movie-api-actions';
 
 describe('User async actions', () => {
   const {mockAPI, mockStore} = APITestUtils();
 
-  it('should authorization status is «auth» when server return 200', async () => {
+  it('should set authorization status to is «auth» when server returns 200', async () => {
     const store = mockStore();
 
     mockAPI
@@ -27,7 +28,7 @@ describe('User async actions', () => {
     ]);
   });
 
-  it('should dispatch RequriedAuthorization and RedirectToRoute when POST /login', async () => {
+  it('should dispatch loginAction and RedirectToRoute when POST /login', async () => {
     const fakeAuthData = makeFakeAuthData();
     const fakeToken = makeFakeToken();
 
@@ -53,7 +54,7 @@ describe('User async actions', () => {
     expect(Storage.prototype.setItem).toBeCalledWith(AUTH_TOKEN_KEY_NAME, fakeToken);
   });
 
-  it('should dispatch Load_UserInfo when GET /login', async () => {
+  it('should dispatch fetchUserInfo when GET /login', async () => {
     const mockUserInfo = makeFakeUserInfo();
 
     mockAPI
@@ -72,7 +73,7 @@ describe('User async actions', () => {
     ]);
   });
 
-  it('should dispatch Load_Favorites when GET /favorite', async () => {
+  it('should dispatch fetchFavorites when GET /favorite', async () => {
     const mockFavorites = makeFakeMovies();
 
     mockAPI
@@ -91,10 +92,31 @@ describe('User async actions', () => {
     ]);
   });
 
+  it('should dispatch fetchFavorites when POST /favorite/:id/', async () => {
+    const mockFavorite = makeFakeMovie();
+    const mockFavoriteStatus = Number(!mockFavorite.isFavorite);
+
+    mockAPI
+      .onPost(`${APIRoute.Favorites}/${mockFavorite.id}/${mockFavoriteStatus}`)
+      .reply(200, mockFavorite);
+
+    const store = mockStore();
+
+    await store.dispatch(toggleFavoriteAction({id: mockFavorite.id, status: mockFavoriteStatus}));
+
+    const actions = store.getActions().map(({type}) => type);
+
+    expect(actions).toEqual([
+      toggleFavoriteAction.pending.type,
+      fetchFavoritesAction.pending.type,
+      toggleFavoriteAction.fulfilled.type,
+    ]);
+  });
+
   it('should dispatch Logout and RedirectToRoute when Delete /logout', async () => {
     mockAPI
       .onDelete(APIRoute.Logout)
-      .reply(204);
+      .reply(200, );
 
     const store = mockStore();
 
@@ -113,4 +135,29 @@ describe('User async actions', () => {
     expect(Storage.prototype.removeItem).toBeCalledTimes(1);
     expect(Storage.prototype.removeItem).toBeCalledWith(AUTH_TOKEN_KEY_NAME);
   });
+
+  it('should dispatch addReviewAction, fetchReviewsAction, fetchCurrentMovieAction and RedirectToRoute when POST /comment/:id', async () => {
+    const mockReviews = makeFakeReviews();
+    const mockMovie = makeFakeMovie();
+    const mockReview = makeFakeComment();
+
+    mockAPI
+      .onPost(`${APIRoute.Review}/${mockMovie.id}`)
+      .reply(200, mockReviews);
+
+    const store = mockStore();
+
+    await store.dispatch(addReviewAction({...mockReview, id: mockMovie.id}));
+
+    const actions = store.getActions().map(({type}) => type);
+
+    expect(actions).toEqual([
+      addReviewAction.pending.type,
+      fetchReviewsAction.pending.type,
+      fetchCurrentMovieAction.pending.type,
+      redirectToRoute.type,
+      addReviewAction.fulfilled.type
+    ]);
+  });
+
 });

@@ -7,10 +7,10 @@ import TReview from './review';
 export type State = ReturnType<typeof store.getState>;
 
 export type TPlayerState = {
-  isPlaying: boolean,
   progress: number,
+  time: number,
+  isPlaying: boolean,
   isMuted: boolean;
-  isFullscreen?: boolean;
 }
 
 export type TReviewState = {
@@ -27,6 +27,7 @@ export type CurrentMovieState = {
 export type UserState = {
   userInfo: TUserInfo | null;
   favorites: TData<TMovie[]>;
+  isAddingReview: boolean;
   authStatus: AuthStatus;
 };
 

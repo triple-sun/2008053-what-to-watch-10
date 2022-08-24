@@ -28,14 +28,15 @@ export const userInitialState: UserState = {
     data: [],
     isLoaded: false
   },
+  isAddingReview: false,
   authStatus: AuthStatus.Unknown,
 };
 
 export const playerInitialState = {
   progress: 0,
+  time: 0,
   isPlaying: false,
   isMuted: false,
-  isFullscreen: false
 };
 
 export const reviewInitialState = {

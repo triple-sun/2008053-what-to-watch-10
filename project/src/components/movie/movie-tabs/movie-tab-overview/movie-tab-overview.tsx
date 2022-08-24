@@ -8,7 +8,7 @@ const MovieTabOverview = (movie: TMovie) => {
   return (
     <>
       <div className="film-rating">
-        <div className="film-rating__score">{movie.rating}</div>
+        <div className="film-rating__score">{movie.rating !== 0 ? movie.rating : '?'}</div>
         <p className="film-rating__meta">
           <span className="film-rating__level">{getRatingName(movie.rating)}</span>
           <span className="film-rating__count">{movie.scoresCount} ratings</span>

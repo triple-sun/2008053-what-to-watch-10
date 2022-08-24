@@ -36,7 +36,8 @@ export const APITestUtils = () => {
 };
 
 export const testUtils = ({storeProps}: testUtilsProps = {}) => {
-  const mockStore = createMockStore(storeProps);
+  const mockStore = createMockStore(storeProps).store;
+  const mockStoreData = createMockStore(storeProps).mockStoreData;
   const mockHistory = createMemoryHistory();
 
   const mockUserReducer = mockStore.getState()[Reducer.User];
@@ -80,6 +81,7 @@ export const testUtils = ({storeProps}: testUtilsProps = {}) => {
 
   return {
     mockStore,
+    mockStoreData,
     mockHistory,
     mockUserInfo,
     mockFavorites,

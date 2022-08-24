@@ -5,8 +5,10 @@ import { dropToken, saveToken } from '../../services/token/token';
 import AppDispatch from '../../types/app-dispatch';
 import { TAuthData, TUserInfo } from '../../types/data';
 import TMovie from '../../types/movie';
-import { State } from '../../types/state';
+import TReview from '../../types/review';
+import { State, TReviewState } from '../../types/state';
 import { redirectToRoute } from '../common/common-actions';
+import { fetchCurrentMovieAction, fetchReviewsAction } from '../current-movie/current-movie-api-actions';
 
 export const fetchUserInfoAction = createAsyncThunk<TUserInfo, undefined, {
   dispatch: AppDispatch,
@@ -79,5 +81,19 @@ export const toggleFavoriteAction = createAsyncThunk<void, {id: number, status: 
   async ({id, status}, {dispatch, extra: api}) => {
     await api.post<TMovie>(`${APIRoute.Favorites}/${id}/${status}`);
     dispatch(fetchFavoritesAction());
+  },
+);
+
+export const addReviewAction = createAsyncThunk<void, TReviewState & {id: number}, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  ChangeAction.AddReview,
+  async ({rating, comment, id}, {dispatch, extra: api}) => {
+    await api.post<TReview[]>(`${APIRoute.Review}/${id}`, {comment, rating});
+    dispatch(fetchReviewsAction(id));
+    dispatch(fetchCurrentMovieAction(id));
+    dispatch(redirectToRoute(`${AppRoute.Movies}${id}`));
   },
 );

@@ -7,7 +7,7 @@ const useVideoPlayer = (isPreview = false, isPreviewPlaying = false) => {
   const [playerState, setPlayerState] = useState({...playerInitialState, isPlaying: isPreviewPlaying});
   const [isLoading, setIsLoading] = useState(true);
 
-  const {isPlaying, isMuted, isFullscreen} = playerState;
+  const {isPlaying, isMuted} = playerState;
 
   const videoRef = React.createRef<HTMLVideoElement>();
 
@@ -27,28 +27,10 @@ const useVideoPlayer = (isPreview = false, isPreviewPlaying = false) => {
         setPlayerState({
           ...playerState,
           progress: update,
+          time: videoRef.current.currentTime,
         });
       }
     }, [playerState, videoRef]);
-
-  const handleProgressChange = useCallback(
-    (value: number) => {
-      if (videoRef.current) {
-        videoRef.current.currentTime = (100 / videoRef.current.duration) * value;
-      }
-      setPlayerState({
-        ...playerState,
-        progress: value,
-      });
-    }, [playerState, videoRef]);
-
-  const handleFullScreenClick = useCallback(
-    () => {
-      setPlayerState({
-        ...playerState,
-        isFullscreen: !isFullscreen,
-      });
-    }, [isFullscreen, playerState]);
 
   const handlePlayback = useCallback(
     () => {isPreview
@@ -63,7 +45,7 @@ const useVideoPlayer = (isPreview = false, isPreviewPlaying = false) => {
       setIsLoading(!isLoading);
       setPlayerState({
         ...playerState,
-        progress: videoRef.current.duration
+        time: videoRef.current.duration
       });
     }
   }, [isLoading, playerState, videoRef]);
@@ -76,23 +58,17 @@ const useVideoPlayer = (isPreview = false, isPreviewPlaying = false) => {
     videoRef.current.addEventListener(VIDEO_LOADED_DATA, handleVideoLoadedData);
     videoRef.current.muted = isPreview ? true : isMuted;
 
-    if (isFullscreen) {
-      videoRef.current.requestFullscreen();
-    }
-
     isPlaying && !isLoading
       ? handlePlayback()
       : videoRef.current.pause();
 
-  }, [handlePlayback, handleVideoLoadedData, isFullscreen, isLoading, isMuted, isPlaying, isPreview, videoRef]);
+  }, [handlePlayback, handleVideoLoadedData, isLoading, isMuted, isPlaying, isPreview, videoRef]);
 
   return {
     videoRef,
     playerState,
     handlePlayButtonToggle,
     handleProgressUpdate,
-    handleProgressChange,
-    handleFullScreenClick,
   };
 };
 
