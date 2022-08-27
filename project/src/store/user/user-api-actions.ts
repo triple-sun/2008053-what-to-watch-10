@@ -8,18 +8,6 @@ import TMovie from '../../types/movie';
 import { State } from '../../types/state';
 import { redirectToRoute } from '../common/common-actions';
 
-export const fetchUserInfoAction = createAsyncThunk<TUserInfo, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
-  FetchAction.FetchUserInfo,
-  async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<TUserInfo>(APIRoute.Login);
-    return data;
-  },
-);
-
 export const fetchFavoritesAction = createAsyncThunk<TMovie[], undefined, {
   dispatch: AppDispatch,
   state: State,
@@ -32,14 +20,15 @@ export const fetchFavoritesAction = createAsyncThunk<TMovie[], undefined, {
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
+export const checkAuthAction = createAsyncThunk<TUserInfo, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   UserAction.CheckAuth,
   async (_arg, {dispatch, extra: api}) => {
-    await api.get<TUserInfo>(APIRoute.Login);
+    const {data} = await api.get<TUserInfo>(APIRoute.Login);
+    return data;
   },
 );
 

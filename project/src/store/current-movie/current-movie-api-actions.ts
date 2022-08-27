@@ -6,42 +6,20 @@ import AppDispatch from '../../types/app-dispatch';
 import TMovie from '../../types/movie';
 import TReview from '../../types/review';
 import { redirectToRoute } from '../common/common-actions';
+import { TCurrentMovieData } from '../../types/data';
+import { SIMILAR_MOVIES_URL_SUFFIX } from '../../const/const';
 
-const SIMILAR_MOVIES_URL_SUFFIX = '/similar';
-
-export const fetchCurrentMovieAction = createAsyncThunk<TMovie, number, {
+export const fetchCurrentMovieDataAction = createAsyncThunk<TCurrentMovieData, number, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   FetchAction.FetchCurrentMovie,
   async (id, {dispatch, extra: api}) => {
-    const {data} = await api.get<TMovie>(`${APIRoute.Movies}/${id}`);
-    return data;
-  },
-);
-
-export const fetchReviewsAction = createAsyncThunk<TReview[], number, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
-  FetchAction.FetchReviews,
-  async (id, {dispatch, extra: api}) => {
-    const {data} = await api.get<TReview[]>(`${APIRoute.Review}/${id}`);
-    return data;
-  },
-);
-
-export const fetchSimilarMoviesAction = createAsyncThunk<TMovie[], number, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
-  FetchAction.FetchSimilarMovies,
-  async (id, {dispatch, extra: api}) => {
-    const {data} = await api.get<TMovie[]>(`${APIRoute.Movies}/${id}${SIMILAR_MOVIES_URL_SUFFIX}`);
-    return data;
+    const {data: movie} = await api.get<TMovie>(`${APIRoute.Movies}/${id}`);
+    const {data: reviews} = await api.get<TReview[]>(`${APIRoute.Review}/${id}`);
+    const {data: similar} = await api.get<TMovie[]>(`${APIRoute.Movies}/${id}${SIMILAR_MOVIES_URL_SUFFIX}`);
+    return {movie, reviews, similar};
   },
 );
 
@@ -53,8 +31,7 @@ export const addReviewAction = createAsyncThunk<void, TReviewState & {id: number
   ChangeAction.AddReview,
   async ({rating, comment, id}, {dispatch, extra: api}) => {
     await api.post<TReview[]>(`${APIRoute.Review}/${id}`, {comment, rating});
-    dispatch(fetchReviewsAction(id));
-    dispatch(fetchCurrentMovieAction(id));
+    dispatch(fetchCurrentMovieDataAction(id));
     dispatch(redirectToRoute(`${AppRoute.Movies}${id}`));
   },
 );

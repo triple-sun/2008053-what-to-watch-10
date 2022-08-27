@@ -3,8 +3,8 @@ import { playerInitialState } from '../../const/initial-states';
 
 const VIDEO_LOADED_DATA = 'loadeddata';
 
-const useVideoPlayer = (isPreview = false, isPreviewPlaying = false) => {
-  const [playerState, setPlayerState] = useState({...playerInitialState, isPlaying: isPreviewPlaying});
+const useVideoPlayer = (isPreview = false) => {
+  const [playerState, setPlayerState] = useState({...playerInitialState});
   const [isLoading, setIsLoading] = useState(true);
 
   const {isPlaying, isMuted} = playerState;
@@ -45,10 +45,11 @@ const useVideoPlayer = (isPreview = false, isPreviewPlaying = false) => {
       setIsLoading(!isLoading);
       setPlayerState({
         ...playerState,
+        isPlaying: isPlaying,
         time: videoRef.current.duration
       });
     }
-  }, [isLoading, playerState, videoRef]);
+  }, [isLoading, isPlaying, playerState, videoRef]);
 
   useEffect(() => {
     if (!videoRef.current) {

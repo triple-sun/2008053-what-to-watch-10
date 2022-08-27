@@ -1,5 +1,5 @@
 import { APIRoute } from '../../const/enums';
-import { checkAuthAction, fetchUserInfoAction, fetchFavoritesAction, loginAction, logoutAction, toggleFavoriteAction } from './user-api-actions';
+import { checkAuthAction, fetchFavoritesAction, loginAction, logoutAction, toggleFavoriteAction } from './user-api-actions';
 import { redirectToRoute } from '../common/common-actions';
 import { makeFakeMovie } from '../../utils/mocks/mocks';
 import { AUTH_TOKEN_KEY_NAME } from '../../services/token/token';
@@ -10,12 +10,12 @@ const {mockAPI, mockStore} = APITestUtils();
 const {mockAuthData, mockToken, mockFavorites, mockUserInfo} = testUtils();
 
 describe('User async actions', () => {
-  it('should set authorization status to is «auth» when server returns 200', async () => {
+  it('should set authorization status to is «auth» and loadUserInfo when server returns 200', async () => {
     const store = mockStore();
 
     mockAPI
       .onGet(APIRoute.Login)
-      .reply(200, []);
+      .reply(200, mockUserInfo);
 
     expect(store.getActions()).toEqual([]);
 
@@ -50,23 +50,6 @@ describe('User async actions', () => {
 
     expect(Storage.prototype.setItem).toBeCalledTimes(1);
     expect(Storage.prototype.setItem).toBeCalledWith(AUTH_TOKEN_KEY_NAME, mockToken);
-  });
-
-  it('should dispatch fetchUserInfo when GET /login', async () => {
-    mockAPI
-      .onGet(APIRoute.Login)
-      .reply(200, mockUserInfo);
-
-    const store = mockStore();
-
-    await store.dispatch(fetchUserInfoAction());
-
-    const actions = store.getActions().map(({type}) => type);
-
-    expect(actions).toEqual([
-      fetchUserInfoAction.pending.type,
-      fetchUserInfoAction.fulfilled.type
-    ]);
   });
 
   it('should dispatch fetchFavorites when GET /favorite', async () => {

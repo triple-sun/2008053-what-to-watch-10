@@ -25,7 +25,7 @@ beforeAll(mockVideoAPI);
 describe('Component: MovieCard', () => {
   it('should render correctly', async () => {
     render(
-      <MovieCard movie={mockCurrentMovie} activeMovieId={mockActiveMovie.id} handleMouseEvent={mockHandleMouseEvent}/>,
+      <MovieCard movie={mockCurrentMovie} activeMovieId={mockActiveMovie.id} handleMovieMouseOver={mockHandleMouseEvent}/>,
       {wrapper}
     );
 
@@ -45,7 +45,7 @@ describe('Component: MovieCard', () => {
         />
         <Route
           path={MOCK_PAGE_LINK}
-          element={<MovieCard movie={mockCurrentMovie} activeMovieId={mockActiveMovie.id} handleMouseEvent={mockHandleMouseEvent}/>}
+          element={<MovieCard movie={mockCurrentMovie} activeMovieId={mockActiveMovie.id} handleMovieMouseOver={mockHandleMouseEvent}/>}
         />
       </Routes>,
       {wrapper}
@@ -60,14 +60,14 @@ describe('Component: MovieCard', () => {
 
   it('should play movie preview when mouseOver and stop when mouseLeave', async () => {
     const {rerender} = render(
-      <MovieCard movie={mockCurrentMovie} activeMovieId={null} handleMouseEvent={mockHandleMouseEvent}/>,
+      <MovieCard movie={mockCurrentMovie} activeMovieId={null} handleMovieMouseOver={mockHandleMouseEvent}/>,
       {wrapper}
     );
 
     expect(screen.queryByTestId(ElementTestID.Video)).not.toBeInTheDocument();
 
     rerender(
-      <MovieCard movie={mockCurrentMovie} activeMovieId={mockCurrentMovie.id} handleMouseEvent={mockHandleMouseEvent}/>
+      <MovieCard movie={mockCurrentMovie} activeMovieId={mockCurrentMovie.id} handleMovieMouseOver={mockHandleMouseEvent}/>
     );
 
     fireEvent.mouseEnter(screen.getByTestId(ComponentTestID.MovieCard));
@@ -80,7 +80,7 @@ describe('Component: MovieCard', () => {
     fireEvent.mouseLeave(screen.getByTestId(ComponentTestID.MovieCard));
 
     rerender(
-      <MovieCard movie={mockCurrentMovie} activeMovieId={null} handleMouseEvent={mockHandleMouseEvent}/>
+      <MovieCard movie={mockCurrentMovie} activeMovieId={null} handleMovieMouseOver={mockHandleMouseEvent}/>
     );
 
     expect(screen.queryByTestId(ElementTestID.Video)).not.toBeInTheDocument();

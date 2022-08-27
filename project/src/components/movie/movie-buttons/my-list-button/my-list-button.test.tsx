@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { MOCK_PAGE_LINK } from '../../../../const/const';
 import { AppRoute, AuthStatus, ComponentText, ElementTestID, PageTestID } from '../../../../const/enums';
 import LoginPage from '../../../../pages/login-page/login-page';
+import { mockStoreDefaultProps } from '../../../../utils/mocks/mocks';
 import { testUtils } from '../../../../utils/mocks/test-utils';
 import MyListButton from './my-list-button';
 
@@ -56,7 +57,7 @@ describe('Component: MyListButton', () => {
   });
 
   it('should redirect to /login when user clicks MyListAddButton and is not authorized', async () => {
-    const {wrapper: noAuthWrapper, mockHistory} = testUtils({storeProps: {authStatus: AuthStatus.NoAuth}});
+    const {wrapper: noAuthWrapper, mockHistory} = testUtils({...mockStoreDefaultProps, authStatus: AuthStatus.NoAuth});
 
     mockHistory.push(MOCK_PAGE_LINK);
 

@@ -39,36 +39,34 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path={AppRoute.Main}>
-        <Route index element={<MainPage />} />
+      <Route path={AppRoute.Main} element={<MainPage />} />
 
-        <Route path={AppRoute.Login} element={<LoginPage />} />
+      <Route path={AppRoute.Login} element={<LoginPage />} />
 
-        <Route path={AppRoute.Player} element={goToMainPage} />
+      <Route path={AppRoute.Player} element={goToMainPage} />
 
-        <Route path={AppRoute.MoviePlayer} element={<MoviePlayerPage />} />
+      <Route path={AppRoute.MoviePlayer} element={<MoviePlayerPage />} />
 
-        <Route path={AppRoute.Movies} element={goToMainPage} />
+      <Route path={AppRoute.Movies} element={goToMainPage} />
 
-        <Route path={AppRoute.Movie} element={<MoviePage />} />
+      <Route path={AppRoute.Movie} element={<MoviePage />} />
 
-        <Route
-          path={AppRoute.AddReview} element={
-            <PrivateRoute>
-              <AddReviewPage />
-            </PrivateRoute>
-          }
-        />
+      <Route
+        path={AppRoute.AddReview} element={
+          <PrivateRoute>
+            <AddReviewPage />
+          </PrivateRoute>
+        }
+      />
 
-        <Route
-          path={AppRoute.MyList}
-          element={
-            <PrivateRoute>
-              <MyListPage />
-            </PrivateRoute>
-          }
-        />
-      </Route>
+      <Route
+        path={AppRoute.MyList}
+        element={
+          <PrivateRoute>
+            <MyListPage />
+          </PrivateRoute>
+        }
+      />
       <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
     </Routes>
   );

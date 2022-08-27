@@ -1,38 +1,17 @@
 import { render, screen } from '@testing-library/react';
-import { ComponentText, MovieList } from '../../../const/enums';
-import { makeFakeMoviesShort } from '../../../utils/mocks/mocks';
+import { ComponentTestID } from '../../../const/enums';
 import { testUtils } from '../../../utils/mocks/test-utils';
 import MovieCardsList from './movie-cards-list';
 
-const {wrapper} = testUtils();
+const {wrapper, mockMovies} = testUtils();
 
 describe('Component: MovieCardsList', () => {
-  it('should render showMoreButton if on mainPage', () => {
+  it('should render correctly', () => {
     render(
-      <MovieCardsList movieList={MovieList.MainPage}/>,
+      <MovieCardsList movies={mockMovies} testId={ComponentTestID.MainMovies} />,
       {wrapper}
     );
 
-    expect(screen.getByText(ComponentText.ShowMore)).toBeInTheDocument();
-  });
-
-  it('should not render showMoreButton if not on mainPage', () => {
-    render(
-      <MovieCardsList movieList={MovieList.MoviePage}/>,
-      {wrapper}
-    );
-
-    expect(screen.queryByText(ComponentText.ShowMore)).not.toBeInTheDocument();
-  });
-
-  it('should not render showMoreButton if there are no more movies to render', () => {
-    const shortMovieListWrapper = testUtils({storeProps: {movies: makeFakeMoviesShort()}}).wrapper;
-
-    render(
-      <MovieCardsList movieList={MovieList.MainPage}/>,
-      {wrapper: shortMovieListWrapper}
-    );
-
-    expect(screen.queryByText(ComponentText.ShowMore)).not.toBeInTheDocument();
+    expect(screen.getByTestId(ComponentTestID.MainMovies)).toBeInTheDocument();
   });
 });

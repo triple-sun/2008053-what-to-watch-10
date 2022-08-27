@@ -2,6 +2,7 @@ import {render, screen} from '@testing-library/react';
 import App from './app';
 import { AppRoute, AuthStatus, PageTestID } from '../../const/enums';
 import { testUtils } from '../../utils/mocks/test-utils';
+import { mockStoreDefaultProps } from '../../utils/mocks/mocks';
 
 const {mockCurrentMovie, mockHistory, wrapper, mockVideoAPI} = testUtils();
 
@@ -17,7 +18,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "LoginPage" when user navigates to "/login" and is not auth', () => {
-    const {wrapper: noAuthWrapper, mockHistory: mockNoAuthHistory} = testUtils({storeProps: {authStatus: AuthStatus.NoAuth}});
+    const {wrapper: noAuthWrapper, mockHistory: mockNoAuthHistory} = testUtils({...mockStoreDefaultProps, authStatus: AuthStatus.NoAuth});
 
     mockNoAuthHistory.push(AppRoute.Login);
 

@@ -11,12 +11,6 @@ export enum AppRoute {
   NonExistent = '/non-existent-route'
 }
 
-export enum MovieList {
-  MainPage = 'MAIN',
-  MoviePage = 'SIMILAR',
-  MyListPage = 'MY_LIST',
-}
-
 export enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -64,8 +58,6 @@ export enum FetchAction {
   FetchPromo = 'data/fetchMovies',
   FetchAllMovies = 'data/fetchPromo',
   FetchCurrentMovie = 'data/fetchCurrentMovie',
-  FetchSimilarMovies = '/data/fetchSimilarMovies',
-  FetchReviews = 'data/fetchCurrentReviews',
   FetchUserInfo = 'data/fetchUserInfo',
   FetchFavorites = 'data/fetchFavorites',
 }
@@ -81,18 +73,17 @@ export enum ChangeAction {
   SetReview = 'review/changeReview',
   ToggleFavorite = 'movies/setFavorite',
   ChangeGenre = 'movies/genre/changeGenre',
+  ResetCurrentMovie = 'movies/resetCurrentMovie'
 }
 
 export enum UserAction {
   SetAuth = 'user/setAuthorization',
-  CheckAuth = 'user/checkAuthorizattion',
+  CheckAuth = 'user/checkAuthorization',
   Login = 'user/login',
   Logout = 'user/logout',
-  ResetUserData = 'user/resetUserData'
 }
 
 export enum Genre {
-  AllGenres = 'AllGenres',
   Action = 'Action',
   Adventure = 'Adventure',
   Comedy = 'Comedy',
@@ -116,13 +107,9 @@ export enum APIRoute {
   Review = '/comments'
 }
 
-export enum ErrorMessage {
-  ReviewError = 'Please choose rating and type in your review',
-  SimilarError = 'Failed to load similar movies',
-  CurrentError = 'Failed to load movie',
-  PromoError = 'Failed to load promo',
-  FavoritesError = 'Failed to load favorites',
-  AddFavoriteError = 'Couldn`t add to favorites',
+export enum SignInErrorMessage {
+  Email = 'Please enter valid email',
+  Password = 'Password must contain at least one letter and one number'
 }
 
 export enum PageTestID {
@@ -202,7 +189,7 @@ export enum ComponentText {
   ReviewPlaceholder = '50 to 400 symbols'
 }
 
-export enum Reducer {
+export enum NameSpace {
   MainPage = 'MAIN',
   CurrentMovie = 'CURRENT',
   User = 'USER'

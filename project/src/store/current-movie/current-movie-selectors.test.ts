@@ -29,7 +29,7 @@ describe('Selectors: currentMovie', () => {
       const selected = getCurrentMovie(state);
 
       expect(selected)
-        .toEqual(state.CURRENT.movie);
+        .toEqual(state.CURRENT.data.movie);
     });
   });
 
@@ -39,7 +39,7 @@ describe('Selectors: currentMovie', () => {
       const selected = getReviews(state);
 
       expect(selected)
-        .toEqual(state.CURRENT.reviews);
+        .toEqual(state.CURRENT.data.reviews);
     });
   });
 
@@ -48,7 +48,7 @@ describe('Selectors: currentMovie', () => {
       const selected = getSimilarMovies(state);
 
       expect(selected)
-        .toEqual(state.CURRENT.similar);
+        .toEqual(state.CURRENT.data.similar);
     });
   });
 });

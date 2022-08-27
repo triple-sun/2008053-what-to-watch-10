@@ -1,11 +1,11 @@
 import { cleanup, renderHook} from '@testing-library/react';
-import useMovies from './use-movies';
 import { filterMoviesByGenre, getCurrentGenres, getMoviesToLoadCount } from '../../utils/utils';
 import { testUtils } from '../../utils/mocks/test-utils';
 import { setGenre } from '../../store/main-page/main-page-actions';
 import { datatype } from 'faker';
 import { act } from 'react-dom/test-utils';
 import { ALL_GENRES } from '../../const/const';
+import useMovies from '../use-movies/use-movies';
 
 const {wrapper, mockStore, mockMovies, mockSelectedGenre } = testUtils();
 

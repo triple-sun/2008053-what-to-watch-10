@@ -1,15 +1,15 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import { createAPI } from '../services/api/api';
 import { redirect } from './middlewares/redirect';
-import mainPageReducer from './main-page/main-page-reducer';
-import currentMovieReducer from './current-movie/current-movie-reducer';
-import userReducer from './user/user-reducer';
-import { Reducer } from '../const/enums';
+import { mainPage } from './main-page/main-page';
+import { currentMovie } from './current-movie/current-movie';
+import { userProcess } from './user/user';
+import { NameSpace } from '../const/enums';
 
 export const rootReducer = combineReducers({
-  [Reducer.MainPage]: mainPageReducer,
-  [Reducer.CurrentMovie]: currentMovieReducer,
-  [Reducer.User]: userReducer
+  [NameSpace.MainPage]: mainPage.reducer,
+  [NameSpace.CurrentMovie]: currentMovie.reducer,
+  [NameSpace.User]: userProcess.reducer
 });
 
 export const api = createAPI();

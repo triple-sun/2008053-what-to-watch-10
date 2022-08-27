@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthStatus, ComponentText } from '../../../../const/enums';
 import useAppSelector from '../../../../hooks/use-app-selector/use-app-selector';
 import { getAuthStatus } from '../../../../store/user/user-selectors';
-import TMovie from '../../../../types/movie';
 
 const REVIEW_LINK_SUFFIX = '/review';
 
-const AddReviewButton = ({id}: TMovie ) => {
+const AddReviewButton = ({id}: {id: number} ) => {
   const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthStatus.Auth;
 

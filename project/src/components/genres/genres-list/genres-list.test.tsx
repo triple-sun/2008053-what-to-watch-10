@@ -1,14 +1,16 @@
 import {render, screen} from '@testing-library/react';
 import { ComponentTestID } from '../../../const/enums';
 import { testUtils } from '../../../utils/mocks/test-utils';
+import { getCurrentGenres } from '../../../utils/utils';
 import GenresList from './genres-list';
 
-const {wrapper} = testUtils();
+const {wrapper, mockMovies} = testUtils();
 
 describe('Component: GenresList', () => {
-  it('should render correctly', () => {
+  it('should render correctly', async () => {
+    const mockCurrentGenres = getCurrentGenres(mockMovies);
     render(
-      <GenresList />,
+      <GenresList currentGenres={mockCurrentGenres} handleGenreChange={jest.fn()}/>,
       {wrapper}
     );
 

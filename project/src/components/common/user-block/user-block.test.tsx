@@ -1,5 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import { AuthStatus, ElementTestID } from '../../../const/enums';
+import { mockStoreDefaultProps } from '../../../utils/mocks/mocks';
 import { testUtils } from '../../../utils/mocks/test-utils';
 import UserBlock from './user-block';
 
@@ -7,7 +8,7 @@ const {wrapper} = testUtils();
 
 describe('Component: UserBlock', () => {
   it('should render UserBlockNoAuth when user not authorized', () => {
-    const noAuthWrapper = testUtils({storeProps: {authStatus: AuthStatus.NoAuth}}).wrapper;
+    const noAuthWrapper = testUtils({...mockStoreDefaultProps, authStatus: AuthStatus.NoAuth}).wrapper;
 
     render(
       <UserBlock />,

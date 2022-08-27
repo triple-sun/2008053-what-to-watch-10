@@ -7,6 +7,7 @@ import { getAddReviewState } from '../../store/current-movie/current-movie-selec
 import { TReviewState } from '../../types/state';
 import useAppDispatch from '../use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../use-app-selector/use-app-selector';
+import useCurrentMovie from '../use-current-movie/use-current-movie';
 
 const useAddReview = () => {
   const id = Number(useParams().id);
@@ -17,6 +18,8 @@ const useAddReview = () => {
   const {rating, comment} = review;
 
   const isAddingReview = useAppSelector(getAddReviewState);
+
+  const {movie} = useCurrentMovie();
 
   const dispatch = useAppDispatch();
 
@@ -35,15 +38,16 @@ const useAddReview = () => {
       if (comment && comment.length >= MIN_COMMENT_LENGTH && comment.length <= MAX_COMMENT_LENTGTH && rating > 0 && isDisabled.button) {
         setIsDisabled({...isDisabled, button: false});
       }
-      if (isAddingReview) {
+      if (isAddingReview && !isDisabled.form) {
         setIsDisabled({form: isAddingReview, button: isAddingReview});
       }
     }, [comment, isAddingReview, isDisabled, rating]
   );
 
   return {
+    movie,
     review,
-    isDisabled: isDisabled,
+    isDisabled,
     setFormState: setIsDisabled,
     handleReviewChange,
     handleReviewSubmit

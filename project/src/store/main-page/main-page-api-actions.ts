@@ -2,29 +2,19 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { FetchAction, APIRoute } from '../../const/enums';
 import AppDispatch from '../../types/app-dispatch';
+import { TMainPageData } from '../../types/data';
 import TMovie from '../../types/movie';
 import { State } from '../../types/state';
 
-export const fetchPromoAction = createAsyncThunk<TMovie, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
-  FetchAction.FetchPromo,
-  async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<TMovie>(APIRoute.Promo);
-    return data;
-  },
-);
-
-export const fetchAllMoviesAction = createAsyncThunk<TMovie[], undefined, {
+export const fetchMainPageDataAction = createAsyncThunk<TMainPageData, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   FetchAction.FetchAllMovies,
   async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<TMovie[]>(APIRoute.Movies);
-    return data;
+    const {data: promo} = await api.get<TMovie>(APIRoute.Promo);
+    const {data: movies} = await api.get<TMovie[]>(APIRoute.Movies);
+    return {movies, promo};
   },
 );
