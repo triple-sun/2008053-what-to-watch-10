@@ -11,12 +11,10 @@ import MoviePoster from '../../components/movie/movie-images/movie-poster/movie-
 import { RatingValues } from '../../const/const';
 import { ComponentTestID, PageTestID, PosterSize } from '../../const/enums';
 import useAddReview from '../../hooks/use-add-review/use-add-review';
-import useCurrentMovie from '../../hooks/use-current-movie/use-current-movie';
 import LoadingPage from '../loading-page/loading-page';
 
 const AddReviewPage = () => {
-  const {movie} = useCurrentMovie();
-  const {isDisabled, handleReviewChange, handleReviewSubmit} = useAddReview();
+  const {movie, isDisabled, handleReviewChange, handleReviewSubmit} = useAddReview();
 
   return !movie
     ? <LoadingPage />

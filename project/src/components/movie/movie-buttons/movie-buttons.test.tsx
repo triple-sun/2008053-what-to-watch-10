@@ -8,7 +8,7 @@ const {wrapper, mockCurrentMovie} = testUtils();
 describe('Component: MovieButtons', () => {
   it('should render correctly', () => {
     render(
-      <MovieButtons movie={mockCurrentMovie}/>,
+      <MovieButtons id={mockCurrentMovie.id}/>,
       {wrapper}
     );
 

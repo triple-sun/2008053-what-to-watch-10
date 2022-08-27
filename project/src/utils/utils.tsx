@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 import MovieTabDetails from '../components/movie/movie-tabs/movie-tab-details/movie-tab-details';
 import MovieTabOverview from '../components/movie/movie-tabs/movie-tab-overview/movie-tab-overview';
 import MovieTabReviews from '../components/movie/movie-tabs/movie-tab-reviews/movie-tab-reviews';
-import { MAX_GENRE_INDEX, MOVIE_CARD_MAIN_COUNT, MOVIE_CARD_SIMILAR_COUNT } from '../const/const';
-import { RatingName, RatingMinNumber, AuthStatus, Genre, MovieList, ComponentTestID, MovieNavigation } from '../const/enums';
+import { ALL_GENRES, MAX_GENRE_INDEX, MOVIE_CARD_MAIN_COUNT } from '../const/const';
+import { RatingName, RatingMinNumber, AuthStatus, Genre, MovieNavigation } from '../const/enums';
 import TMovie from '../types/movie';
 import TReview from '../types/review';
 
@@ -11,8 +11,12 @@ export const checkAuth = (status: AuthStatus, reference: AuthStatus): boolean =>
 
 export const checkId = (movies: TMovie[] | null, id: number) => movies ? movies.some((movie) => movie.id === id) : false;
 
+export const findMovieById = (movies: TMovie[], id: number) => movies.find((movie) => movie.id === id);
+
+export const getMoviesToLoadCount = (movies: TMovie[], renderedMovieCount: number) => Math.min((movies.length - renderedMovieCount), MOVIE_CARD_MAIN_COUNT);
+
 export const getCurrentGenres = (movies: TMovie[]) => {
-  const genres = [Genre.AllGenres, ...new Set(movies.map((movie) => movie.genre))];
+  const genres = [ALL_GENRES, ...new Set(movies.map((movie) => movie.genre))];
   const maxIndex = Math.min((genres.length - 1), MAX_GENRE_INDEX);
   return genres.slice(0, maxIndex);
 };
@@ -45,29 +49,7 @@ export const getRatingName = (rating: number) => {
   }
 };
 
-export const getMovieListLength = (movieList: MovieList, favorites: TMovie[] = []) => {
-  switch (movieList) {
-    case MovieList.MainPage:
-      return MOVIE_CARD_MAIN_COUNT;
-    case MovieList.MoviePage:
-      return MOVIE_CARD_SIMILAR_COUNT;
-    case MovieList.MyListPage:
-      return favorites.length;
-  }
-};
-
-export const getMovieListTestId = (movieList: MovieList) => {
-  switch (movieList) {
-    case MovieList.MainPage:
-      return ComponentTestID.MainMovies;
-    case MovieList.MoviePage:
-      return ComponentTestID.SimilarMovies;
-    case MovieList.MyListPage:
-      return ComponentTestID.FavoriteMovies;
-  }
-};
-
-export const filterMoviesByGenre = (movies: TMovie[], genre: Genre) => genre === Genre.AllGenres ? movies : movies.filter((movie) => movie.genre === genre);
+export const filterMoviesByGenre = (movies: TMovie[], genre: Genre) => genre === ALL_GENRES ? movies : movies.filter((movie) => movie.genre === genre);
 
 export const filterFavorites = (movies: readonly TMovie[]) => movies.filter((movie) => movie.isFavorite);
 
@@ -92,3 +74,21 @@ export const humanizeRuntime = (runtime: number) => humanizeTime(runtime, false)
 export const humanizeCommentDate = (date: string) => dayjs(date).format('MMMM D, YYYY');
 
 export const humanizeGenreName = (genre: Genre) => genre.replace(/([A-Z])/g, ' $1').trim();
+
+export const validateEmail = (email: string) => {
+  const emailRegexp = /\S+@\S+\.\S+/;
+
+  return emailRegexp.test(email) && email.length > 0;
+};
+
+export const validatePassword = (password: string) => {
+  const lettersRegExp = /(?=.*?[a-z])/;
+  const digitsRegExp = /(?=.*?[0-9])/;
+  const minLengthRegExp = /.{2,}/;
+
+  const hasLetters = lettersRegExp.test(password.toLowerCase());
+  const hasDigits = digitsRegExp.test(password);
+  const hasMinLength = minLengthRegExp.test(password);
+
+  return hasLetters && hasDigits && hasMinLength;
+};

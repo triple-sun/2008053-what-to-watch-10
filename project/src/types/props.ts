@@ -1,4 +1,3 @@
-import { History } from 'history';
 import { AuthStatus, Genre } from '../const/enums';
 import TMovie from './movie';
 
@@ -19,6 +18,5 @@ export type mockStoreProps = {
 
 export type testUtilsProps = {
   storeProps?: mockStoreProps;
-  history?: History;
 }
 

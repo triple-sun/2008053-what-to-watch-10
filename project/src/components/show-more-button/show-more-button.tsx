@@ -1,16 +1,23 @@
 import React from 'react';
-import { ComponentText, MovieList } from '../../const/enums';
-import useMovies from '../../hooks/use-movies/use-movies';
+import { ComponentText } from '../../const/enums';
 
-const ShowMoreButton = ({handleShowMoreButtonClick}: {handleShowMoreButtonClick: (count: number) => void}) => {
-  const {moviesToLoadCount} = useMovies(MovieList.MainPage);
+type ShowMoreButtonProps = {
+  moviesToLoadCount?: number;
+  handleShowMoreButtonClick: (count: number) => void;
+}
 
+const ShowMoreButton = ({moviesToLoadCount = 0, handleShowMoreButtonClick}: ShowMoreButtonProps) => {
   const onShowMoreButtonClick = () => handleShowMoreButtonClick(moviesToLoadCount);
 
-  return (
-    <div className="catalog__more">
-      <button className="catalog__button" type="button" onClick={onShowMoreButtonClick}>{ComponentText.ShowMore}</button>
-    </div>
-  );};
+  const shouldRender = moviesToLoadCount > 0;
+
+  return shouldRender
+    ? (
+      <div className="catalog__more">
+        <button className="catalog__button" type="button" onClick={onShowMoreButtonClick}>{ComponentText.ShowMore}</button>
+      </div>
+    )
+    : null;
+};
 
 export default React.memo(ShowMoreButton);

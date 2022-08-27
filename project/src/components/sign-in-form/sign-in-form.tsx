@@ -1,7 +1,9 @@
 import React from 'react';
 import { FormEvent, useRef } from 'react';
-import { ComponentTestID, ComponentText, ElementTestID } from '../../const/enums';
+import { toast } from 'react-toastify';
+import { ComponentTestID, ComponentText, ElementTestID, SignInErrorMessage } from '../../const/enums';
 import { TAuthData } from '../../types/data';
+import { validateEmail, validatePassword } from '../../utils/utils';
 
 const SignInForm = ({handleLoginSubmit}: {handleLoginSubmit: (authData: TAuthData) => void}) => {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -9,12 +11,24 @@ const SignInForm = ({handleLoginSubmit}: {handleLoginSubmit: (authData: TAuthDat
 
   const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-
     if (loginRef.current && passwordRef.current) {
-      handleLoginSubmit({
-        login: loginRef.current.value,
-        password: passwordRef.current.value,
-      });
+      const isValidEmail = validateEmail(loginRef.current.value);
+      const isValidPassword = validatePassword(passwordRef.current.value);
+
+      switch (true) {
+        case !isValidEmail:
+          toast.warn(SignInErrorMessage.Email);
+          break;
+        case !isValidPassword:
+          toast.warn(SignInErrorMessage.Password);
+          break;
+        case isValidEmail && isValidPassword:
+          handleLoginSubmit({
+            login: loginRef.current.value,
+            password: passwordRef.current.value,
+          });
+          break;
+      }
     }
   };
 

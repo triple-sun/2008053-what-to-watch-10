@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FAVORITE_SINGLE_STEP } from '../../const/const';
 import { AuthStatus } from '../../const/enums';
-import { fetchFavoritesAction, fetchUserInfoAction, loginAction, logoutAction, toggleFavoriteAction } from '../../store/user/user-api-actions';
+import { loginAction, logoutAction, toggleFavoriteAction } from '../../store/user/user-api-actions';
 import { getUserState } from '../../store/user/user-selectors';
 import { TAuthData } from '../../types/data';
 import { checkAuth } from '../../utils/utils';
@@ -43,18 +43,9 @@ const useUserData = (id?: number) => {
     },[dispatch, favoritesCount, id, isFavorite, isInFavorites]);
 
   useEffect(() => {
-    if (!userInfo && isAuth) {
-      dispatch(fetchUserInfoAction());
-    }
-  }, [dispatch, isAuth, userInfo]);
-
-  useEffect(() => {
     if (!isAuth) {
       setFavoritesCount(0);
       setIsFavorite(false);
-    }
-    if (!isLoaded && isAuth) {
-      dispatch(fetchFavoritesAction());
     }
     if (isLoaded) {
       setFavoritesCount(favorites.length);

@@ -11,7 +11,7 @@ import LoadingPage from '../loading-page/loading-page';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 
 const MoviePlayerPage = () => {
-  const {movie} = useCurrentMovie();
+  const {movie, isLoading} = useCurrentMovie();
 
   const handleFullScreenAction = useFullScreenHandle();
 
@@ -22,34 +22,40 @@ const MoviePlayerPage = () => {
     handleProgressUpdate,
   } = useVideoPlayer();
 
-  return !movie
+  return !movie || isLoading
     ? <LoadingPage />
     : (
-      <div className="player" data-testid={PageTestID.MoviePlayerPage}>
-        <FullScreen handle={handleFullScreenAction}>
+      <FullScreen handle={handleFullScreenAction}>
+        <div className="player" data-testid={PageTestID.MoviePlayerPage}>
+
           <VideoElement ref={videoRef} {...{movie, handleProgressUpdate}} />
-        </FullScreen>
-        <ExitPlayerButton id={movie.id}/>
-        <div className="player__controls">
-          <div className="player__controls-row">
-            <div className="player__time">
-              <MoviePlayerProgress {...playerState} />
-              <MoviePlayerToggler {...playerState} />
+
+
+          <ExitPlayerButton id={movie.id}/>
+
+          <div className="player__controls">
+            <div className="player__controls-row">
+              <div className="player__time">
+                <MoviePlayerProgress {...playerState} />
+                <MoviePlayerToggler {...playerState} />
+              </div>
+              <MoviePlayerTimeValue {...playerState} />
             </div>
-            <MoviePlayerTimeValue {...playerState} />
-          </div>
-          <div className="player__controls-row">
-            <PlaybackToggleButton {...playerState} handlePlayButtonToggle={handlePlayButtonToggle} />
-            <div className="player__name">{movie.name}</div>
-            <button type="button" className="player__full-screen" onClick={handleFullScreenAction.enter}>
-              <svg viewBox="0 0 27 27" width="27" height="27">
-                <use xlinkHref="#full-screen"/>
-              </svg>
-              <span>{ComponentText.FullScreen}</span>
-            </button>
+
+            <div className="player__controls-row">
+              <PlaybackToggleButton {...playerState} handlePlayButtonToggle={handlePlayButtonToggle} />
+              <div className="player__name">{movie.name}</div>
+
+              <button type="button" className="player__full-screen" onClick={handleFullScreenAction.enter}>
+                <svg viewBox="0 0 27 27" width="27" height="27">
+                  <use xlinkHref="#full-screen"/>
+                </svg>
+                <span>{ComponentText.FullScreen}</span>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </FullScreen>
     );
 };
 

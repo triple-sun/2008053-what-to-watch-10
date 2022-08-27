@@ -22,7 +22,7 @@ const MovieCardPromo = ({promo}: {promo: TMovie | null}) => promo
         <div className="film-card__info">
           <MoviePoster {...promo} />
           <MovieCardDescription movie={promo}>
-            <MovieButtons movie={promo} />
+            <MovieButtons id={promo.id} />
           </MovieCardDescription>
         </div>
       </div>

@@ -1,4 +1,13 @@
 import TMovie from './movie';
+import TReview from './review';
+
+export type TUserInfo = {
+  avatarUrl: string
+  email: string
+  id: number
+  name: string
+  token: string
+  };
 
 export type TData<T = null> = {
   data: T;
@@ -15,10 +24,8 @@ export type TMainPageData = {
   promo: TMovie | null;
 }
 
-export type TUserInfo = {
-  avatarUrl: string
-  email: string
-  id: number
-  name: string
-  token: string
-  };
+export type TCurrentMovieData = {
+  movie: TMovie | null;
+  reviews: TReview[];
+  similar: TMovie[];
+}

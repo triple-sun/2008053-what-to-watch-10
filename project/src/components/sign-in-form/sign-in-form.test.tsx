@@ -1,11 +1,13 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { ComponentText } from '../../const/enums';
+import { ComponentText, ElementTestID } from '../../const/enums';
 import { testUtils } from '../../utils/mocks/test-utils';
+import userEvent from '@testing-library/user-event';
 import SignInForm from './sign-in-form';
 
-const {wrapper} = testUtils();
+const {wrapper, mockAuthData} = testUtils();
 
 const mockHandleLoginClick = jest.fn();
+
 
 describe('Component: SignInForm', () => {
   it('should render correctly', () => {
@@ -19,13 +21,20 @@ describe('Component: SignInForm', () => {
     expect(screen.getByText(ComponentText.SignIn)).toBeInTheDocument();
   });
 
-  it('should call handleLoginClick when user clicks signIn', () => {
+  it('should call handleLoginClick when user clicks signIn', async () => {
     render(
       <SignInForm handleLoginSubmit={mockHandleLoginClick}/>,
       {wrapper}
     );
 
+    await userEvent.click(screen.getByTestId(ElementTestID.Login));
+    await userEvent.keyboard(mockAuthData.login);
+
+    await userEvent.click(screen.getByTestId(ElementTestID.Passsword));
+    await userEvent.keyboard(mockAuthData.password);
+
     fireEvent.click(screen.getByText(ComponentText.SignIn));
+
     expect(mockHandleLoginClick).toBeCalled();
   });
 });

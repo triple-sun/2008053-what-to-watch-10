@@ -10,7 +10,7 @@ const {wrapper, mockHistory, mockCurrentMovie, mockElementText, mockElement: moc
 describe('Component: PlayMovieButton', () => {
   it('should render correctly', () => {
     render(
-      <PlayMovieButton {...mockCurrentMovie}/>,
+      <PlayMovieButton id={mockCurrentMovie.id}/>,
       {wrapper}
     );
 

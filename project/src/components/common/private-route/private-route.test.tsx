@@ -3,7 +3,7 @@ import {render, screen} from '@testing-library/react';
 import PrivateRoute from './private-route';
 import { AppRoute, AuthStatus } from '../../../const/enums';
 import { testUtils } from '../../../utils/mocks/test-utils';
-import { makeFakeElement } from '../../../utils/mocks/mocks';
+import { makeFakeElement, mockStoreDefaultProps } from '../../../utils/mocks/mocks';
 
 const MOCK_PRIVATE_ROUTE = '/private';
 
@@ -21,7 +21,7 @@ describe('Component: PrivateRouter', () => {
   });
 
   it('should render component for public route, when user not authorized', async () => {
-    const noAuthWrapper = testUtils({storeProps: {authStatus: AuthStatus.NoAuth}}).wrapper;
+    const noAuthWrapper = testUtils({...mockStoreDefaultProps, authStatus: AuthStatus.NoAuth}).wrapper;
 
     render(
       <Routes>

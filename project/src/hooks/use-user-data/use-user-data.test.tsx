@@ -1,13 +1,12 @@
 import { cleanup, renderHook} from '@testing-library/react';
-import { AuthStatus, MovieList } from '../../const/enums';
+import { AuthStatus } from '../../const/enums';
 import { testUtils } from '../../utils/mocks/test-utils';
-import { datatype } from 'faker';
 import { act } from 'react-dom/test-utils';
-import useMovies from '../use-movies/use-movies';
 import useUserData from './use-user-data';
 import { FAVORITE_SINGLE_STEP } from '../../const/const';
+import { mockStoreDefaultProps } from '../../utils/mocks/mocks';
 
-const {wrapper, mockMovies, mockCurrentMovie, mockFavorites, mockUserInfo} = testUtils();
+const {wrapper, mockCurrentMovie, mockFavorites, mockUserInfo} = testUtils();
 
 describe('Hook: useUserData', () => {
   beforeEach(cleanup);
@@ -36,8 +35,8 @@ describe('Hook: useUserData', () => {
     expect(result.current.isAuth).toBe(true);
   });
 
-  it('should return isAuth if user is not authorized', () => {
-    const noAuthWrapper = testUtils({storeProps: {authStatus: AuthStatus.NoAuth}}).wrapper;
+  it('should return !isAuth if user is not authorized', () => {
+    const noAuthWrapper = testUtils({...mockStoreDefaultProps, authStatus: AuthStatus.NoAuth}).wrapper;
 
     const {result} = renderHook(() =>
       useUserData(), {wrapper: noAuthWrapper}
@@ -83,16 +82,14 @@ describe('Hook: useUserData', () => {
   });
 
   it('should update favoritesCount when handleFavoriteAction is called', async () => {
-    const mockCount = datatype.number();
-
-    const {result, result: {current: {renderedMovieCount}}} = renderHook(() =>
-      useMovies(MovieList.MainPage), {wrapper}
+    const {result} = renderHook(() =>
+      useUserData(), {wrapper}
     );
 
-    const mockNewRenderedMovieCount = Math.min(renderedMovieCount + mockCount, mockMovies.length);
+    expect(result.current.favoritesCount).toBe(mockFavorites.length);
 
-    act(() => result.current.handleShowMoreButtonClick(mockCount));
+    act(() => result.current.handleFavoriteAction());
 
-    expect(result.current.renderedMovieCount).toBe(mockNewRenderedMovieCount);
+    expect(result.current.favoritesCount).toBe(mockFavorites.length);
   });
 });

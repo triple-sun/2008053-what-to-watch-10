@@ -3,7 +3,7 @@ import LogoElement from '../../components/common/logo-element/logo-element';
 import PageFooter from '../../components/common/page-footer/page-footer';
 import UserBlock from '../../components/common/user-block/user-block';
 import HeaderElement from '../../components/common/header-element/header-element';
-import { ComponentText, HeaderStyle, MovieList, PageTestID } from '../../const/enums';
+import { ComponentTestID, ComponentText, HeaderStyle, PageTestID } from '../../const/enums';
 import LoadingPage from '../loading-page/loading-page';
 import useUserData from '../../hooks/use-user-data/use-user-data';
 
@@ -30,7 +30,7 @@ const MyListPage = () => {
           {hasFavorites
             ? <h2 className="catalog__title visually-hidden">{ComponentText.Catalog}</h2>
             : <h2 className="catalog__title">You have no movies in your list.</h2>}
-          <MovieCardsList movieList={MovieList.MyListPage} />
+          <MovieCardsList movies={favorites} testId={ComponentTestID.FavoriteMovies} />
         </section>
         <PageFooter />
       </div>

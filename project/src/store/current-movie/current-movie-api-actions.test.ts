@@ -1,65 +1,36 @@
 import { APIRoute } from '../../const/enums';
-import { addReviewAction, fetchCurrentMovieAction, fetchReviewsAction, fetchSimilarMoviesAction } from './current-movie-api-actions';
+import { addReviewAction, fetchCurrentMovieDataAction } from './current-movie-api-actions';
 import { APITestUtils, testUtils } from '../../utils/mocks/test-utils';
 import { redirectToRoute } from '../common/common-actions';
+import { SIMILAR_MOVIES_URL_SUFFIX } from '../../const/const';
 
-const {mockCurrentMovie, mockReviews, mockSimilarMovies, mockReview} = testUtils();
+const {mockCurrentMovie, mockReviews, mockReview, mockSimilarMovies} = testUtils();
 
 const {mockAPI, mockStore} = APITestUtils();
 
 describe('CurrentMovie async actions', () => {
-  it('should dispatch Load_CurrentMovie when GET /movie/:id', async () => {
+  it('should dispatch fetchCurrentMovieData when GET /movie/:id', async () => {
     const store = mockStore();
 
     mockAPI
       .onGet(`${APIRoute.Movies}/${mockCurrentMovie.id}`)
-      .reply(200, mockCurrentMovie);
-
-    await store.dispatch(fetchCurrentMovieAction(mockCurrentMovie.id));
-
-    const actions = store.getActions().map(({type}) => type);
-
-    expect(actions).toEqual([
-      fetchCurrentMovieAction.pending.type,
-      fetchCurrentMovieAction.fulfilled.type
-    ]);
-  });
-
-  it('should dispatch Load_Reviews when GET /comments/:id', async () => {
-    const store = mockStore();
-
-    mockAPI
+      .reply(200, mockCurrentMovie)
       .onGet(`${APIRoute.Review}/${mockCurrentMovie.id}`)
-      .reply(200, mockReviews);
-
-    await store.dispatch(fetchReviewsAction(mockCurrentMovie.id));
-
-    const actions = store.getActions().map(({type}) => type);
-
-    expect(actions).toEqual([
-      fetchReviewsAction.pending.type,
-      fetchReviewsAction.fulfilled.type
-    ]);
-  });
-
-  it('should dispatch Load_SimilarMovies when GET /films/:id/similar', async () => {
-    const store = mockStore();
-
-    mockAPI
-      .onGet(`${APIRoute.Movies}/${mockCurrentMovie.id}/similar`)
+      .reply(200, mockReviews)
+      .onGet(`${APIRoute.Movies}/${mockCurrentMovie.id}${SIMILAR_MOVIES_URL_SUFFIX}`)
       .reply(200, mockSimilarMovies);
 
-    await store.dispatch(fetchSimilarMoviesAction(mockCurrentMovie.id));
+    await store.dispatch(fetchCurrentMovieDataAction(mockCurrentMovie.id));
 
     const actions = store.getActions().map(({type}) => type);
 
     expect(actions).toEqual([
-      fetchSimilarMoviesAction.pending.type,
-      fetchSimilarMoviesAction.fulfilled.type
+      fetchCurrentMovieDataAction.pending.type,
+      fetchCurrentMovieDataAction.fulfilled.type
     ]);
   });
 
-  it('should dispatch addReview, fetchReviews, fetchCurrentMovie and RedirectToRoute when POST /comment/:id', async () => {
+  it('should dispatch addReview, fetchCurrentMovie and RedirectToRoute when POST /comment/:id', async () => {
     mockAPI
       .onPost(`${APIRoute.Review}/${mockCurrentMovie.id}`)
       .reply(200, mockReviews);
@@ -72,8 +43,7 @@ describe('CurrentMovie async actions', () => {
 
     expect(actions).toEqual([
       addReviewAction.pending.type,
-      fetchReviewsAction.pending.type,
-      fetchCurrentMovieAction.pending.type,
+      fetchCurrentMovieDataAction.pending.type,
       redirectToRoute.type,
       addReviewAction.fulfilled.type
     ]);

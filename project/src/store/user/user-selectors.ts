@@ -7,4 +7,4 @@ export const getAuthStatus = createSelector(getUserState, (state) => state.authS
 
 export const getUserInfo = createSelector(getUserState, (state) => state.userInfo);
 
-export const getFavorites = createSelector(getUserState, (state) => state.favorites);
+export const getFavorites = createSelector(getUserState, (state) => state.favorites.data);

@@ -1,20 +1,19 @@
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import MockAdapter from 'axios-mock-adapter';
-import { random } from 'faker';
 import { createMemoryHistory } from 'history';
 import { PropsWithChildren } from 'react';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import HistoryRouter from '../../components/history-route/history-route';
-import { Genre, MovieList, Reducer } from '../../const/enums';
+import { Genre, NameSpace } from '../../const/enums';
 import { createAPI } from '../../services/api/api';
 import { TUserInfo } from '../../types/data';
 import TMovie from '../../types/movie';
-import { testUtilsProps } from '../../types/props';
 import TReview from '../../types/review';
 import { State } from '../../types/state';
-import { createMockStore, makeFakeAuthData, makeFakeComment, makeFakeElement, makeFakePlayerState, makeFakeSentences, makeFakeToken, mockMiddleware } from './mocks';
+import { getCurrentGenres } from '../utils';
+import { createMockStore, makeFakeAuthData, makeFakeComment, makeFakeElement, makeFakePlayerState, makeFakeSentences, makeFakeToken, mockMiddleware, mockStoreDefaultProps } from './mocks';
 
 export const APITestUtils = () => {
   const api = createAPI();
@@ -35,25 +34,27 @@ export const APITestUtils = () => {
   };
 };
 
-export const testUtils = ({storeProps}: testUtilsProps = {}) => {
+export const testUtils = (storeProps = mockStoreDefaultProps) => {
   const mockStore = createMockStore(storeProps).store;
   const mockStoreData = createMockStore(storeProps).mockStoreData;
   const mockHistory = createMemoryHistory();
 
-  const mockUserReducer = mockStore.getState()[Reducer.User];
-  const mockCurrentMovieReducer = mockStore.getState()[Reducer.CurrentMovie];
-  const mockMainPageReducer = mockStore.getState()[Reducer.MainPage];
+  const mockUserReducer = mockStore.getState()[NameSpace.User];
+  const mockCurrentMovieReducer = mockStore.getState()[NameSpace.CurrentMovie];
+  const mockMainPageReducer = mockStore.getState()[NameSpace.MainPage];
 
   const mockUserInfo = mockUserReducer?.userInfo as TUserInfo;
   const mockFavorites = mockUserReducer?.favorites?.data as TMovie[];
 
-  const mockCurrentMovie = mockCurrentMovieReducer?.movie as TMovie;
-  const mockSimilarMovies = mockCurrentMovieReducer?.similar?.data as TMovie[];
-  const mockReviews = mockCurrentMovieReducer?.reviews?.data as TReview[];
+  const mockCurrentMovie = mockCurrentMovieReducer?.data?.movie as TMovie;
+  const mockSimilarMovies = mockCurrentMovieReducer?.data?.similar as TMovie[];
+  const mockReviews = mockCurrentMovieReducer?.data?.reviews as TReview[];
 
   const mockMovies = mockMainPageReducer?.data?.movies as TMovie[];
   const mockPromo = mockMainPageReducer?.data?.promo as TMovie;
   const mockSelectedGenre = mockMainPageReducer?.selectedGenre as Genre;
+
+  const mockCurrentGenres = getCurrentGenres(mockMovies);
 
   const mockPlayerState = makeFakePlayerState();
 
@@ -61,8 +62,6 @@ export const testUtils = ({storeProps}: testUtilsProps = {}) => {
   const mockElement = makeFakeElement(mockElementText);
 
   const mockReview = makeFakeComment();
-
-  const mockMovieList = random.objectElement(MovieList) as MovieList;
 
   const mockAuthData = makeFakeAuthData();
   const mockToken = makeFakeToken();
@@ -94,11 +93,11 @@ export const testUtils = ({storeProps}: testUtilsProps = {}) => {
     mockReview,
     mockMovies,
     mockPromo,
+    mockCurrentGenres,
     mockSelectedGenre,
     mockPlayerState,
     mockElement,
     mockElementText,
-    mockMovieList,
     mockAuthData,
     mockToken,
     mockAPI,

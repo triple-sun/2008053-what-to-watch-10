@@ -29,7 +29,7 @@ describe('Selectors: user', () => {
       const selected = getFavorites(state);
 
       expect(selected)
-        .toEqual(state.USER.favorites);
+        .toEqual(state.USER.favorites.data);
     });
   });
 

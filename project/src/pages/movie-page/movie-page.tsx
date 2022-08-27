@@ -1,6 +1,6 @@
 import MovieCardsList from '../../components/movie/movie-cards-list/movie-cards-list';
 import PageFooter from '../../components/common/page-footer/page-footer';
-import { ComponentTestID, ComponentText, HeaderStyle, MovieList, PageTestID, PosterSize } from '../../const/enums';
+import { ComponentTestID, ComponentText, HeaderStyle, PageTestID, PosterSize } from '../../const/enums';
 import LoadingPage from '../loading-page/loading-page';
 import MovieBackground from '../../components/movie/movie-images/movie-background/movie-background';
 import WTWElement from '../../components/common/wtw-element/wtw-element';
@@ -14,9 +14,9 @@ import MovieTabs from '../../components/movie/movie-tabs/movie-tabs';
 import useCurrentMovie from '../../hooks/use-current-movie/use-current-movie';
 
 const MoviePage = () => {
-  const {movie, reviews} = useCurrentMovie();
+  const {movie, reviews, similar, isLoading} = useCurrentMovie();
 
-  return !movie
+  return !movie || isLoading
     ? <LoadingPage />
     : (
       <>
@@ -30,7 +30,7 @@ const MoviePage = () => {
             </HeaderElement>
             <div className="film-card__wrap">
               <MovieCardDescription movie={movie}>
-                <MovieButtons movie={movie} />
+                <MovieButtons id={movie.id} />
               </MovieCardDescription>
             </div>
           </div>
@@ -44,7 +44,7 @@ const MoviePage = () => {
         <div className="page-content" data-testid={PageTestID.MoviePage}>
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">{ComponentText.MoreLikeThis}</h2>
-            <MovieCardsList movieList={MovieList.MoviePage}/>
+            <MovieCardsList movies={similar} testId={ComponentTestID.SimilarMovies}/>
           </section>
           <PageFooter />
         </div>

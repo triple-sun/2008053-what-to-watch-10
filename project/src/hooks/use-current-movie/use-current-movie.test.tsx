@@ -27,7 +27,7 @@ describe('Hook: useCurrentMovie', () => {
       useCurrentMovie(), {wrapper}
     );
 
-    expect(result.current.reviews).toBe(mockReviews);
-    expect(result.current.similarMovies).toBe(mockSimilarMovies);
+    expect(result.current.reviews[1]).toStrictEqual(mockReviews[1]);
+    expect(result.current.similar[1]).toBe(mockSimilarMovies[1]);
   });
 });

@@ -8,9 +8,6 @@ const {wrapper, mockVideoAPI} = testUtils();
 beforeAll(mockVideoAPI);
 
 describe('Hook: useVideoPlayer', () => {
-  const mockIsPreview = true;
-  const mockIsPreviewPlaying = true;
-
   it('should return playerState', () => {
     const {result} = renderHook(
       () => useVideoPlayer(), {wrapper}
@@ -19,16 +16,6 @@ describe('Hook: useVideoPlayer', () => {
     const {playerState} = result.current;
 
     expect(playerState).toStrictEqual(playerInitialState);
-  });
-
-  it('should return playerState for preview if isPreview', () => {
-    const {result} = renderHook(
-      () => useVideoPlayer(mockIsPreview, mockIsPreviewPlaying), {wrapper}
-    );
-
-    const {playerState} = result.current;
-
-    expect(playerState.isPlaying).toBe(mockIsPreviewPlaying);
   });
 
   it('should return handlers', () => {
@@ -53,6 +40,7 @@ describe('Hook: useVideoPlayer', () => {
     const oldPlayingState = result.current.playerState.isPlaying;
 
     act(() => result.current.handlePlayButtonToggle());
+
     expect(result.current.playerState.isPlaying).toBe(!oldPlayingState);
   });
 });

@@ -1,7 +1,7 @@
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Action } from '@reduxjs/toolkit';
 import {commerce, name, internet, lorem, random, datatype, image} from 'faker';
-import { AuthStatus, Genre, Reducer } from '../../const/enums';
+import { AuthStatus, Genre, NameSpace } from '../../const/enums';
 import { currentMovieInitialState, mainPageInitialState, userInitialState } from '../../const/initial-states';
 import { createAPI } from '../../services/api/api';
 import { TAuthData, TUserInfo } from '../../types/data';
@@ -10,6 +10,7 @@ import TReview from '../../types/review';
 import { CurrentMovieState, MainPageState, State, TPlayerState, UserState } from '../../types/state';
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
+import { ALL_GENRES } from '../../const/const';
 
 export const makeFakeToken = () => datatype.string(16);
 
@@ -72,7 +73,7 @@ export const makeFakeUserInfo = (): TUserInfo => ({
 
 export const makeFakeAuthData = (): TAuthData => ({
   login: internet.email(),
-  password: internet.password()
+  password: 'a1'
 } as TAuthData);
 
 export const mockMiddleware = () => {
@@ -92,30 +93,25 @@ export const mockMiddleware = () => {
 export const mockStoreDefaultProps = {
   authStatus: AuthStatus.Auth,
   movies: makeFakeMovies(),
-  genre: Genre.AllGenres,
+  genre: ALL_GENRES,
 };
 
-export const createMockStore = (props: {
-  authStatus?: AuthStatus;
-  movies?: TMovie[];
-  genre?: Genre;
-} = mockStoreDefaultProps) => {
-  const {movies: propMovies, authStatus, genre: selectedGenre} = props;
+export const createMockStore = (props = mockStoreDefaultProps) => {
+  const {movies, authStatus, genre: selectedGenre} = props;
 
   const {api, middlewares} = mockMiddleware();
 
-  const movies = propMovies ?? makeFakeMovies();
   const promo = makeFakeMovie();
   const currentMovie = random.arrayElement(movies);
-  const similarMovies = movies.filter((movie) => movie.genre === currentMovie.genre);
+  const similar = movies.filter((movie) => movie.genre === currentMovie.genre);
+  const reviews = makeFakeReviews();
   const userInfo = makeFakeUserInfo();
   const favorites = movies.filter((movie) => movie.isFavorite);
-  const reviews = makeFakeReviews();
 
   const mockStoreData = {
-    [Reducer.User]: {...userInitialState, userInfo, favorites: {data: favorites, isLoaded: true}, authStatus} as UserState,
-    [Reducer.MainPage]: {...mainPageInitialState, data: {movies: propMovies, promo: promo}, isLoaded: true, selectedGenre} as MainPageState,
-    [Reducer.CurrentMovie]: {...currentMovieInitialState, movie: currentMovie, reviews: {data: reviews, isLoaded: true}, similar: {data: similarMovies, isLoaded: true}} as CurrentMovieState,
+    [NameSpace.User]: {...userInitialState, userInfo, favorites: {data: favorites, isLoaded: true}, authStatus} as UserState,
+    [NameSpace.MainPage]: {...mainPageInitialState, data: {movies, promo}, isLoaded: true, selectedGenre} as MainPageState,
+    [NameSpace.CurrentMovie]: {...currentMovieInitialState, data: {movie: currentMovie, similar, reviews}, isLoaded: true} as CurrentMovieState,
   };
 
   const mockStore = configureMockStore<

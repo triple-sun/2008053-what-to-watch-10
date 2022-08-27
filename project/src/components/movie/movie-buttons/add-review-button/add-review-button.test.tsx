@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { Route, Routes } from 'react-router-dom';
 import { MOCK_PAGE_LINK } from '../../../../const/const';
 import { AppRoute, AuthStatus, ComponentText } from '../../../../const/enums';
-import { makeFakeElement } from '../../../../utils/mocks/mocks';
+import { makeFakeElement, mockStoreDefaultProps } from '../../../../utils/mocks/mocks';
 import { testUtils } from '../../../../utils/mocks/test-utils';
 import AddReviewButton from './add-review-button';
 
@@ -28,7 +28,7 @@ describe('Component: AddReviewButton', () => {
   });
 
   it('should not render button if user is not auth', () => {
-    const noAuthWrapper = testUtils({storeProps: {authStatus: AuthStatus.NoAuth}}).wrapper;
+    const noAuthWrapper = testUtils({...mockStoreDefaultProps, authStatus: AuthStatus.NoAuth}).wrapper;
 
     render(
       <AddReviewButton {...mockCurrentMovie}/>,

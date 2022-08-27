@@ -1,21 +1,12 @@
-import { nanoid } from '@reduxjs/toolkit';
 import React from 'react';
-import { ComponentTestID } from '../../../const/enums';
-import useGenres from '../../../hooks/use-genres/use-genres';
+import { ComponentTestID, Genre } from '../../../const/enums';
 import GenreElement from '../genre-element/genre-element';
 
-const GenresList = () => {
-  const {
-    currentGenres,
-    handleGenreChange
-  } = useGenres();
-
-  return (
-    <ul className="catalog__genres-list" data-testid={ComponentTestID.GenresList}>
-      {currentGenres.map((genre) => <GenreElement key={nanoid()} genre={genre} handleGenreChange={handleGenreChange} />)}
-    </ul>
-  );
-};
+const GenresList = ({currentGenres, handleGenreChange}: {currentGenres: Genre[], handleGenreChange: (genre: Genre) => void}) => (
+  <ul className="catalog__genres-list" data-testid={ComponentTestID.GenresList}>
+    {currentGenres.map((genre) => <GenreElement key={genre} genre={genre} handleGenreChange={handleGenreChange} />)}
+  </ul>
+);
 
 export default React.memo(GenresList);
 

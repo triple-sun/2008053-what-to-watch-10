@@ -7,14 +7,14 @@ import MovieCardPlayer from './movie-card-player/movie-card-player';
 type MovieCardProps = {
   movie: TMovie;
   activeMovieId: number | null;
-  handleMouseEvent: (id: number | null) => void;
+  handleMovieMouseOver: (id: number | null) => void;
 }
 
-const MovieCard = ({movie, activeMovieId, handleMouseEvent}: MovieCardProps) => {
+const MovieCard = ({movie, activeMovieId, handleMovieMouseOver}: MovieCardProps) => {
   const isPlaying = movie.id === activeMovieId;
 
-  const onMouseEnter = () => handleMouseEvent(movie.id);
-  const onMouseLeave = () => handleMouseEvent(null);
+  const onMouseEnter = () => handleMovieMouseOver(movie.id);
+  const onMouseLeave = () => handleMovieMouseOver(null);
 
   return (
     <article className="small-film-card catalog__films-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} data-testid={ComponentTestID.MovieCard}>
