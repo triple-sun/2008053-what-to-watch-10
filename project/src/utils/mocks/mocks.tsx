@@ -10,7 +10,7 @@ import TReview from '../../types/review';
 import { CurrentMovieState, MainPageState, State, TPlayerState, UserState } from '../../types/state';
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
-import { ALL_GENRES } from '../../const/const';
+import { ALL_GENRES, MOVIE_CARD_SIMILAR_COUNT } from '../../const/const';
 
 export const makeFakeToken = () => datatype.string(16);
 
@@ -103,7 +103,7 @@ export const createMockStore = (props = mockStoreDefaultProps) => {
 
   const promo = makeFakeMovie();
   const currentMovie = random.arrayElement(movies);
-  const similar = movies.filter((movie) => movie.genre === currentMovie.genre);
+  const similar = movies.filter((movie) => movie.id !== currentMovie.id && movie.genre === currentMovie.genre).slice(0, MOVIE_CARD_SIMILAR_COUNT);
   const reviews = makeFakeReviews();
   const userInfo = makeFakeUserInfo();
   const favorites = movies.filter((movie) => movie.isFavorite);
