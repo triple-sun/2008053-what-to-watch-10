@@ -22,12 +22,20 @@ describe('Hook: useCurrentMovie', () => {
     expect(result.current.movie).toBe(mockCurrentMovie);
   });
 
-  it('should return reviews and similarMovies', () => {
+  it('should return reviews', () => {
     const {result} = renderHook(() =>
       useCurrentMovie(), {wrapper}
     );
 
     expect(result.current.reviews[1]).toStrictEqual(mockReviews[1]);
+  });
+
+  it('should return similarMovies', () => {
+    const {result} = renderHook(() =>
+      useCurrentMovie(), {wrapper}
+    );
+
     expect(result.current.similar[1]).toBe(mockSimilarMovies[1]);
   });
+
 });
