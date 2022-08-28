@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute, ComponentTestID, ComponentText, ElementTestID } from '../../../const/enums';
-import TMovie from '../../../types/movie';
+import { AppRoute, ComponentTestID, ComponentText, ElementTestID } from '../../const/enums';
+import TMovie from '../../types/movie';
 
 const ReviewBreadcrumbs = ({id, name}: TMovie) => (
   <nav className="breadcrumbs" data-testid={ComponentTestID.Breadcrumbs}>

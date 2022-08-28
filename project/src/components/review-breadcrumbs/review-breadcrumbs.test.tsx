@@ -1,9 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Route, Routes } from 'react-router-dom';
-import { MOCK_PAGE_LINK } from '../../../const/const';
-import { AppRoute, ComponentText, ElementTestID, PageTestID } from '../../../const/enums';
-import MoviePage from '../../../pages/movie-page/movie-page';
-import { testUtils } from '../../../utils/mocks/test-utils';
+import { MOCK_PAGE_LINK } from '../../const/const';
+import { AppRoute, ComponentText, ElementTestID, PageTestID } from '../../const/enums';
+import MoviePage from '../../pages/movie-page/movie-page';
+import { testUtils } from '../../utils/mocks/test-utils';
 import ReviewBreadcrumbs from './review-breadcrumbs';
 
 const {mockCurrentMovie, wrapper, mockHistory} = testUtils();

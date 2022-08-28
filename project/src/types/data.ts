@@ -14,6 +14,11 @@ export type TData<T = null> = {
   isLoaded?: boolean;
 }
 
+export type TAddReviewData = {
+  rating: number;
+  comment: string | null;
+};
+
 export type TAuthData = {
   login: string;
   password: string;

@@ -21,7 +21,7 @@ describe('Component: SignInForm', () => {
     expect(screen.getByText(ComponentText.SignIn)).toBeInTheDocument();
   });
 
-  it('should call handleLoginClick when user clicks signIn', async () => {
+  it('should call handleLoginClick when email and password are correct and user clicks signIn', async () => {
     render(
       <SignInForm handleLoginSubmit={mockHandleLoginClick}/>,
       {wrapper}
