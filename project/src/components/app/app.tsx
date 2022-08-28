@@ -11,7 +11,7 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import { checkAuth } from '../../utils/utils';
 import PrivateRoute from '../common/private-route/private-route';
 import { store } from '../../store/store';
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import MainPage from '../../pages/main-page/main-page';
 import { getAuthStatus } from '../../store/user/user-selectors';
 import { fetchFavoritesAction } from '../../store/user/user-api-actions';
@@ -24,8 +24,8 @@ const App = () => {
   const isLoaded = useAppSelector(getIsMainDataLoaded);
   const isAuth = checkAuth(authStatus, AuthStatus.Auth);
 
-  useEffect(() => {
-    if (isAuth){
+  useLayoutEffect(() => {
+    if (isAuth) {
       store.dispatch(fetchFavoritesAction());
     }
   }, [isAuth]
@@ -39,34 +39,37 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path={AppRoute.Main} element={<MainPage />} />
+      <Route path={AppRoute.Main}>
+        <Route index element={<MainPage />} />
 
-      <Route path={AppRoute.Login} element={<LoginPage />} />
+        <Route path={AppRoute.Login} element={<LoginPage />} />
+
+        <Route path={AppRoute.MoviePlayer} element={<MoviePlayerPage />} />
+
+        <Route path={AppRoute.Movie} element={<MoviePage />} />
+
+        <Route
+          path={AppRoute.AddReview}
+          element={
+            <PrivateRoute>
+              <AddReviewPage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path={AppRoute.MyList}
+          element={
+            <PrivateRoute>
+              <MyListPage />
+            </PrivateRoute>
+          }
+        />
+
+      </Route>
 
       <Route path={AppRoute.Player} element={goToMainPage} />
-
-      <Route path={AppRoute.MoviePlayer} element={<MoviePlayerPage />} />
-
       <Route path={AppRoute.Movies} element={goToMainPage} />
-
-      <Route path={AppRoute.Movie} element={<MoviePage />} />
-
-      <Route
-        path={AppRoute.AddReview} element={
-          <PrivateRoute>
-            <AddReviewPage />
-          </PrivateRoute>
-        }
-      />
-
-      <Route
-        path={AppRoute.MyList}
-        element={
-          <PrivateRoute>
-            <MyListPage />
-          </PrivateRoute>
-        }
-      />
       <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
     </Routes>
   );

@@ -20,15 +20,20 @@ describe('Reducer: mainPage', () => {
       .toEqual(mainPageInitialState);
   });
 
-  describe('fetchAllMoviesAction test', () => {
-    it('should load all movies and set isLoading to false if fetchAllMoviesAction was fulfilled', () => {
+  describe('fetchMainPageData test', () => {
+    it('should set isLoaded to false if fetchMainPageData is pending', () => {
+      expect(mainPage.reducer(state, { type: fetchMainPageDataAction.pending.type }))
+        .toEqual({...state, isLoaded: false});
+    });
+
+    it('should load movies and promo and set isLoaded to true if fetchMainPageData was fulfilled', () => {
       expect(mainPage.reducer(state, { type: fetchMainPageDataAction.fulfilled.type, payload: mockMainPageData }))
         .toEqual({...state, data: mockMainPageData, isLoaded: true});
     });
   });
 
   describe('setGenre test', () => {
-    it('should set selectedGenre if setGenre was fulfilled', () => {
+    it('should set selectedGenre', () => {
       expect(mainPage.reducer(state, { type: setGenre.type, payload: mockSelectedGenre }))
         .toEqual({...state, selectedGenre: mockSelectedGenre});
     });

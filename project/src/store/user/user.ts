@@ -3,7 +3,7 @@ import { AuthStatus, NameSpace } from '../../const/enums';
 import { userInitialState } from '../../const/initial-states';
 import { checkAuthAction, fetchFavoritesAction, loginAction, logoutAction } from './user-api-actions';
 
-export const userProcess = createSlice({
+export const user = createSlice({
   name: NameSpace.User,
   initialState: userInitialState,
   reducers: {},

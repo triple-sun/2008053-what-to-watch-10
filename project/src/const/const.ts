@@ -5,7 +5,7 @@ export const TIMEOUT_SHOW_ERROR = 2000;
 export const MAX_GENRE_INDEX = 9;
 
 export const MIN_COMMENT_LENGTH = 50;
-export const MAX_COMMENT_LENTGTH = 400;
+export const MAX_COMMENT_LENGTH = 400;
 
 export const ALL_GENRES = 'AllGenres' as Genre;
 
@@ -29,6 +29,7 @@ export const MOVIE_TAB_CLASS = 'film-nav__item';
 export const MOVIE_TAB_ACTIVE_CLASS = `${MOVIE_TAB_CLASS} ${MOVIE_TAB_CLASS}--active`;
 
 export const SIMILAR_MOVIES_URL_SUFFIX = '/similar';
+export const REVIEW_URL_SUFFIX = '/review';
 
 export const MOCK_PAGE_LINK = '/mock';
 

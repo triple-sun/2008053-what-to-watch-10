@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Route, Routes } from 'react-router-dom';
-import { MOCK_PAGE_LINK } from '../../../../const/const';
+import { MOCK_PAGE_LINK, REVIEW_URL_SUFFIX } from '../../../../const/const';
 import { AppRoute, AuthStatus, ComponentText } from '../../../../const/enums';
 import { makeFakeElement, mockStoreDefaultProps } from '../../../../utils/mocks/mocks';
 import { testUtils } from '../../../../utils/mocks/test-utils';
@@ -44,7 +44,7 @@ describe('Component: AddReviewButton', () => {
     render(
       <Routes>
         <Route
-          path={`${AppRoute.Movies}${mockCurrentMovie.id}/review`}
+          path={`${AppRoute.Movies}${mockCurrentMovie.id}${REVIEW_URL_SUFFIX}`}
           element={mockAddReviewPage}
         />
         <Route

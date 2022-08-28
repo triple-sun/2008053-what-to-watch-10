@@ -17,7 +17,7 @@ describe('Component: PlayMovieButton', () => {
     expect(screen.getByText(ComponentText.Play)).toBeInTheDocument();
   });
 
-  it('should redirect to add review page when user clicks on addReview', async () => {
+  it('should redirect to movie player when user clicks on playButton', async () => {
     mockHistory.push(MOCK_PAGE_LINK);
 
     render(

@@ -1,14 +1,14 @@
 export enum AppRoute {
-  AddReview = '/films/:id/review/',
-  Login = '/login/',
+  AddReview = '/films/:id/review',
+  Login = '/login',
   Main = '/',
-  Movies = '/films/',
   Movie = '/films/:id',
-  Player = '/player/',
   MoviePlayer = '/player/:id',
+  Movies = '/films/',
   MyList = '/mylist',
+  NonExistent = '/non-existent-route',
   NotFound = '*',
-  NonExistent = '/non-existent-route'
+  Player = '/player/',
 }
 
 export enum AuthStatus {
@@ -55,22 +55,14 @@ export enum AppAction {
 }
 
 export enum FetchAction {
-  FetchPromo = 'data/fetchMovies',
-  FetchAllMovies = 'data/fetchPromo',
-  FetchCurrentMovie = 'data/fetchCurrentMovie',
+  FetchMainPageData = 'data/fetchMainPageData',
+  FetchCurrentMovieData = 'data/fetchCurrentMovieData',
   FetchUserInfo = 'data/fetchUserInfo',
   FetchFavorites = 'data/fetchFavorites',
 }
 
-export enum LoadAction {
-  LoadReviews = 'review/loadReviews',
-  LoadCurrentMovie = 'movies/loadCurrentMovie',
-  LoadSimilarMovies = 'movies/loadSimilarMovies',
-}
-
 export enum ChangeAction {
   AddReview = 'review/addReview',
-  SetReview = 'review/changeReview',
   ToggleFavorite = 'movies/setFavorite',
   ChangeGenre = 'movies/genre/changeGenre',
   ResetCurrentMovie = 'movies/resetCurrentMovie'
