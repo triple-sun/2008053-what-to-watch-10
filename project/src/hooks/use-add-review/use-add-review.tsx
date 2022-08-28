@@ -1,6 +1,6 @@
 import { useCallback, useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { MAX_COMMENT_LENTGTH, MIN_COMMENT_LENGTH } from '../../const/const';
+import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../const/const';
 import { isDisabledInitialState, reviewInitialState } from '../../const/initial-states';
 import { addReviewAction } from '../../store/current-movie/current-movie-api-actions';
 import { getAddReviewState } from '../../store/current-movie/current-movie-selectors';
@@ -36,7 +36,7 @@ const useAddReview = () => {
 
   useLayoutEffect(
     () => {
-      if (comment && comment.length >= MIN_COMMENT_LENGTH && comment.length <= MAX_COMMENT_LENTGTH && rating > 0 && isDisabled.button) {
+      if (comment && comment.length >= MIN_COMMENT_LENGTH && comment.length <= MAX_COMMENT_LENGTH && rating > 0 && isDisabled.button) {
         setIsDisabled({...isDisabled, button: false});
       }
       if (isAddingReview && !isDisabled.form) {

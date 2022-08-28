@@ -5,7 +5,7 @@ export const TIMEOUT_SHOW_ERROR = 2000;
 export const MAX_GENRE_INDEX = 9;
 
 export const MIN_COMMENT_LENGTH = 50;
-export const MAX_COMMENT_LENTGTH = 400;
+export const MAX_COMMENT_LENGTH = 400;
 
 export const ALL_GENRES = 'AllGenres' as Genre;
 
