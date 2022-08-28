@@ -11,7 +11,7 @@ export const fetchMainPageDataAction = createAsyncThunk<TMainPageData, undefined
   state: State,
   extra: AxiosInstance
 }>(
-  FetchAction.FetchAllMovies,
+  FetchAction.FetchMainPageData,
   async (_arg, {dispatch, extra: api}) => {
     const {data: promo} = await api.get<TMovie>(APIRoute.Promo);
     const {data: movies} = await api.get<TMovie[]>(APIRoute.Movies);

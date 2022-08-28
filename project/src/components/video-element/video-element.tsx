@@ -11,15 +11,24 @@ type VideoElementProps = {
 }
 
 const VideoElement = React.forwardRef<HTMLVideoElement, VideoElementProps>(
-  (props, ref) =>(
+  ({
+    movie: {
+      previewImage,
+      previewVideoLink,
+      videoLink
+    },
+    isPreview,
+    handleProgressUpdate
+  },
+  ref) => (
     <video
-      src={props.isPreview
-        ? props.movie.previewVideoLink
-        : props.movie.videoLink}
+      src={isPreview
+        ? previewVideoLink
+        : videoLink}
       ref={ref}
       className="player__video"
-      poster={props.movie.previewImage}
-      onTimeUpdate={props.handleProgressUpdate}
+      poster={previewImage}
+      onTimeUpdate={handleProgressUpdate}
       data-testid={ElementTestID.Video}
     />
   )
@@ -27,4 +36,4 @@ const VideoElement = React.forwardRef<HTMLVideoElement, VideoElementProps>(
 
 VideoElement.displayName = VIDEO_ELEMENT_DISPLAY_NAME;
 
-export default VideoElement;
+export default React.memo(VideoElement);

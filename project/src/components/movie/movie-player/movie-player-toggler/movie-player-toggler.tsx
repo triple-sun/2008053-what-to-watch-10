@@ -1,3 +1,4 @@
+import React from 'react';
 import { ComponentText } from '../../../../const/enums';
 
 const MoviePlayerToggler = ({progress, isPlaying}: {progress: number, isPlaying: boolean}) => (
@@ -6,4 +7,4 @@ const MoviePlayerToggler = ({progress, isPlaying}: {progress: number, isPlaying:
   </div>
 );
 
-export default MoviePlayerToggler;
+export default React.memo(MoviePlayerToggler);

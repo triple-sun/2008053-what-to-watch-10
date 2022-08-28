@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback, useLayoutEffect } from 'react';
 import { playerInitialState } from '../../const/initial-states';
 
-const VIDEO_LOADED_DATA = 'loadeddata';
-
 const useVideoPlayer = (isPreview = false) => {
-  const [playerState, setPlayerState] = useState({...playerInitialState});
+  const [playerState, setPlayerState] = useState(playerInitialState);
   const [isLoading, setIsLoading] = useState(true);
 
   const {isPlaying, isMuted} = playerState;
@@ -27,7 +25,7 @@ const useVideoPlayer = (isPreview = false) => {
         setPlayerState({
           ...playerState,
           progress: update,
-          time: videoRef.current.currentTime,
+          time: videoRef.current.duration - videoRef.current.currentTime,
         });
       }
     }, [playerState, videoRef]);
@@ -41,22 +39,22 @@ const useVideoPlayer = (isPreview = false) => {
   );
 
   const handleVideoLoadedData = useCallback(() => {
+    setIsLoading(false);
     if (videoRef.current) {
-      setIsLoading(!isLoading);
       setPlayerState({
         ...playerState,
         isPlaying: isPlaying,
         time: videoRef.current.duration
       });
     }
-  }, [isLoading, isPlaying, playerState, videoRef]);
+  }, [isPlaying, playerState, videoRef]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!videoRef.current) {
       return;
     }
 
-    videoRef.current.addEventListener(VIDEO_LOADED_DATA, handleVideoLoadedData);
+    videoRef.current.onloadeddata = handleVideoLoadedData;
     videoRef.current.muted = isPreview ? true : isMuted;
 
     isPlaying && !isLoading
@@ -68,6 +66,7 @@ const useVideoPlayer = (isPreview = false) => {
   return {
     videoRef,
     playerState,
+    isLoading,
     handlePlayButtonToggle,
     handleProgressUpdate,
   };

@@ -9,7 +9,10 @@ const useTabs = (movie: TMovie, reviews: TReview[]) => {
 
   const tabElement = getTabElement(activeTab, movie, reviews);
 
-  const handleTabEvent = useCallback((selectedTab: MovieNavigation) => setActiveTab(selectedTab), []);
+  const handleTabEvent = useCallback(
+    (selectedTab: MovieNavigation) => setActiveTab(selectedTab), []
+  );
+
   return {
     tabElement,
     activeTab,

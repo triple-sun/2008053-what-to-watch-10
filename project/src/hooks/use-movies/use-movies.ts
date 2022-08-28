@@ -23,14 +23,15 @@ const useMovies = () => {
   const handleShowMoreButtonClick = useCallback(
     (count: number) => {
       setRenderedMovieCount(() => Math.min(renderedMovieCount + count, allMovies.length));
-    },
-    [allMovies, renderedMovieCount],
+    }, [allMovies, renderedMovieCount],
   );
 
-  const handleGenreChange = (genre: Genre) => {
-    dispatch(setGenre(genre));
-    setRenderedMovieCount(MOVIE_CARD_MAIN_COUNT);
-  };
+  const handleGenreChange = useCallback(
+    (genre: Genre) => {
+      dispatch(setGenre(genre));
+      setRenderedMovieCount(MOVIE_CARD_MAIN_COUNT);
+    }, [dispatch]
+  );
 
   return {
     movies,

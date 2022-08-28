@@ -30,7 +30,6 @@ const MoviePlayerPage = () => {
 
           <VideoElement ref={videoRef} {...{movie, handleProgressUpdate}} />
 
-
           <ExitPlayerButton id={movie.id}/>
 
           <div className="player__controls">

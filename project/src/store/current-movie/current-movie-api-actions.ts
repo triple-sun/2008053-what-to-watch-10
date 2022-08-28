@@ -14,7 +14,7 @@ export const fetchCurrentMovieDataAction = createAsyncThunk<TCurrentMovieData, n
   state: State,
   extra: AxiosInstance
 }>(
-  FetchAction.FetchCurrentMovie,
+  FetchAction.FetchCurrentMovieData,
   async (id, {dispatch, extra: api}) => {
     const {data: movie} = await api.get<TMovie>(`${APIRoute.Movies}/${id}`);
     const {data: reviews} = await api.get<TReview[]>(`${APIRoute.Review}/${id}`);

@@ -29,6 +29,7 @@ export const MOVIE_TAB_CLASS = 'film-nav__item';
 export const MOVIE_TAB_ACTIVE_CLASS = `${MOVIE_TAB_CLASS} ${MOVIE_TAB_CLASS}--active`;
 
 export const SIMILAR_MOVIES_URL_SUFFIX = '/similar';
+export const REVIEW_URL_SUFFIX = '/review';
 
 export const MOCK_PAGE_LINK = '/mock';
 

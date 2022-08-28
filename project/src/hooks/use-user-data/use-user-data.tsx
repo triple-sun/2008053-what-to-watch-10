@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useLayoutEffect, useState } from 'react';
 import { FAVORITE_SINGLE_STEP } from '../../const/const';
 import { AuthStatus } from '../../const/enums';
 import { loginAction, logoutAction, toggleFavoriteAction } from '../../store/user/user-api-actions';
@@ -42,7 +42,7 @@ const useUserData = (id?: number) => {
       }
     },[dispatch, favoritesCount, id, isFavorite, isInFavorites]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isAuth) {
       setFavoritesCount(0);
       setIsFavorite(false);
