@@ -1,4 +1,4 @@
-import { State, TReviewState } from '../../types/state';
+import { State } from '../../types/state';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { FetchAction, APIRoute, ChangeAction, AppRoute } from '../../const/enums';
@@ -6,7 +6,7 @@ import AppDispatch from '../../types/app-dispatch';
 import TMovie from '../../types/movie';
 import TReview from '../../types/review';
 import { redirectToRoute } from '../common/common-actions';
-import { TCurrentMovieData } from '../../types/data';
+import { TAddReviewData, TCurrentMovieData } from '../../types/data';
 import { SIMILAR_MOVIES_URL_SUFFIX } from '../../const/const';
 
 export const fetchCurrentMovieDataAction = createAsyncThunk<TCurrentMovieData, number, {
@@ -23,7 +23,7 @@ export const fetchCurrentMovieDataAction = createAsyncThunk<TCurrentMovieData, n
   },
 );
 
-export const addReviewAction = createAsyncThunk<void, TReviewState & {id: number}, {
+export const addReviewAction = createAsyncThunk<void, TAddReviewData & {id: number}, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance

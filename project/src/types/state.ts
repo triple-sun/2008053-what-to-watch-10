@@ -12,11 +12,6 @@ export type TPlayerState = {
   isMuted: boolean;
 };
 
-export type TReviewState = {
-  rating: number;
-  comment: string | null;
-};
-
 export type CurrentMovieState = TData<TCurrentMovieData> & {
   isAddingReview: boolean;
 };
@@ -25,10 +20,6 @@ export type UserState = {
   userInfo: TUserInfo | null;
   favorites: TData<TMovie[]>;
   authStatus: AuthStatus;
-};
-
-export type AddReviewPageState = {
-  review: TReviewState | null;
 };
 
 export type MainPageState = TData<TMainPageData> & {
