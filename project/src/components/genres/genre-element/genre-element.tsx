@@ -1,10 +1,14 @@
 import React from 'react';
 import { GENRE_ELEMENT_ACTIVE_CLASS, GENRE_ELEMENT_CLASS } from '../../../const/const';
-import { ElementTestID } from '../../../const/enums';
+import { ElementTestID, Genre } from '../../../const/enums';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
 import { getSelectedGenre } from '../../../store/main-page/main-page-selectors';
-import { GenreProps } from '../../../types/props';
 import { humanizeGenreName } from '../../../utils/utils';
+
+type GenreProps = {
+  genre: Genre;
+  handleGenreChange: (genre: Genre) => void;
+}
 
 const GenreElement = ({genre, handleGenreChange: handleGenreClick}: GenreProps) => {
   const selectedGenre = useAppSelector(getSelectedGenre);

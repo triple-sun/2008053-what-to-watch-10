@@ -11,8 +11,6 @@ export const checkAuth = (status: AuthStatus, reference: AuthStatus): boolean =>
 
 export const checkId = (movies: TMovie[] | null, id: number) => movies ? movies.some((movie) => movie.id === id) : false;
 
-export const findMovieById = (movies: TMovie[], id: number) => movies.find((movie) => movie.id === id);
-
 export const getMoviesToLoadCount = (movies: TMovie[], renderedMovieCount: number) => Math.min((movies.length - renderedMovieCount), MOVIE_CARD_MAIN_COUNT);
 
 export const getCurrentGenres = (movies: TMovie[]) => {
