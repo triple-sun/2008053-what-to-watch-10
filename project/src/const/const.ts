@@ -1,7 +1,5 @@
 import { Genre } from './enums';
 
-export const TIMEOUT_SHOW_ERROR = 2000;
-
 export const MAX_GENRE_INDEX = 9;
 
 export const MIN_COMMENT_LENGTH = 50;
