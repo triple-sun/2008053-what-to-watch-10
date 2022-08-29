@@ -50,17 +50,24 @@ const useVideoPlayer = (isPreview = false) => {
   }, [isPlaying, playerState, videoRef]);
 
   useLayoutEffect(() => {
-    if (!videoRef.current) {
-      return;
+    let isMounted = true;
+
+    if (isMounted) {
+      if (!videoRef.current) {
+        return;
+      }
+
+      videoRef.current.onloadeddata = handleVideoLoadedData;
+      videoRef.current.muted = isPreview ? true : isMuted;
+
+      isPlaying && !isLoading
+        ? handlePlayback()
+        : videoRef.current.pause();
     }
 
-    videoRef.current.onloadeddata = handleVideoLoadedData;
-    videoRef.current.muted = isPreview ? true : isMuted;
-
-    isPlaying && !isLoading
-      ? handlePlayback()
-      : videoRef.current.pause();
-
+    return () => {
+      isMounted = false;
+    };
   }, [handlePlayback, handleVideoLoadedData, isLoading, isMuted, isPlaying, isPreview, videoRef]);
 
   return {

@@ -25,9 +25,16 @@ const App = () => {
   const isAuth = checkAuth(authStatus, AuthStatus.Auth);
 
   useLayoutEffect(() => {
-    if (isAuth) {
-      store.dispatch(fetchFavoritesAction());
+    let isMounted = true;
+
+    if (isMounted) {
+      if (isAuth) {
+        store.dispatch(fetchFavoritesAction());
+      }
     }
+    return () => {
+      isMounted = false;
+    };
   }, [isAuth]
   );
 

@@ -25,12 +25,10 @@ browserHistory.listen(() => {
 });
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <HistoryRouter history={browserHistory}>
-        <ToastContainer />
-        <App />
-      </HistoryRouter>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <HistoryRouter history={browserHistory}>
+      <ToastContainer />
+      <App />
+    </HistoryRouter>
+  </Provider>
 );
