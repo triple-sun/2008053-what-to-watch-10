@@ -43,14 +43,22 @@ const useUserData = (id?: number) => {
     },[dispatch, favoritesCount, id, isFavorite, isInFavorites]);
 
   useLayoutEffect(() => {
-    if (!isAuth) {
-      setFavoritesCount(0);
-      setIsFavorite(false);
+    let isMounted = true;
+
+    if (isMounted) {
+      if (!isAuth) {
+        setFavoritesCount(0);
+        setIsFavorite(false);
+      }
+      if (isLoaded) {
+        setFavoritesCount(favorites.length);
+        setIsFavorite(isInFavorites);
+      }
     }
-    if (isLoaded) {
-      setFavoritesCount(favorites.length);
-      setIsFavorite(isInFavorites);
-    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch, favorites, isAuth, isInFavorites, isLoaded, setFavoritesCount, setIsFavorite]);
 
   return {

@@ -186,3 +186,9 @@ export enum NameSpace {
   CurrentMovie = 'CURRENT',
   User = 'USER'
 }
+
+export enum FormParam {
+  ValidateMode = 'onChange',
+  Comment = 'comment',
+  Rating = 'rating'
+}

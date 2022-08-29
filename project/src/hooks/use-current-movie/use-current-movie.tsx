@@ -29,18 +29,26 @@ const useCurrentMovie = () => {
   const navigate = useNavigate();
 
   useLayoutEffect(() => {
-    switch (true) {
-      case !isIdCorrect:
-        navigate(AppRoute.NotFound);
-        break;
-      case (!isMovieCorrect && !isLoading):
-        setIsLoading(true);
-        dispatch(fetchCurrentMovieDataAction(id));
-        break;
-      case (isMovieCorrect):
-        setIsLoading(false);
-        break;
+    let isMounted = true;
+
+    if (isMounted) {
+      switch (true) {
+        case !isIdCorrect:
+          navigate(AppRoute.NotFound);
+          break;
+        case (!isMovieCorrect && !isLoading):
+          setIsLoading(true);
+          dispatch(fetchCurrentMovieDataAction(id));
+          break;
+        case (isMovieCorrect):
+          setIsLoading(false);
+          break;
+      }
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch, id, isIdCorrect, isLoading, isMovieCorrect, navigate]);
 
   return {
