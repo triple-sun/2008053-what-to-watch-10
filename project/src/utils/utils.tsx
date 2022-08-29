@@ -51,8 +51,6 @@ export const getRatingName = (rating: number) => {
 
 export const filterMoviesByGenre = (movies: TMovie[], genre: Genre) => genre === ALL_GENRES ? movies : movies.filter((movie) => movie.genre === genre);
 
-export const filterFavorites = (movies: readonly TMovie[]) => movies.filter((movie) => movie.isFavorite);
-
 export const humanizeTime = (time: number, forPlayer = true) => {
   const time1 = time % 60;
   const time2 = Math.floor(time / 60);
