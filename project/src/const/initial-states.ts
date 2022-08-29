@@ -36,20 +36,3 @@ export const playerInitialState = {
   isPlaying: true,
   isMuted: false,
 };
-
-export const reviewInitialState = {
-  rating: 0,
-  comment: null
-};
-
-export const authDataInitialState = {
-  login: '',
-  password: ''
-};
-
-export const isDisabledInitialState = {
-  form: false,
-  button: true
-};
-
-export const selectedGenreInitialState = ALL_GENRES;
